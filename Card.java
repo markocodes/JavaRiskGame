@@ -4,16 +4,16 @@
  **/
 public class Card {
 
-    private Country country;
+    private Territory territory;
     private String regiment;
 
-    public Card(Country country, String regiment) {
-        this.country = country;
+    public Card(Territory territory, String regiment) {
+        this.territory = territory;
 		this.regiment = regiment;
     }
 
-    public Country getCountry() {
-        return this.country;
+    public Territory getCountry() {
+        return this.territory;
     }
 
     public String getRegiment() {
@@ -21,7 +21,7 @@ public class Card {
     }
 
 	public String getName() {
-		return this.country.getName() + " - Regiment: " + regiment;
+		return this.territory.getName() + " - Regiment: " + regiment;
 	}
 }
 
