@@ -1,3 +1,8 @@
+/**
+ * This class creates commands using command words
+ * @author Mmedara Josiah
+ * @version 1.0
+ */
 public class Command
 {
     private String firstWord;
@@ -5,6 +10,13 @@ public class Command
     private String thirdWord;
     private String fourthWord;
 
+    /**
+     * Constructor creates a new command
+     * @param firstWord is the first word in the command
+     * @param secondWord is the second word in the command
+     * @param thirdWord is the third word in the command
+     * @param fourthWord is the fourth word in the command
+     */
     public Command(String firstWord, String secondWord, String thirdWord, String fourthWord){
         this.firstWord = firstWord;
         this.secondWord = secondWord;
@@ -12,60 +24,74 @@ public class Command
         this.fourthWord = fourthWord;
     }
 
+    /**
+     * returns the first word in the command
+     * @return returns the first word
+     */
     public String getFirstWord()
     {
         return firstWord;
     }
 
+    /**
+     * returns the second word in the command
+     * @return returns the second word
+     */
     public String getSecondWord()
     {
         return secondWord;
     }
 
-    public void setFirstWord(String firstWord){
-        this.firstWord = firstWord;
-    }
-
-    public void setSecondWord(String secondWord){
-        this.secondWord = secondWord;
-    }
-
-    public boolean isUnknown(){
-        return firstWord==null;
-    }
-
-    public boolean hasSecondWord()
-    {
-        return (secondWord != null);
-    }
-
-    public boolean hasThirdWord()
-    {
-        return (thirdWord != null);
-    }
-
+    /**
+     * returns the third word in the command
+     * @return returns the third word
+     */
     public String getThirdWord()
     {
         return thirdWord;
     }
 
-    public void setThirdWord(String thirdWord)
-    {
-        this.thirdWord = thirdWord;
-    }
-
+    /**
+     * returns the fourth word in the command
+     * @return returns the fourth word
+     */
     public String getFourthWord()
     {
         return fourthWord;
     }
 
-    public void setFourthWord(String fourthWord)
+    /**
+     * Returns true if the command has a second word
+     * @return true if the command has a second word
+     */
+    public boolean hasSecondWord()
     {
-        this.fourthWord = fourthWord;
+        return (secondWord != null);
     }
 
+    /**
+     * Returns true if the command has a third word
+     * @return true if the command has a third word
+     */
+    public boolean hasThirdWord()
+    {
+        return (secondWord != null);
+    }
+
+    /**
+     * Returns true if the command has a fourth word
+     * @return true if the command has a fourth word
+     */
     public boolean hasFourthWord()
     {
         return (fourthWord != null);
+    }
+
+    /**
+     * Returns true if the first word is null
+     * @return true if the first word is null
+     */
+    public boolean isUnknown(){
+        return firstWord==null;
     }
 }
