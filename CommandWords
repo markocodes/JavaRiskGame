@@ -1,0 +1,19 @@
+public class CommandWords
+{
+    private static final String[] validCommands = {
+            "state", "pass", "attack from", "attack", "fortify", "quit"
+    };
+
+    public CommandWords(){
+
+    }
+
+    public boolean isCommand(String s){
+        for(String c: validCommands){
+            if(c.equals(s)){
+                return true;
+            }
+        }
+        return false;
+    }
+}

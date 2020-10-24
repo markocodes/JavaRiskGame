@@ -1,0 +1,71 @@
+public class Command
+{
+    private String firstWord;
+    private String secondWord;
+    private String thirdWord;
+    private String fourthWord;
+
+    public Command(String firstWord, String secondWord, String thirdWord, String fourthWord){
+        this.firstWord = firstWord;
+        this.secondWord = secondWord;
+        this.thirdWord = thirdWord;
+        this.fourthWord = fourthWord;
+    }
+
+    public String getFirstWord()
+    {
+        return firstWord;
+    }
+
+    public String getSecondWord()
+    {
+        return secondWord;
+    }
+
+    public void setFirstWord(String firstWord){
+        this.firstWord = firstWord;
+    }
+
+    public void setSecondWord(String secondWord){
+        this.secondWord = secondWord;
+    }
+
+    public boolean isUnknown(){
+        return firstWord==null;
+    }
+
+    public boolean hasSecondWord()
+    {
+        return (secondWord != null);
+    }
+
+    public boolean hasThirdWord()
+    {
+        return (thirdWord != null);
+    }
+
+    public String getThirdWord()
+    {
+        return thirdWord;
+    }
+
+    public void setThirdWord(String thirdWord)
+    {
+        this.thirdWord = thirdWord;
+    }
+
+    public String getFourthWord()
+    {
+        return fourthWord;
+    }
+
+    public void setFourthWord(String fourthWord)
+    {
+        this.fourthWord = fourthWord;
+    }
+
+    public boolean hasFourthWord()
+    {
+        return (fourthWord != null);
+    }
+}
