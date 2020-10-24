@@ -1,3 +1,7 @@
+/**
+ * This class implements the parser for the game
+ */
+
 import java.util.Scanner;
 
 public class Parser
@@ -5,11 +9,18 @@ public class Parser
     private CommandWords commands;
     private Scanner reader;
 
+    /**
+     * Constructor initializes objects needed to parse user input
+     */
     public Parser(){
         commands = new CommandWords();
         reader = new Scanner(System.in);
     }
 
+    /**
+     * Asks user for input, scans the input and extracts the first 4 words
+     * @return returns the users command
+     */
     public Command getCommand(){
         String input;
         String word1 = null;
