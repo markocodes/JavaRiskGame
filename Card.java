@@ -21,7 +21,7 @@ public class Card {
     }
 
 	public String getName() {
-		return this.territory.getName() + " - Regiment: " + regiment;
+		return this.territory.getTerritoryName() + " - Regiment: " + regiment;
 	}
 }
 

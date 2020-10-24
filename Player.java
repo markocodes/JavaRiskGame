@@ -12,13 +12,13 @@ public class Player {
     int infantry;
     int artillery;
     int cavalry;
-    private String name;
+    private String playerName;
 
-    public Player(int troops, String name;){
+    public Player(int troops, String name){
         territories = new ArrayList<Territory>();
         cards = new ArrayList<Card>();
         this.troops = troops;
-        this.name = name;
+        this.playerName = name;
     }
 
     /**
@@ -51,7 +51,7 @@ public class Player {
 
     public void addTroops(int newTroops){
         troops = troops + newTroops;
-        System.out.println(name + "now has, " + troops + " on this territory");
+        System.out.println(playerName + "now has, " + troops + " on this territory");
     }
 
     public void addTerritories(Territory newTerritory){
@@ -78,5 +78,9 @@ public class Player {
             infantry = infantry + territories.size()%3;
         }
 
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 }
