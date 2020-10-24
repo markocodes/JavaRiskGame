@@ -16,23 +16,23 @@ public class Deck{
 	/**
 	 * The deck should have 42 cards. Each country is evenly distributed
 	 * with either Artillery, Cavalry and Infantry as it's type
-	 * @param countries is an arraylist of 42 countries
+	 * @param territories is an arraylist of 42 territories
 	**/
-	public Deck (ArrayList<Country> countries){
+	public Deck (ArrayList<Territory> territories){
 		deck = new ArrayList<>();
-		Collections.shuffle(countries);
+		Collections.shuffle(territories);
 		for(int i =0; i<14; i++){
-			Card newCardOnDeck = new Card(countries.get(i), infantry);
+			Card newCardOnDeck = new Card(territories.get(i), infantry);
 			deck.add(newCardOnDeck);
 			System.out.println(deck.get(i).getName() + " has been added to the deck.");
 		}
 		for(int i =14; i<28; i++){
-			Card newCardOnDeck = new Card(countries.get(i), cavalry);
+			Card newCardOnDeck = new Card(territories.get(i), cavalry);
 			deck.add(newCardOnDeck);
 			System.out.println(deck.get(i).getName() + " has been added to the deck.");
 		}
 		for(int i =28; i<42; i++){
-			Card newCardOnDeck = new Card(countries.get(i), artillery);
+			Card newCardOnDeck = new Card(territories.get(i), artillery);
 			deck.add(newCardOnDeck);
 			System.out.println(deck.get(i).getName() + " has been added to the deck.");
 		}
