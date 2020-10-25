@@ -12,12 +12,16 @@ public class Board {
             greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
             eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, kamchatka, middleEast,
             mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia, japan;
-       
-    private static final Territory[] allTerritories = {alaska, alberta, centralAmerica, easternUnitedStates, greenland,
-            northWestTerritory, ontario, quebec, westernUnitedStates, argentina, brazil, peru, venezuela,
-            greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
-            eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, kamchatka, middleEast,
-            mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia, japan};
+
+    private final Territory[] allTerritories;
+
+    private final Territory[] alaskaAdjacencies, albertaAdjacencies, centralAmericaAdjacencies, easternUnitedStatesAdjacencies, greenlandAdjacencies,
+            northWestTerritoryAdjacencies, ontarioAdjacencies, quebecAdjacencies, westernUnitedStatesAdjacencies, argentinaAdjacencies, brazilAdjacencies,
+            peruAdjacencies, venezuelaAdjacencies, greatBritainAdjacencies, icelandAdjacencies, northernEuropeAdjacencies, scandinaviaAdjacencies,
+            southernEuropeAdjacencies, ukraineAdjacencies, westernEuropeAdjacencies, congoAdjacencies, eastAfricaAdjacencies, egyptAdjacencies,
+            madagascarAdjacencies, northAfricaAdjacencies, southAfricaAdjacencies, afghanistanAdjacencies, chinaAdjacencies, indiaAdjacencies, irkutskAdjacencies, japanAjacencies,
+            kamchatkaAdjacencies, middleEastAdjacencies, mongoliaAdjacencies, siamAdjacencies, siberiaAdjacencies, uralAdjacencies, yakutskAdjacencies,
+            easternAustraliaAdjacencies, indonesiaAdjacencies, newGuineaAdjacencies, westernAustraliaAdjacencies;
 
 
     /**
@@ -68,6 +72,13 @@ public class Board {
         indonesia = new Territory("Indonesia");
         newGuinea = new Territory("New Guinea");
         westernAustralia = new Territory("Scandinavia");
+
+        //put all Territories in array
+        allTerritories = new Territory[]{alaska, alberta, centralAmerica, easternUnitedStates, greenland,
+                northWestTerritory, ontario, quebec, westernUnitedStates, argentina, brazil, peru, venezuela,
+                greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
+                eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, kamchatka, middleEast,
+                mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia, japan};
 
         // Initialize arrays of Territory objects to contain each countries adjacent territories
         alaskaAdjacencies = new Territory[]{alberta, northWestTerritory, kamchatka};
@@ -157,24 +168,25 @@ public class Board {
         newGuinea.addAdjacencies(newGuineaAdjacencies);
         westernAustralia.addAdjacencies(westernAustraliaAdjacencies);
     }
-    
+
     public Territory[] getAllTerritories(){
         return allTerritories;
     }
-    
+
     public Territory getTerritory(String s){
         if(isTerritory(s)){
             for(int i=0; i<allTerritories.length; i++){
-                if(allTerritories[i].getName() == s){
+                if(allTerritories[i].getTerritoryName() == s){
                     return allTerritories[i];
                 }
             }
         }
+        return null;
     }
 
     public boolean isTerritory(String s){
         for(int i=0; i<allTerritories.length; i++){
-            if(allTerritories[i].getName() == s){
+            if(allTerritories[i].getTerritoryName() == s){
                 return true;
             }
         }
