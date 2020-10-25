@@ -169,6 +169,25 @@ public class Board {
     public Territory[] getAllTerritories(){
         return allTerritories;
     }
+    
+    public Territory getTerritory(String s){
+        if(isTerritory(s)){
+            for(int i=0; i<allTerritories.length; i++){
+                if(allTerritories[i].getName() == s){
+                    return allTerritories[i];
+                }
+            }
+        }
+    }
 
+    public boolean isTerritory(String s){
+        for(int i=0; i<allTerritories.length; i++){
+            if(allTerritories[i].getName() == s){
+                return true;
+            }
+        }
+        System.out.println(s + " is not a Territory in this game.");
+        return false;
+    }
 }
 
