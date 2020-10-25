@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Board class to illustrate the game board and territory locations in relation to one another.
  * The board has 42 Territories.
@@ -7,11 +9,13 @@
 
 public class Board {
 
+    private Territory[] territoryList;
+
     private Territory alaska, alberta, centralAmerica, easternUnitedStates, greenland,
             northWestTerritory, ontario, quebec, westernUnitedStates, argentina, brazil, peru, venezuela,
             greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
-            eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, kamchatka, middleEast,
-            mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia, japan;
+            eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, japan, kamchatka, middleEast,
+            mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia;
 
     private Territory[] alaskaAdjacencies, albertaAdjacencies, centralAmericaAdjacencies, easternUnitedStatesAdjacencies, greenlandAdjacencies,
             northWestTerritoryAdjacencies, ontarioAdjacencies, quebecAdjacencies, westernUnitedStatesAdjacencies, argentinaAdjacencies, brazilAdjacencies,
@@ -158,7 +162,41 @@ public class Board {
         indonesia.addAdjacencies(indonesiaAdjacencies);
         newGuinea.addAdjacencies(newGuineaAdjacencies);
         westernAustralia.addAdjacencies(westernAustraliaAdjacencies);
+
+        // Populate territory array
+        territoryList = new Territory[]{alaska, alberta, centralAmerica, easternUnitedStates, greenland,
+                northWestTerritory, ontario, quebec, westernUnitedStates, argentina, brazil, peru, venezuela,
+                greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
+                eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, japan, kamchatka, middleEast,
+                mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia};
     }
 
+    /**
+     * @param s The name of the territory being checked
+     * @return True if s is an existing territory, false otherwise
+     */
+    public boolean isTerritory(String s){
+        for(Territory t: territoryList){
+            if(t.getTerritoryName().equals(s)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * @param s Name of territory being searched for
+     * @return The territory object being searched for
+     */
+    public Territory getTerritory(String s){
+        if(isTerritory(s)){
+            for(Territory t: territoryList){
+                if(t.getTerritoryName().equals(s)){
+                    return t;
+                }
+            }
+        }
+        return null;
+    }
 }
 
