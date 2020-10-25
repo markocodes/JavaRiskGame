@@ -111,6 +111,10 @@ public class Territory {
     public void addAdjacencies(Territory[] adj){
         this.adjacencies = adj;
     }
+    
+    public void getAdjacencies(){
+        return adjacencies;
+    }
 
     public void addInfantry(int amount){
         infantry += amount;
