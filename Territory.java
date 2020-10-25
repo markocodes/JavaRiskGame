@@ -12,7 +12,9 @@ public class Territory {
     private Territory[] adjacencies;
     private Boolean isOccupied;
     private Player territoryOccupant;
-    private int numOccupants;
+    private int infantry;
+    private int cavalry;
+    private int artillery;
     private Dice dice;
 
     /**
@@ -24,7 +26,9 @@ public class Territory {
         adjacencies = null;
         isOccupied = false;
         territoryOccupant = null;
-        numOccupants = 0;
+        infantry = 0;
+        cavalry = 0;
+        artillery = 0;
         dice = new Dice();
     }
 
@@ -36,7 +40,7 @@ public class Territory {
         int attackerPoints = 0;
         int defenderPoints = 0;
 
-        int defenderTroops = territory.getNumOccupants();
+        int defenderTroops = territory.getTotalTroops();
 
         List<Territory> terrList = Arrays.asList(this.adjacencies);
 
@@ -122,13 +126,6 @@ public class Territory {
     }
 
     /**
-     * @return number of troops in the Territory
-     */
-    public int getNumOccupants() {
-        return numOccupants;
-    }
-
-    /**
      * @return the Player object that is occupying the Territory
      */
     public Player getTerritoryOccupant() {
@@ -137,5 +134,12 @@ public class Territory {
 
     public Dice getDice() {
         return dice;
+    }
+
+    /**
+     * @return number of troops in the Territory
+     */
+    public int getTotalTroops(){
+        return infantry + (5 * cavalry) + (10 * artillery);
     }
 }

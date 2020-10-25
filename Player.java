@@ -7,16 +7,17 @@ import java.util.*;
 public class Player {
     private ArrayList<Territory> territories;
     private ArrayList<Card> cards;
-    private int troops;
     int infantry;
     int artillery;
     int cavalry;
     private String playerName;
 
-    public Player(int troops, String name){
+    public Player(int infantry, String name){
         territories = new ArrayList<Territory>();
         cards = new ArrayList<Card>();
-        this.troops = troops;
+        this.infantry = infantry;
+        cavalry = 0;
+        artillery = 0;
         this.playerName = name;
     }
 
@@ -48,22 +49,21 @@ public class Player {
      * Method to keep track of the troops
      * @return the troops user has
      */
-    public int getTroops(){
-        return troops;
+    public int getTotalTroops(){
+        return infantry + (5 * cavalry) + (10 * artillery);
     }
 
     /**
-     * Method to add more troops with new troops
-     * @param newTroops
+     * Method to add more infantry
+     * @param inf Number of infantry to be added
      */
-    public void addTroops(int newTroops){
-        troops = troops + newTroops;
-        System.out.println(playerName + "now has, " + troops + " on this territory");
+    public void addInfantry(int inf){
+        infantry += inf;
     }
 
     /**
      * Adding more territories (Territories conquered)
-     * @param newTerritory
+     * @param newTerritory territory to be added
      */
     public void addTerritories(Territory newTerritory){
         territories.add(newTerritory);
