@@ -6,6 +6,8 @@
 * 
 */
 
+private Board board;
+
 public boolean processCommand(Command command){
 		boolean quit = false;
 
@@ -68,21 +70,21 @@ public boolean processCommand(Command command){
 
 		int rollNo;
 		System.out.print("How many times do you want to roll the dice? > ");
-		//rollNo = reader.nextInt();
+		rollNo = reader.nextInt();
 
 		if(thirdWord == "from"){
-			/*if(fourthWord!=null && fifthWord == null && sixthWord == null){
-				if(territory.isTerritory(secondWord) && territory.isTerritory(fourthWord)){
-					Territory attacker = territory.getTerritory(fourthWord);
-					Territory defender = territory.getTerritory(secondWord);
+			if(fourthWord!=null && fifthWord == null && sixthWord == null){
+				if(board.isTerritory(secondWord) && board.isTerritory(fourthWord)){
+					Territory attacker = board.getTerritory(fourthWord);
+					Territory defender = board.getTerritory(secondWord);
 					attacker.Attack(defender, rollNo, dice);
 				}
 			}
 			else if(fourthWord!=null && fifthWord != null && sixthWord == null){
 			 	String completeFourthWord = fourthWord + " " + fifthWord;
-				if(territory.isTerritory(secondWord) && territory.isTerritory(completeFourthWord)){
-					Territory attacker = territory.getTerritory(completeFourthWord);
-					Territory defender = territory.getTerritory(secondWord);
+				if(board.isTerritory(secondWord) && board.isTerritory(completeFourthWord)){
+					Territory attacker = board.getTerritory(completeFourthWord);
+					Territory defender = board.getTerritory(secondWord);
 					attacker.Attack(defender, rollNo, dice);
 				}
 			}
@@ -93,16 +95,15 @@ public boolean processCommand(Command command){
 				"(eg. Egypt or Eastern Europe.)\n" +
 				"type "attack from" to see which countries you can attack from which country");
 			}
-			*/
 		}
 
 		if(fourthWord == "from"){
-			/*if(secondWord!=null && thirdWord!=null &&
+			if(secondWord!=null && thirdWord!=null &&
 			 	fifthWord != null && sixthWord == null){
 			 	String completeSecondWord = secondWord + " " + thirdWord;
-				if(territory.isTerritory(completeSecondWord) && territory.isTerritory(fifthWord)){
-					Territory attacker = territory.getTerritory(fifthWord);
-					Territory defender = territory.getTerritory(completeSecondWord);
+				if(board.isTerritory(completeSecondWord) && board.isTerritory(fifthWord)){
+					Territory attacker = board.getTerritory(fifthWord);
+					Territory defender = board.getTerritory(completeSecondWord);
 					attacker.Attack(defender, rollNo, dice);
 				}
 			}
@@ -110,9 +111,9 @@ public boolean processCommand(Command command){
 			 	fifthWord != null && sixthWord != null){
 			 	String completeSecondWord = secondWord + " " + thirdWord;
 			 	String completeFifthWord = fifthWord + " " + sixthWord;
-				if(territory.isTerritory(completeSecondWord) && territory.isTerritory(completeFifthWord)){
-					Territory attacker = territory.getTerritory(completeFifthWord);
-					Territory defender = territory.getTerritory(completeSecondWord);
+				if(board.isTerritory(completeSecondWord) && board.isTerritory(completeFifthWord)){
+					Territory attacker = board.getTerritory(completeFifthWord);
+					Territory defender = board.getTerritory(completeSecondWord);
 					attacker.Attack(defender, rollNo, dice);
 				}
 			}
@@ -123,15 +124,7 @@ public boolean processCommand(Command command){
 				"(eg. Egypt or Eastern Europe.)\n" +
 				"type "attack from" to see which countries you can attack from which country");
 			}
-			*/
 		}
-	}
-
-	public void processFortifyRequest(Command command){
-	    //ask user to type in "fortify countryA from countryB"
-		String fortifyFrom = command.getFourthWord();
-		String fortifyTo = command.getSecondWord();
-		fortify(fortifyFrom, fortifyTo);
 	}
 
 	public void printState(){
