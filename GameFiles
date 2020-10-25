@@ -7,29 +7,33 @@
 */
 
 private Board board;
+private Deck deck;
+private Player activePlayer;
+private Parser parser;
+
+private boolean deployPhase;
+private boolean deployed;
+
+private int activePlayerIndex;
+private int playerCount;
+
+private ArrayList<Player> player;
+
 
 /**
  * This is the constructor for the RiskModel object.
  **/
 public RiskModel() {
 	dice = new Dice();
+	board = new Board();
 
 	deployed = false;
 	deployPhase = false;
 
-	rollDice = false;
-	printState = false;
-	passTurn = false;
-
-	// Set default values
-	attackerLosses = 0;
-	defenderLosses = 0;
-	attackerDice = 1;
-	defenderDice = 1;
-	numberInput = false;
-
 	players = new ArrayList<>();
 	parser = new Parser();
+	
+	playerCount = 0;
 }
 
 /**
