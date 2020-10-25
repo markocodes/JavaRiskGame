@@ -13,6 +13,7 @@ public class Territory {
     private Boolean isOccupied;
     private Player territoryOccupant;
     private int numOccupants;
+    private Dice dice;
 
     /**
      * Constructor to initialize a new territory on the Risk map
@@ -24,19 +25,23 @@ public class Territory {
         isOccupied = false;
         territoryOccupant = null;
         numOccupants = 0;
+        dice = new Dice();
     }
 
     /**
      * Method to execute attack on another adjacent territory
      * @param territory the territory to attack
      */
-    public Player Attack(Territory territory, int attackerTroops, Dice dice){
+    public Player Attack(Territory territory, int attackerTroops){
         int attackerPoints = 0;
         int defenderPoints = 0;
 
         int defenderTroops = territory.getNumOccupants();
 
         List<Territory> terrList = Arrays.asList(this.adjacencies);
+
+        Dice attackerDice = this.dice;
+        Dice defenderDice = territory.getDice();
 
         // Check if territory to be attacked is adjacent to current territory.
         if(terrList.contains(territory)){
@@ -45,8 +50,8 @@ public class Territory {
             if(!this.territoryOccupant.getPlayerName().equals(territory.getTerritoryOccupant().getPlayerName())) {
                 if (attackerTroops < 4 && attackerTroops > 0) {
 
-                    int[] attackerRolls = dice.rollDice(attackerTroops);
-                    int[] defenderRolls = dice.rollDice(defenderTroops);
+                    int[] attackerRolls = attackerDice.rollDice(attackerTroops);
+                    int[] defenderRolls = defenderDice.rollDice(defenderTroops);
 
                     // Compare dice and allocate points (Scenario 1)
                     if (attackerRolls.length >= defenderRolls.length) {
@@ -67,7 +72,7 @@ public class Territory {
 
 
                     }
-                    // // Compare dice and allocate points (Scenario 2)
+                    // Compare dice and allocate points (Scenario 2)
                     else if (attackerRolls.length < defenderRolls.length) {
                         for (int i = 0; i < attackerRolls.length; i++) {
                             if (attackerRolls[i] > defenderRolls[i]) {
@@ -128,5 +133,9 @@ public class Territory {
      */
     public Player getTerritoryOccupant() {
         return territoryOccupant;
+    }
+
+    public Dice getDice() {
+        return dice;
     }
 }
