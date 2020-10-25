@@ -155,5 +155,6 @@ public class Territory {
         if(this.getTerritoryOccupant() != null){
             return this.getTerritoryOcupant() + " occupies " + this.getTerritoryName() + " with " + this.getTotalTroops() + " troops.";
         }
+        return this.getTerritoryName() + " is not occupied.";
     }
 }
