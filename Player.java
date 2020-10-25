@@ -7,9 +7,9 @@ import java.util.*;
 public class Player {
     private ArrayList<Territory> territories;
     private ArrayList<Card> cards;
-    int infantry;
-    int artillery;
-    int cavalry;
+    private int infantry;
+    private int artillery;
+    private int cavalry;
     private String playerName;
 
     public Player(int infantry, String name){
@@ -84,6 +84,13 @@ public class Player {
     }
 
     /**
+     * @return the current player name
+     */
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    /**
      * handles the turn based system of the game
      */
     public void takeTurn(){
@@ -92,10 +99,22 @@ public class Player {
         }else{
             infantry = infantry + Math.floorDiv(territories.size(), 3);
         }
-
+        boolean fight = true;
+        if(fight){
+            temp1.Attack(temp2, temp3); //temp1 will be of type Territory and it is the territory they're attacking FROM
+        }else{ //temp2 is the territory which they are attacking (it is also type Territory)
+            return; // temp3 is the int number of troops being sent in
+        }
+        int conquered = 0;
+        Player winner = temp1.Attack(temp2, temp3)
+        if(winner.getPlayerName().equals(this.playerName)){
+            conquered++;
+        }else{
+            conquered = conquered;
+        }
+        for(int i = 0; i < conquered; i++){
+            selectCard()
+        }
     }
 
-    public String getPlayerName() {
-        return playerName;
-    }
 }
