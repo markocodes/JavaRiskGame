@@ -136,6 +136,46 @@ public void autoDeploy(){
 	System.out.println("Auto deployment complete...");
 }
 
+/**
+	 * Handles turn transitions
+	 **/
+	public void nextPlayer()
+	{
+		//the game is not yet over
+		if (players.size() > 1)
+		{
+			if (deployed == true)
+			{
+				activePlayerIndex++;
+				//loop back to first player if necessary
+				if (activePlayerIndex >= players.size())
+				{
+					activePlayerIndex = 0;
+				}
+				//select a card
+				activePlayer = players.get(activePlayerIndex);
+				System.out.println("\n /////" + activePlayer.getPlayerName().toUpperCase() + "/////");
+
+				for(int i=0; i<attacksWon; i++)
+				{
+					activePlayer.addCard(deck.selectCard());
+				}
+				//adds troops based on how many territories are owned
+				if (activePlayer.getTerritories().size() < 12)
+				{
+					activePlayer.addTroops(3);
+				} else
+				{
+					activePlayer.addTroops(activePlayer.getTerritories().size() / 3);
+				}
+				System.out.println("It is now " + activePlayer.getPlayerName() +
+						"'s turn\nYou have " + activePlayer.getTroops() + " troops left.");
+			}
+
+
+		}
+	}
+
 public boolean processCommand(Command command){
 	boolean quit = false;
 
