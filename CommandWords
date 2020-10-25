@@ -6,7 +6,7 @@
 public class CommandWords
 {
     private static final String[] validCommands = {
-            "state", "pass", "attack from", "attack", "fortify", "quit"
+            "state", "pass", "attack from", "attack", "quit"
     };
 
     public CommandWords(){
@@ -27,3 +27,4 @@ public class CommandWords
         return false;
     }
 }
+
