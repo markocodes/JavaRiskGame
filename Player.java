@@ -97,6 +97,7 @@ public class Player {
 
     /**
      * handles the turn based system of the game
+     * might need to be changed to Game class.
      */
     public void takeTurn() {
         int conquered = 0;
