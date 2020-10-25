@@ -13,13 +13,19 @@ public class Board {
             eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, kamchatka, middleEast,
             mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia, japan;
 
-    private Territory[] alaskaAdjacencies, albertaAdjacencies, centralAmericaAdjacencies, easternUnitedStatesAdjacencies, greenlandAdjacencies,
+   /* private Territory[] alaskaAdjacencies, albertaAdjacencies, centralAmericaAdjacencies, easternUnitedStatesAdjacencies, greenlandAdjacencies,
             northWestTerritoryAdjacencies, ontarioAdjacencies, quebecAdjacencies, westernUnitedStatesAdjacencies, argentinaAdjacencies, brazilAdjacencies,
             peruAdjacencies, venezuelaAdjacencies, greatBritainAdjacencies, icelandAdjacencies, northernEuropeAdjacencies, scandinaviaAdjacencies,
             southernEuropeAdjacencies, ukraineAdjacencies, westernEuropeAdjacencies, congoAdjacencies, eastAfricaAdjacencies, egyptAdjacencies,
             madagascarAdjacencies, northAfricaAdjacencies, southAfricaAdjacencies, afghanistanAdjacencies, chinaAdjacencies, indiaAdjacencies, irkutskAdjacencies, japanAjacencies,
             kamchatkaAdjacencies, middleEastAdjacencies, mongoliaAdjacencies, siamAdjacencies, siberiaAdjacencies, uralAdjacencies, yakutskAdjacencies,
-            easternAustraliaAdjacencies, indonesiaAdjacencies, newGuineaAdjacencies, westernAustraliaAdjacencies;
+            easternAustraliaAdjacencies, indonesiaAdjacencies, newGuineaAdjacencies, westernAustraliaAdjacencies;*/
+    
+    private static final Territory[] allTerritories = {alaska, alberta, centralAmerica, easternUnitedStates, greenland,
+            northWestTerritory, ontario, quebec, westernUnitedStates, argentina, brazil, peru, venezuela,
+            greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
+            eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, kamchatka, middleEast,
+            mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia, japan};
 
 
     /**
@@ -52,15 +58,15 @@ public class Board {
         eastAfrica = new Territory("East Africa");
         egypt = new Territory("Egypt");
         madagascar = new Territory("Madagascar");
-        northAfrica = new Territory("NorthAfrica");
-        southAfrica = new Territory("SouthAfrica");
+        northAfrica = new Territory("North Africa");
+        southAfrica = new Territory("South Africa");
         afghanistan = new Territory("Afghanistan");
         china = new Territory("China");
         india = new Territory("India");
         irkutsk = new Territory("Irkutsk");
         japan = new Territory("Japan");
         kamchatka = new Territory("Kamchatka");
-        middleEast = new Territory("MiddleEast");
+        middleEast = new Territory("Middle East");
         mongolia = new Territory("Mongolia");
         siam = new Territory("Siam");
         siberia = new Territory("Siberia");
@@ -158,6 +164,10 @@ public class Board {
         indonesia.addAdjacencies(indonesiaAdjacencies);
         newGuinea.addAdjacencies(newGuineaAdjacencies);
         westernAustralia.addAdjacencies(westernAustraliaAdjacencies);
+    }
+    
+    public Territory[] getAllTerritories(){
+        return allTerritories;
     }
 
 }
