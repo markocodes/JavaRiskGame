@@ -147,4 +147,13 @@ public class Territory {
     public int getTotalTroops(){
         return infantry + (5 * cavalry) + (10 * artillery);
     }
+    
+    /**
+    * prints the state of the Territory
+    */
+    public String toString(){
+        if(this.getTerritoryOccupant() != null){
+            return this.getTerritoryOcupant() + " occupies " + this.getTerritoryName() + " with " + this.getTotalTroops() + " troops.";
+        }
+    }
 }
