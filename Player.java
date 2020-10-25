@@ -65,6 +65,14 @@ public class Player {
     public void addInfantry(int inf){
         infantry += inf;
     }
+    
+    /**
+     * Method to add more infantry
+     * @param inf Number of infantry to be added
+     */
+    public void removeInfantry(int inf){
+        infantry -= inf;
+    }
 
     /**
      * Adding more territories (Territories conquered)
