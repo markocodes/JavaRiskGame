@@ -23,7 +23,7 @@ public class Territory {
      */
     public Territory(String territoryName) {
         this.territoryName = territoryName;
-        adjacencies = null;
+        adjacencies = new Territory[];
         isOccupied = false;
         territoryOccupant = null;
         infantry = 0;
