@@ -115,6 +115,10 @@ public class Territory {
         this.adjacencies = adj;
     }
 
+    public void addInfantry(int amount){
+        infantry += amount;
+    }
+
 
     /* Getters and Setters */
 
@@ -134,6 +138,10 @@ public class Territory {
 
     public Dice getDice() {
         return dice;
+    }
+
+    public void setTerritoryOccupant(Player territoryOccupant) {
+        this.territoryOccupant = territoryOccupant;
     }
 
     /**

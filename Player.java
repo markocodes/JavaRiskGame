@@ -36,6 +36,11 @@ public class Player {
         cards.remove(0);
     }
 
+    public void sendInfantry(Territory territory, int amount){
+        territory.addInfantry(amount);
+        infantry -= amount;
+    }
+
     /**
      * Method that provides a way to list ALL cards in hand
      */
@@ -95,6 +100,10 @@ public class Player {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPlayerName() {
         return playerName;
     }
