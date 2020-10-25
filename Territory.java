@@ -44,9 +44,6 @@ public class Territory {
 
         List<Territory> terrList = Arrays.asList(this.adjacencies);
 
-        Dice attackerDice = this.dice;
-        Dice defenderDice = territory.getDice();
-
         // Check if territory to be attacked is adjacent to current territory.
         if(terrList.contains(territory)){
 
@@ -54,8 +51,8 @@ public class Territory {
             if(!this.territoryOccupant.getPlayerName().equals(territory.getTerritoryOccupant().getPlayerName())) {
                 if (attackerTroops < 4 && attackerTroops > 0) {
 
-                    int[] attackerRolls = attackerDice.rollDice(attackerTroops);
-                    int[] defenderRolls = defenderDice.rollDice(defenderTroops);
+                    int[] attackerRolls = dice.rollDice(attackerTroops);
+                    int[] defenderRolls = dice.rollDice(defenderTroops);
 
                     // Compare dice and allocate points (Scenario 1)
                     if (attackerRolls.length >= defenderRolls.length) {
@@ -134,10 +131,6 @@ public class Territory {
      */
     public Player getTerritoryOccupant() {
         return territoryOccupant;
-    }
-
-    public Dice getDice() {
-        return dice;
     }
 
     public void setTerritoryOccupant(Player territoryOccupant) {
