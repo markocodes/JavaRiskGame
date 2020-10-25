@@ -112,7 +112,7 @@ public class Territory {
         this.adjacencies = adj;
     }
     
-    public void getAdjacencies(){
+    public Territory[] getAdjacencies(){
         return adjacencies;
     }
 
@@ -153,8 +153,8 @@ public class Territory {
     */
     public String toString(){
         if(this.getTerritoryOccupant() != null){
-            return this.getTerritoryOcupant() + " occupies " + this.getTerritoryName() + " with " + this.getTotalTroops() + " troops.";
+            return this.territoryOccupant.getPlayerName() + " occupies " + this.territoryName + " with " + this.getTotalTroops() + " troops.";
         }
-        return this.getTerritoryName() + " is not occupied.";
+        return this.territoryName + " is not occupied.";
     }
 }
