@@ -94,6 +94,7 @@ public class Player {
      * handles the turn based system of the game
      */
     public void takeTurn(){
+        int conquered = 0;
         if(Math.floorDiv(territories.size(), 3) < 3){
             infantry = infantry + 3;
         }else{
@@ -101,19 +102,17 @@ public class Player {
         }
         boolean fight = true;
         if(fight){
-            temp1.Attack(temp2, temp3); //temp1 will be of type Territory and it is the territory they're attacking FROM
-        }else{ //temp2 is the territory which they are attacking (it is also type Territory)
-            return; // temp3 is the int number of troops being sent in
-        }
-        int conquered = 0;
-        Player winner = temp1.Attack(temp2, temp3)
-        if(winner.getPlayerName().equals(this.playerName)){
-            conquered++;
+            Player winner = temp1.Attack(temp2, temp3); //temp1 will be of type Territory and it is the territory they're attacking FROM
+            if(winner.getPlayerName().equals(this.playerName)){ //temp2 is the territory which they are attacking (it is also type Territory)
+                conquered++; // temp3 is the int number of troops being sent in
+            }else{
+                conquered = conquered;
+            }
+            for(int i = 0; i < conquered; i++){
+                fakeDeck.selectCard().addCard(i);
+            }
         }else{
-            conquered = conquered;
-        }
-        for(int i = 0; i < conquered; i++){
-            selectCard()
+            return;
         }
     }
 
