@@ -129,5 +129,4 @@ public class Territory {
     public Player getTerritoryOccupant() {
         return territoryOccupant;
     }
-
 }
