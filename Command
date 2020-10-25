@@ -9,6 +9,8 @@ public class Command
     private String secondWord;
     private String thirdWord;
     private String fourthWord;
+    private String fifthWord;
+    private String sixthWord;
 
     /**
      * Constructor creates a new command
@@ -16,12 +18,18 @@ public class Command
      * @param secondWord is the second word in the command
      * @param thirdWord is the third word in the command
      * @param fourthWord is the fourth word in the command
+     * @param fifthWord is the fifth word in the command
+     * @param sixthWord is the sixth word in the command
      */
-    public Command(String firstWord, String secondWord, String thirdWord, String fourthWord){
+    public Command(String firstWord, String secondWord,
+                   String thirdWord, String fourthWord,
+                   String fifthWord, String sixthWord){
         this.firstWord = firstWord;
         this.secondWord = secondWord;
         this.thirdWord = thirdWord;
         this.fourthWord = fourthWord;
+        this.fifthWord = fifthWord;
+        this.sixthWord = sixthWord;
     }
 
     /**
@@ -61,6 +69,24 @@ public class Command
     }
 
     /**
+     * returns the fifth word in the command
+     * @return returns the fifth word
+     */
+    public String getFifthWord()
+    {
+        return fourthWord;
+    }
+
+    /**
+     * returns the fifth word in the command
+     * @return returns the fifth word
+     */
+    public String getSixthWord()
+    {
+        return sixthWord;
+    }
+
+    /**
      * Returns true if the command has a second word
      * @return true if the command has a second word
      */
@@ -85,6 +111,24 @@ public class Command
     public boolean hasFourthWord()
     {
         return (fourthWord != null);
+    }
+
+    /**
+     * Returns true if the command has a fifth word
+     * @return true if the command has a fifth word
+     */
+    public boolean hasFifthWord()
+    {
+        return (fifthWord != null);
+    }
+
+    /**
+     * Returns true if the command has a fifth word
+     * @return true if the command has a fifth word
+     */
+    public boolean hasSixthWord()
+    {
+        return (fifthWord != null);
     }
 
     /**
