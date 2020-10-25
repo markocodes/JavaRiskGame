@@ -69,7 +69,7 @@ public class Game{
         //request and store number of players
         Scanner playerNumber = new Scanner(System.in);
         System.out.println("Welcome to Risk: Global Domination \n" +
-                "How many players(2-6) would be playing?");
+        "How many players(2-6) would be playing?");
         while (correctPlayersNumber == false)
         {
             /*if((playerNumber.nextInt()) instanceof int){
@@ -84,7 +84,7 @@ public class Game{
             else
             {
                 System.out.println("This game is designed for 2-6 players\n" +
-                        "How many players(2-6) would be playing?");
+                "How many players(2-6) would be playing?");
             }
         }
 
@@ -102,7 +102,6 @@ public class Game{
         for (int i = 0; i < players.size(); i++) {
             System.out.println((i + 1) + ": " + players.get(i).getPlayerName());
         }
-        help();
         nextPlayer();
     }
 
@@ -204,7 +203,7 @@ public class Game{
                     activePlayer.addInfantry(activePlayer.getTerritories().size() / 3);
                 }
                 System.out.println("It is now " + activePlayer.getPlayerName() +
-                        "'s turn\nYou have " + activePlayer.getTotalTroops() + " troops left.");
+                "'s turn\nYou have " + activePlayer.getTotalTroops() + " troops left.");
             }
         }
     }
@@ -216,10 +215,8 @@ public class Game{
      */
     public boolean processCommand(Command command){
         boolean quit = false;
-
         String commandWord = command.getFirstWord();
         String secondWord = command.getSecondWord();
-
         if(!command.isUnknown())
         {
             if (commandWord.equals("state"))
@@ -240,17 +237,10 @@ public class Game{
                 {
                     processAttackRequest(command);
                 }
-            } else if (command.isUnknown())
-            {
-                System.out.println("This is a serious game. Please input a correct command");
-            }
-            else if (commandWord.equals("help")){
-                help();
             }
         }
-        else
-        {
-            System.out.println("This is a serious game. Please input a correct command");
+        else{
+            System.out.println("Wrong Input!!");
         }
         return quit;
     }
@@ -398,14 +388,6 @@ public class Game{
         {
             System.out.println(board.getAllTerritories()[i].toString());
         }
-    }
-    public void help(){
-        System.out.println("You csn input the following command words to play: \n");
-        System.out.println("State - shows which player is in which country and with how many armies. \n");
-        System.out.println("Pass- This gives up a players turn and the next player can go. \n");
-        System.out.println("Attack from - shows a list of territories to attack from. \n");
-        System.out.println("Attack- Attacks Country A from Country B. \n");
-        System.out.println("quit- This ends the game. \n ");
     }
 
     /**
