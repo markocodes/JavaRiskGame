@@ -16,6 +16,7 @@ private boolean deployed;
 
 private int activePlayerIndex;
 private int playerCount;
+private int attacksWon;
 
 private ArrayList<Player> player;
 
