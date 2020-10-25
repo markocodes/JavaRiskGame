@@ -8,9 +8,9 @@ public class Player {
     private ArrayList<Territory> territories;
     private ArrayList<Card> cards;
     private int troops;
-    int infantry;
-    int artillery;
-    int cavalry;
+    private int infantry;
+    private int artillery;
+    private int cavalry;
     private String name;
 
     public Player(int troops, String name){
@@ -89,11 +89,14 @@ public class Player {
      * handles the turn based system of the game
      */
     public void takeTurn(){
+        // allocating new infantry troops before the turn
         if(Math.floorDiv(territories.size(), 3) < 3){
             infantry = infantry + 3;
         }else{
             infantry = infantry + Math.floorDiv(territories.size(), 3);
         }
+
+        // attacking
 
     }
 }
