@@ -79,10 +79,8 @@ public class Player {
     /**
      * returns ALL the territories occupied
      */
-    public void getTerritory(){
-        for(int i = 0; i < territories.size(); i++){
-            System.out.println(territories.get(i));
-        }
+    public ArrayList<Territory> getTerritories(){
+        return territories;
     }
 
     /**
