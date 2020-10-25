@@ -29,12 +29,12 @@ public class Board {
         alaska = new Territory("Alaska");
         alberta = new Territory("Alberta");
         centralAmerica = new Territory("Central America");
-        easternUnitedStates = new Territory("Eastern United States");
+        easternUnitedStates = new Territory("Eastern States");
         greenland = new Territory("Greenland");
         northWestTerritory = new Territory("Northwest Territory");
         ontario = new Territory("Ontario");
         quebec = new Territory("Quebec");
-        westernUnitedStates = new Territory("Western United States");
+        westernUnitedStates = new Territory("Western States");
         argentina = new Territory("Argentina");
         brazil = new Territory("Brazil");
         peru = new Territory("Peru");
