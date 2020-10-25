@@ -77,27 +77,12 @@ public class Player {
     }
 
     /**
-     *
-     * @param s
-     * @return the name of the territory that matches with s
+     * returns ALL the territories occupied
      */
-    public String getTerritory(String s){
-        if(name == s){
-            return name;
+    public void getTerritory(){
+        for(int i = 0; i < territories.size(); i++){
+            System.out.println(territories.get(i));
         }
-        return null;
-    }
-
-    /**
-     *
-     * @param s
-     * @return true if a territory with the name s exists
-     */
-    public Boolean isTerritory(String s){
-        if(s != null){
-            return true;
-        }
-        return false;
     }
 
     /**
