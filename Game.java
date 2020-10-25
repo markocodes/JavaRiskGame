@@ -415,8 +415,7 @@ public class Game{
         startGame();
         boolean finished = false;
         while (!finished)
-        {
-            Command command = parser.getCommand();
+        { Command command = parser.getCommand();
             finished = processCommand(command);
         }
         System.out.println("Thank you for playing. Good bye.");
