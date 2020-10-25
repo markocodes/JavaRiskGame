@@ -8,35 +8,158 @@
 
 private Board board;
 
-public boolean processCommand(Command command){
-		boolean quit = false;
+/**
+ * This is the constructor for the RiskModel object.
+ **/
+public RiskModel() {
+	dice = new Dice();
 
-		String commandWord = command.getFirstWord();
-		String secondWord = command.getSecondWord();
+	deployed = false;
+	deployPhase = false;
 
-		if(commandWord.equals("state")){
-			printState();
+	rollDice = false;
+	printState = false;
+	passTurn = false;
+
+	// Set default values
+	attackerLosses = 0;
+	defenderLosses = 0;
+	attackerDice = 1;
+	defenderDice = 1;
+	numberInput = false;
+
+	players = new ArrayList<>();
+	parser = new Parser();
+}
+
+/**
+ * Starts the game and prints out welcome messages.
+ **/
+public void startGame() {
+	ArrayList<String> playerNamess = new ArrayList<>();
+	correctPlayersNumber = false;
+	int playerCount = 0;
+	//request and store number of players
+	Scanner playerNumber = new Scanner(System.in);
+	System.out.println("Welcome to Risk: Global Domination \n" +
+			"How many players(2-6) would be playing?");
+	while (correctPlayersNumber == false)
+	{
+		playerCount = playerNumber.nextInt();
+		if (playerCount > 1 && playerCount < 7)
+		{
+			setNoOfPlayers(playerCount);
+			correctPlayersNumber = true;
+		} else
+		{
+			System.out.println("This game is designed for 2-6 players\n" +
+					"How many players(2-6) would be playing?");
+
 		}
-		else if(commandWord.equals("pass")){
-			nextPlayer();
-		}
-		else if(commandWord.equals("quit")){
-			quit = quit(command);
-		}
-		else if(commandWord.equals("attack")){
-			if(secondWord.equals("from")){
-				attackFrom(command);
-			}
-			else
+	}
+
+	//request and store player names in arrayList
+	for(int i = 0; i<playerCount; i++){
+		Scanner pName = new Scanner(System.in);
+		System.out.println("Player " + (i+1) + " - Type in your name.");
+		playerNamess.add(pName.nextLine());
+	}
+	init(playerNamess);
+	createPlayer();
+	Collections.shuffle(players);
+	System.out.println("Here is the order of turns:");
+
+	for (i = 0; i < players.size(); i++) {
+		System.out.println((i + 1) + ": " + players.get(i).getName());
+	}
+	nextPlayer();
+}
+
+/**
+ * Create players
+ */
+public void createPlayer(){
+	System.out.println("Preparing players...");
+	for (int i = 0; i < playerNames.size(); i++) {
+		players.add(new Player(playerNames.get(i), 50 - (playerNames.size() * 5), i));
+	}
+}
+
+/**
+ * Allocates random countries to each player
+ * and random armies to each country
+ * allocates a random number of armies to each country
+ */
+public void autoDeploy(){
+	deployPhase = true;
+	Player player = players.get(0);
+	System.out.println("Starting Auto Deployment...");
+	ArrayList<Country> holdCountries = board.getCountries();
+	random = new Random();
+	for(int i = 0; i<holdCountries.size(); i++){
+		r = random.nextInt((holdCountries.size() - i));
+		if(players.size() == 2) {player = players.get(i/21);}
+		else if(players.size() == 3) {player = players.get(i/14);}
+		else if(players.size() == 4) {player = players.get(i/12);}
+		else if(players.size() == 5) {player = players.get(i/10);}
+		else if(players.size() == 6) {player = players.get(i/7);}
+
+		if(player.getArmies()>0)
+		{
+			Country country = holdCountries.get(r);
+			//number of armies deployed per country depends on number of armies left
+			int a = 1 + random.nextInt((player.getArmies() / 5) + 1);
+			country.setOccupant(player);
+			country.setNumArmies(a);
+			player.addCountry(country);
+			System.out.println(player.getName() + " now has " + country.getArmies() + " armies deployed in " + country.getName());
+			player.decrementArmies(a);
+
+			//move already allocated country to the end
+			for (int j = r; j < holdCountries.size() - 1; j++)
 			{
-				processAttackRequest(command);
+				holdCountries.set(j, holdCountries.get(j+1));
 			}
 		}
-		else if(commandWord.equals("fortify")){
-			processFortifyRequest(command);
+		else{
+			System.out.println(player.getName() + ": All your armies have been deployed");
+			i++;
 		}
+	}
+	deployed = true;
+	deployPhase = false;
+	System.out.println("Auto deployment complete...");
+}
 
-		return quit;
+public boolean processCommand(Command command){
+	boolean quit = false;
+
+	String commandWord = command.getFirstWord();
+	String secondWord = command.getSecondWord();
+
+	if(commandWord.equals("state")){
+		printState();
+	}
+	else if(commandWord.equals("pass")){
+		nextPlayer();
+	}
+	else if(commandWord.equals("quit")){
+		quit = quit(command);
+	}
+	else if(commandWord.equals("attack")){
+		if(secondWord.equals("from")){
+			attackFrom(command);
+		}
+		else
+		{
+			processAttackRequest(command);
+		}
+	}
+	else if(commandWord.equals("fortify")){
+		processFortifyRequest(command);
+	}
+
+	return quit;
 	}
 
 	public boolean quit(Command command)
@@ -143,3 +266,5 @@ public boolean processCommand(Command command){
 		}
 		System.out.println("Thank you for playing. Good bye.");
 	}
+	
+	
