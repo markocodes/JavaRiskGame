@@ -104,10 +104,10 @@ public class Player {
      * handles the turn based system of the game
      */
     public void takeTurn(){
-        if(territories.size()%3 < 3){
+        if(Math.floorDiv(territories.size(), 3) < 3){
             infantry = infantry + 3;
         }else{
-            infantry = infantry + territories.size()%3;
+            infantry = infantry + Math.floorDiv(territories.size(), 3);
         }
 
     }
