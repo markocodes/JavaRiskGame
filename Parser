@@ -27,6 +27,8 @@ public class Parser
         String word2 = null;
         String word3 = null;
         String word4 = null;
+        String word5 = null;
+        String word6 = null;
 
         System.out.print("Input next command > ");
         input = reader.nextLine();
@@ -43,17 +45,28 @@ public class Parser
                     word3 = tokenizer.next();      // get third word
                     if (tokenizer.hasNext())
                     {
-                        word4 = tokenizer.next();      // get fourth word
+                        word4 = tokenizer.next();  //get fourth word
+                        if (tokenizer.hasNext())
+                        {
+                            word5 = tokenizer.next(); //get fifth word
+                            if (tokenizer.hasNext())
+                            {
+                                word6 = tokenizer.next(); //get sixth word
+
+                            }
+                        }
                     }
                 }
             }
         }
+
         if(commands.isCommand(word1))
         {
-            return new Command(word1, word2, word3, word4);
+            return new Command(word1, word2, word3, word4, word5, word6);
         }
         else{
-            return new Command(null, word2, word3, word4);
+            return new Command(null, word2, word3, word4, word5, word6);
         }
     }
 }
+
