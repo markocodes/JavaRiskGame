@@ -105,6 +105,10 @@ public class Territory {
     public void addAdjacencies(Territory[] adj){
         this.adjacencies = adj;
     }
+    
+    public void getAdjacencies(){
+        return this.adjacencies;
+    }
 
 
     /* Getters and Setters */
