@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Board class to illustrate the game board and territory locations in relation to one another.
  * The board has 42 Territories.
@@ -9,21 +7,17 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private Territory[] territoryList;
-
     private Territory alaska, alberta, centralAmerica, easternUnitedStates, greenland,
             northWestTerritory, ontario, quebec, westernUnitedStates, argentina, brazil, peru, venezuela,
             greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
-            eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, japan, kamchatka, middleEast,
-            mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia;
-
-    private Territory[] alaskaAdjacencies, albertaAdjacencies, centralAmericaAdjacencies, easternUnitedStatesAdjacencies, greenlandAdjacencies,
-            northWestTerritoryAdjacencies, ontarioAdjacencies, quebecAdjacencies, westernUnitedStatesAdjacencies, argentinaAdjacencies, brazilAdjacencies,
-            peruAdjacencies, venezuelaAdjacencies, greatBritainAdjacencies, icelandAdjacencies, northernEuropeAdjacencies, scandinaviaAdjacencies,
-            southernEuropeAdjacencies, ukraineAdjacencies, westernEuropeAdjacencies, congoAdjacencies, eastAfricaAdjacencies, egyptAdjacencies,
-            madagascarAdjacencies, northAfricaAdjacencies, southAfricaAdjacencies, afghanistanAdjacencies, chinaAdjacencies, indiaAdjacencies, irkutskAdjacencies, japanAjacencies,
-            kamchatkaAdjacencies, middleEastAdjacencies, mongoliaAdjacencies, siamAdjacencies, siberiaAdjacencies, uralAdjacencies, yakutskAdjacencies,
-            easternAustraliaAdjacencies, indonesiaAdjacencies, newGuineaAdjacencies, westernAustraliaAdjacencies;
+            eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, kamchatka, middleEast,
+            mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia, japan;
+       
+    private static final Territory[] allTerritories = {alaska, alberta, centralAmerica, easternUnitedStates, greenland,
+            northWestTerritory, ontario, quebec, westernUnitedStates, argentina, brazil, peru, venezuela,
+            greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
+            eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, kamchatka, middleEast,
+            mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia, japan};
 
 
     /**
@@ -56,15 +50,15 @@ public class Board {
         eastAfrica = new Territory("East Africa");
         egypt = new Territory("Egypt");
         madagascar = new Territory("Madagascar");
-        northAfrica = new Territory("NorthAfrica");
-        southAfrica = new Territory("SouthAfrica");
+        northAfrica = new Territory("North Africa");
+        southAfrica = new Territory("South Africa");
         afghanistan = new Territory("Afghanistan");
         china = new Territory("China");
         india = new Territory("India");
         irkutsk = new Territory("Irkutsk");
         japan = new Territory("Japan");
         kamchatka = new Territory("Kamchatka");
-        middleEast = new Territory("MiddleEast");
+        middleEast = new Territory("Middle East");
         mongolia = new Territory("Mongolia");
         siam = new Territory("Siam");
         siberia = new Territory("Siberia");
@@ -162,41 +156,29 @@ public class Board {
         indonesia.addAdjacencies(indonesiaAdjacencies);
         newGuinea.addAdjacencies(newGuineaAdjacencies);
         westernAustralia.addAdjacencies(westernAustraliaAdjacencies);
-
-        // Populate territory array
-        territoryList = new Territory[]{alaska, alberta, centralAmerica, easternUnitedStates, greenland,
-                northWestTerritory, ontario, quebec, westernUnitedStates, argentina, brazil, peru, venezuela,
-                greatBritain, iceland, northernEurope, scandinavia, southernEurope, ukraine, westernEurope, congo,
-                eastAfrica, egypt, madagascar, northAfrica, southAfrica, afghanistan, china, india, irkutsk, japan, kamchatka, middleEast,
-                mongolia, siam, siberia, ural, yakutsk, easternAustralia, indonesia, newGuinea, westernAustralia};
     }
-
-    /**
-     * @param s The name of the territory being checked
-     * @return True if s is an existing territory, false otherwise
-     */
-    public boolean isTerritory(String s){
-        for(Territory t: territoryList){
-            if(t.getTerritoryName().equals(s)){
-                return true;
-            }
-        }
-        return false;
+    
+    public Territory[] getAllTerritories(){
+        return allTerritories;
     }
-
-    /**
-     * @param s Name of territory being searched for
-     * @return The territory object being searched for
-     */
+    
     public Territory getTerritory(String s){
         if(isTerritory(s)){
-            for(Territory t: territoryList){
-                if(t.getTerritoryName().equals(s)){
-                    return t;
+            for(int i=0; i<allTerritories.length; i++){
+                if(allTerritories[i].getName() == s){
+                    return allTerritories[i];
                 }
             }
         }
-        return null;
+    }
+
+    public boolean isTerritory(String s){
+        for(int i=0; i<allTerritories.length; i++){
+            if(allTerritories[i].getName() == s){
+                return true;
+            }
+        }
+        System.out.println(s + " is not a Territory in this game.");
+        return false;
     }
 }
-
