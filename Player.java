@@ -7,7 +7,6 @@ import java.util.*;
 public class Player {
     private ArrayList<Territory> territories;
     private ArrayList<Card> cards;
-    private int yourTurn;
     private int troops;
     int infantry;
     int artillery;
@@ -45,32 +44,65 @@ public class Player {
         }
     }
 
+    /**
+     * Method to keep track of the troops
+     * @return the troops user has
+     */
     public int getTroops(){
         return troops;
     }
 
+    /**
+     * Method to add more troops with new troops
+     * @param newTroops
+     */
     public void addTroops(int newTroops){
         troops = troops + newTroops;
         System.out.println(playerName + "now has, " + troops + " on this territory");
     }
 
+    /**
+     * Adding more territories (Territories conquered)
+     * @param newTerritory
+     */
     public void addTerritories(Territory newTerritory){
         territories.add(newTerritory);
     }
 
+    /**
+     * removing territories (Territories lost)
+     */
     public void removeTerritories(){
         territories.remove(0);
     }
 
-    public void getTerritories(){
-        for(int i = 0; i < territories.size(); i++){
-            System.out.println(territories.get(i));
+    /**
+     *
+     * @param s
+     * @return the name of the territory that matches with s
+     */
+    public String getTerritory(String s){
+        if(name == s){
+            return name;
         }
+        return null;
     }
 
-    public void defend(Territory t){
-
+    /**
+     *
+     * @param s
+     * @return true if a territory with the name s exists
+     */
+    public Boolean isTerritory(String s){
+        if(s != null){
+            return true;
+        }
+        return false;
     }
+
+    /**
+     * handles the turn based system of the game
+     */
     public void takeTurn(){
         if(territories.size()%3 < 3){
             infantry = infantry + 3;
