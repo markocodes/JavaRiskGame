@@ -69,7 +69,7 @@ public class Game{
         //request and store number of players
         Scanner playerNumber = new Scanner(System.in);
         System.out.println("Welcome to Risk: Global Domination \n" +
-        "How many players(2-6) would be playing?");
+                "How many players(2-6) would be playing?");
         while (correctPlayersNumber == false)
         {
             /*if((playerNumber.nextInt()) instanceof int){
@@ -84,7 +84,7 @@ public class Game{
             else
             {
                 System.out.println("This game is designed for 2-6 players\n" +
-                "How many players(2-6) would be playing?");
+                        "How many players(2-6) would be playing?");
             }
         }
 
@@ -102,6 +102,7 @@ public class Game{
         for (int i = 0; i < players.size(); i++) {
             System.out.println((i + 1) + ": " + players.get(i).getPlayerName());
         }
+        help();
         nextPlayer();
     }
 
@@ -203,7 +204,7 @@ public class Game{
                     activePlayer.addInfantry(activePlayer.getTerritories().size() / 3);
                 }
                 System.out.println("It is now " + activePlayer.getPlayerName() +
-                "'s turn\nYou have " + activePlayer.getTotalTroops() + " troops left.");
+                        "'s turn\nYou have " + activePlayer.getTotalTroops() + " troops left.");
             }
         }
     }
@@ -215,8 +216,10 @@ public class Game{
      */
     public boolean processCommand(Command command){
         boolean quit = false;
+
         String commandWord = command.getFirstWord();
         String secondWord = command.getSecondWord();
+
         if(!command.isUnknown())
         {
             if (commandWord.equals("state"))
@@ -228,19 +231,20 @@ public class Game{
             } else if (commandWord.equals("quit"))
             {
                 quit = quit(command);
-            } else if (commandWord.equals("attack"))
+            } else if (commandWord.equals("adjacent"))
             {
-                if (secondWord.equals("from"))
-                {
-                    attackFrom(command);
-                } else
-                {
-                    processAttackRequest(command);
-                }
+                adjacent(command);
+            }
+            else if (commandWord.equals("attack")){
+                processAttackRequest(command);
+            }
+            else if (commandWord.equals("help")){
+                help();
             }
         }
-        else{
-            System.out.println("Wrong Input!!");
+        else
+        {
+            System.out.println("This is a serious game. Please input a correct command");
         }
         return quit;
     }
@@ -266,7 +270,7 @@ public class Game{
      * Processes the attack from command
      * @param command is the attack from command being processed
      */
-    public void attackFrom(Command command)
+    public void adjacent(Command command)
     {
         String thirdWord = command.getThirdWord();
         String fourthWord = command.getFourthWord();
@@ -308,74 +312,125 @@ public class Game{
         String sixthWord = command.getSixthWord();
 
         int rollNo;
-        System.out.println("How many times do you want to roll the dice? > ");
+        System.out.print("How many times do you want to roll the dice? > ");
         rollNo = reader.nextInt();
 
-        if (thirdWord == "from")
+        if (thirdWord.equals("from"))
         {
-            if (fourthWord != null && fifthWord == null && sixthWord == null)
+            //if input is - "attack CountryA from CountryB"
+            //wordIndex         1       2      3      4
+            if (command.hasFourthWord())
             {
-                if (board.isTerritory(secondWord) && board.isTerritory(fourthWord))
+                if (!command.hasFifthWord())
                 {
-                    Territory attacker = board.getTerritory(fourthWord);
-                    Territory defender = board.getTerritory(secondWord);
-                    attacker.Attack(defender, rollNo);
-                    System.out.println("You are now attacking " + secondWord + " from " + fourthWord);
+                    if (!command.hasSixthWord())
+                    {
+                        if (board.isTerritory(secondWord))
+                        {
+                            if(board.isTerritory(fourthWord))
+                            {
+                                Territory attacker = board.getTerritory(fourthWord);
+                                Territory defender = board.getTerritory(secondWord);
+                                System.out.println(attacker.getTerritoryOccupant().getPlayerName() + "You are now attacking " +
+                                        secondWord + " from " + fourthWord);
+                                attacker.Attack(defender, rollNo);
+                            }
+                        }
+                    }
                 }
-            } else if (fourthWord != null && fifthWord != null && sixthWord == null)
+            }
+
+            //if input is - "attack CountryA from CountryB1 CountryB2"
+            //eg -          "attack Egypt from New Zealand"
+            //wordIndex         1     2     3   4     5
+            else if (command.hasFourthWord())
             {
-                String completeFourthWord = fourthWord + " " + fifthWord;
-                if (board.isTerritory(secondWord) && board.isTerritory(completeFourthWord))
+                if(command.hasFifthWord())
                 {
-                    Territory attacker = board.getTerritory(completeFourthWord);
-                    Territory defender = board.getTerritory(secondWord);
-                    attacker.Attack(defender, rollNo);
-                    System.out.println("You are now attacking " + secondWord + " from " + completeFourthWord);
+                    if(!command.hasSixthWord())
+                    {
+                        String completeFourthWord = fourthWord + " " + fifthWord;
+                        if (board.isTerritory(secondWord)){
+                            if(board.isTerritory(completeFourthWord))
+                            {
+                                Territory attacker = board.getTerritory(completeFourthWord);
+                                Territory defender = board.getTerritory(secondWord);
+                                attacker.Attack(defender, rollNo);
+                                System.out.println(attacker.getTerritoryOccupant().getPlayerName() + " is now attacking " +
+                                        secondWord + " from " + completeFourthWord);
+                            }
+                        }
+                    }
                 }
-            } else
+            }
+
+            //if country names are wrong
+            else
             {
-                String s = "attack from";
-                System.out.println("Wrong Input!!! Your command should look like: \n" +
-                        "1. Attack CountryA from CountryB or\n " +
-                        "With the correct name of the country starting in  Caps\n" +
-                        "(eg. Egypt or Eastern Europe.)\n" +
-                        "type" + s + " to see which countries you can attack from which country");
+                help();
             }
         }
 
-        if (fourthWord == "from")
+        if (fourthWord.equals("from"))
         {
-            if (secondWord != null && thirdWord != null &&
-                    fifthWord != null && sixthWord == null)
+            //if input is - "attack CountryA1 CountryA2 from CountryB"
+            //eg -          "attack New Zealand from Egypt"
+            //wordIndex         1    2     3      4    5
+            if (command.hasSecondWord())
             {
-                String completeSecondWord = secondWord + " " + thirdWord;
-                if (board.isTerritory(completeSecondWord) && board.isTerritory(fifthWord))
+                if(command.hasThirdWord())
                 {
-                    Territory attacker = board.getTerritory(fifthWord);
-                    Territory defender = board.getTerritory(completeSecondWord);
-                    attacker.Attack(defender, rollNo);
-                    System.out.println("You are now attacking " + completeSecondWord + " from " + fifthWord);
+                    if (command.hasFifthWord())
+                    {
+                        if (!command.hasSixthWord())
+                        {
+                            String completeSecondWord = secondWord + " " + thirdWord;
+                            if (board.isTerritory(completeSecondWord))
+                            {
+                                if (board.isTerritory(fifthWord))
+                                {
+                                    Territory attacker = board.getTerritory(fifthWord);
+                                    Territory defender = board.getTerritory(completeSecondWord);
+                                    attacker.Attack(defender, rollNo);
+                                    System.out.println("You are now attacking " + completeSecondWord + " from " + fifthWord);
+                                }
+                            }
+                        }
+                    }
                 }
-            } else if (secondWord != null && thirdWord != null &&
-                    fifthWord != null && sixthWord != null)
+
+            }
+            //if input is - "attack CountryA1 CountryA2 from CountryB1 CountryB2"
+            //eg -          "attack New Zealand from North Korea"
+            //wordIndex         1    2     3      4    5     6
+            else if(command.hasSecondWord())
             {
-                String completeSecondWord = secondWord + " " + thirdWord;
-                String completeFifthWord = fifthWord + " " + sixthWord;
-                if (board.isTerritory(completeSecondWord) && board.isTerritory(completeFifthWord))
+                if(command.hasThirdWord())
                 {
-                    Territory attacker = board.getTerritory(completeFifthWord);
-                    Territory defender = board.getTerritory(completeSecondWord);
-                    attacker.Attack(defender, rollNo);
-                    System.out.println("You are now attacking " + completeSecondWord + " from " + completeFifthWord);
+                    if (command.hasFifthWord())
+                    {
+                        if (command.hasSixthWord())
+                        {
+                            String completeSecondWord = secondWord + " " + thirdWord;
+                            String completeFifthWord = fifthWord + " " + sixthWord;
+                            if (board.isTerritory(completeSecondWord))
+                            {
+                                if (board.isTerritory(completeFifthWord))
+                                {
+                                    Territory attacker = board.getTerritory(completeFifthWord);
+                                    Territory defender = board.getTerritory(completeSecondWord);
+                                    attacker.Attack(defender, rollNo);
+                                    System.out.println("You are now attacking " + completeSecondWord + " from " + completeFifthWord);
+                                }
+                            }
+                        }
+                    }
                 }
-            } else
+
+            }
+            else
             {
-                String s = "attack CountryA from CountryB";
-                System.out.println("Wrong Input!!! Your command should look like:\n" +
-                        s + "\n" +
-                        "With the correct name of the country starting in Caps\n" +
-                        "(eg. Egypt or Eastern Europe.)\n" +
-                        "type " + s + " to see which countries you can attack from which country");
+                help();
             }
         }
     }
@@ -391,14 +446,31 @@ public class Game{
     }
 
     /**
+     * Prints instructions to the user
+     */
+    public void help(){
+        System.out.println("\n--You can input the following command words while playing:\n" +
+                "> state - Shows which player is in which territory and with how many troops\n" +
+                "> pass -  Gives up a player's turn and the next player can go\n" +
+                "> adjacent - Shows all the territories that can be attacked from each territory\n" +
+                "> attack TerritoryA from TerritoryB - Executes an attack on TerritoryA from TerritoryB\n" +
+                "  ^^^^^^^^^^^^^^^^ - You must be an occupant of TerritoryB ^^^^^^^^^^^^^^^^^^^^^^^\n" +
+                "                   - You must be not be an occupant of TerritoryA\n" +
+                "                   - TerritoryA must be adjacent to TerritoryB\n" +
+                "                   - Territory names must begin with a capital letters\n" +
+                "                   - (eg. Egypt, North America, New Guinea, Congo)\n" +
+                "> quit - Ends the game\n" +
+                "> help - Prints this help statement anytime during the game\n");
+    }
+
+    /**
      * causes the game to begin playing
      */
     public void play () {
         startGame();
         boolean finished = false;
         while (!finished)
-        {
-            Command command = parser.getCommand();
+        { Command command = parser.getCommand();
             finished = processCommand(command);
         }
         System.out.println("Thank you for playing. Good bye.");
