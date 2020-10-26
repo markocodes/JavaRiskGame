@@ -4,7 +4,8 @@ import java.util.Scanner;
 
 /**
  * Implements the game of risk
- *
+ * @author Mmedara Josiah and Tami A
+ * @version 1.0
  */
 public class Game{
 
@@ -69,7 +70,7 @@ public class Game{
         //request and store number of players
         Scanner playerNumber = new Scanner(System.in);
         System.out.println("Welcome to Risk: Global Domination \n" +
-                "How many players(2-6) would be playing?");
+                "How many players(2-6) are playing?");
         while (correctPlayersNumber == false)
         {
             /*if((playerNumber.nextInt()) instanceof int){
@@ -84,7 +85,7 @@ public class Game{
             else
             {
                 System.out.println("This game is designed for 2-6 players\n" +
-                        "How many players(2-6) would be playing?");
+                        "How many players(2-6) are playing?");
             }
         }
 
@@ -303,6 +304,10 @@ public class Game{
         }
     }
 
+    /**
+     * Executes the attack command
+     * @param command command entered by user
+     */
     public void processAttackRequest (Command command){
         //ask user to type in "attack countryA from countryB"
         String secondWord = command.getSecondWord();
@@ -312,7 +317,7 @@ public class Game{
         String sixthWord = command.getSixthWord();
 
         int rollNo;
-        System.out.print("How many times do you want to roll the dice? > ");
+        System.out.print("How many troops would you like to send in? > ");
         rollNo = reader.nextInt();
 
         if (thirdWord.equals("from"))

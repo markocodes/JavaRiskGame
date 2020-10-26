@@ -1,6 +1,6 @@
 /**
  * This class lists the command words for the game
- * @author Mmedara Josiah
+ * @author Mmedara Josiah and Tami A
  * @version 1.0
  */
 public class CommandWords

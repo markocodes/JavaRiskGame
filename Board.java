@@ -169,11 +169,18 @@ public class Board {
         westernAustralia.addAdjacencies(westernAustraliaAdjacencies);
     }
 
+    /**
+     * @return Array of all territories in the game
+     */
     public Territory[] getAllTerritories(){
         return allTerritories;
     }
 
-   public Territory getTerritory(String s){
+    /**
+     * @param s String name of territory object needing to be returned
+     * @return Territory object with name s
+     */
+    public Territory getTerritory(String s){
         Territory territory = null;
         if(isTerritory(s)){
             for(int i=0; i<allTerritories.length; i++){
@@ -186,6 +193,11 @@ public class Board {
         return territory;
     }
 
+    /**
+     * Check if territory s is a territory in the game.
+     * @param s String name of territory to check
+     * @return True if s is a territory in the game, false otherwise
+     */
     public boolean isTerritory(String s){
         boolean is = false;
         for(int i=0; i<allTerritories.length; i++){
