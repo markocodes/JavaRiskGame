@@ -173,24 +173,30 @@ public class Board {
         return allTerritories;
     }
 
-    public Territory getTerritory(String s){
+   public Territory getTerritory(String s){
+        Territory territory = null;
         if(isTerritory(s)){
             for(int i=0; i<allTerritories.length; i++){
-                if(allTerritories[i].getTerritoryName() == s){
-                    return allTerritories[i];
+                if(allTerritories[i].getTerritoryName().equals(s)){
+                    territory = allTerritories[i];
                 }
             }
+            System.out.println("No territory is named " + s);
         }
-        return null;
+        return territory;
     }
 
     public boolean isTerritory(String s){
+        boolean is = false;
         for(int i=0; i<allTerritories.length; i++){
-            if(allTerritories[i].getTerritoryName() == s){
-                return true;
+            if(allTerritories[i].getTerritoryName().equals(s)){
+                is = true;
             }
         }
-        System.out.println(s + " is not a Territory in this game.");
-        return false;
+        if(is==false){
+
+            System.out.println(s + " is not a territory in this game.");
+        }
+        return is;
     }
 }
