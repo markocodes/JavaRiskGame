@@ -107,26 +107,26 @@ public class Player {
      * handles the turn based system of the game
      * might need to be changed to Game class.
      */
-    public void takeTurn() {
-        int conquered = 0;
-        if (Math.floorDiv(territories.size(), 3) < 3) {
-            infantry = infantry + 3;
-        } else {
-            infantry = infantry + Math.floorDiv(territories.size(), 3);
-        }
-        boolean fight = true;
-        if (fight) {
-            Player winner = temp1.Attack(temp2, temp3); //temp1 will be of type Territory and it is the territory they're attacking FROM
-            if (winner.getPlayerName().equals(this.playerName)) { //temp2 is the territory which they are attacking (it is also type Territory)
-                conquered++; // temp3 is the int number of troops being sent in
-            } else {
-                conquered = conquered;
-            }
-            for (int i = 0; i < conquered; i++) {
-                fakeDeck.selectCard().addCard(i);
-            }
-        } else {
-            return;
-        }
-    }*/
+//    public void takeTurn() {
+//        int conquered = 0;
+//        if (Math.floorDiv(territories.size(), 3) < 3) {
+//            infantry = infantry + 3;
+//        } else {
+//            infantry = infantry + Math.floorDiv(territories.size(), 3);
+//        }
+//        boolean fight = true;
+//        if (fight) {
+//            Player winner = temp1.Attack(temp2, temp3); //temp1 will be of type Territory and it is the territory they're attacking FROM
+//            if (winner.getPlayerName().equals(this.playerName)) { //temp2 is the territory which they are attacking (it is also type Territory)
+//                conquered++; // temp3 is the int number of troops being sent in
+//            } else {
+//                conquered = conquered;
+//            }
+//            for (int i = 0; i < conquered; i++) {
+//                fakeDeck.selectCard().addCard(i);
+//            }
+//        } else {
+//            return;
+//        }
+//    }
 }

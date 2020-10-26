@@ -1,8 +1,10 @@
+import java.util.Scanner;
+
 /**
  * This class implements the parser for the game
+ * @author Mmedara Josiah
+ * @version 1.0
  */
-
-import java.util.Scanner;
 
 public class Parser
 {
