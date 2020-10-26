@@ -2,7 +2,9 @@
 Java implementation of the popular strategy game Risk
 
 **Authors:** Marko M, MacK W, Mmedara J, Tami A
+
 2020-10-15
+
 Carleton Univeristy, SYSC 3110
 
 **Milestone:** 1
