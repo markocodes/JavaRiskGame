@@ -3,11 +3,10 @@
  * @author Mmedara Josiah
  * @version 1.0
  */
-
 public class CommandWords
 {
     private static final String[] validCommands = {
-            "state", "pass", "attack from", "attack", "quit", "help"
+            "state", "pass", "adjacent", "attack", "quit", "help"
     };
 
     public CommandWords(){
@@ -28,4 +27,5 @@ public class CommandWords
         return false;
     }
 }
+
 
