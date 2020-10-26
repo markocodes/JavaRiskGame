@@ -23,7 +23,7 @@ public class Territory {
      */
     public Territory(String territoryName) {
         this.territoryName = territoryName;
-        adjacencies = new Territory[];
+        adjacencies = null;
         isOccupied = false;
         territoryOccupant = null;
         infantry = 0;
@@ -37,6 +37,7 @@ public class Territory {
      * @param territory the territory to attack
      */
     public Player Attack(Territory territory, int attackerTroops){
+        System.out.println("++++++++++Launching Attack on " + territory.getTerritoryName() + "+++++++++++");
         int attackerPoints = 0;
         int defenderPoints = 0;
 
@@ -59,18 +60,23 @@ public class Territory {
                         for (int i = 0; i < defenderRolls.length; i++) {
                             if (attackerRolls[i] > defenderRolls[i]) {
                                 attackerPoints += 1;
+                                System.out.println("Attacker's points increased by 1: " + attackerPoints);
                             } else if (attackerRolls[i] <= defenderRolls[i]) {
                                 defenderPoints += 1;
+                                System.out.println("Defender's points increased by 1: " + defenderPoints);
                             }
                         }
+                        System.out.println("Determining winner...");
 
                         // Determine winner
+                        Player winner;
                         if (attackerPoints > defenderPoints) {
-                            return this.territoryOccupant;
+                            winner = this.territoryOccupant;
                         } else {
-                            return territory.getTerritoryOccupant();
+                            winner = territory.getTerritoryOccupant();
                         }
-
+                        System.out.println(winner.getPlayerName() + " has won this attack");
+                        return winner;
 
                     }
                     // Compare dice and allocate points (Scenario 2)
@@ -78,16 +84,22 @@ public class Territory {
                         for (int i = 0; i < attackerRolls.length; i++) {
                             if (attackerRolls[i] > defenderRolls[i]) {
                                 attackerPoints += 1;
+                                System.out.println("Attacker's points increased by 1: " + attackerPoints);
                             } else if (attackerRolls[i] <= defenderRolls[i]) {
                                 defenderPoints += 1;
+                                System.out.println("Defender's points increased by 1: " + defenderPoints);
                             }
                         }
+                        System.out.println("Determining winner...");
                         // Determine winner
+                        Player winner;
                         if (attackerPoints > defenderPoints) {
-                            return this.territoryOccupant;
+                            winner = this.territoryOccupant;
                         } else {
-                            return territory.getTerritoryOccupant();
+                            winner = territory.getTerritoryOccupant();
                         }
+                        System.out.println(winner.getPlayerName() + " has won this attack");
+                        return winner;
                     }
                 }else{
                     System.out.println("Please pick a number of troops between 1 and 3.");
@@ -111,7 +123,7 @@ public class Territory {
     public void addAdjacencies(Territory[] adj){
         this.adjacencies = adj;
     }
-    
+
     public Territory[] getAdjacencies(){
         return adjacencies;
     }
@@ -147,14 +159,14 @@ public class Territory {
     public int getTotalTroops(){
         return infantry + (5 * cavalry) + (10 * artillery);
     }
-    
+
     /**
-    * prints the state of the Territory
-    */
+     * prints the state of the Territory
+     */
     public String toString(){
         if(this.getTerritoryOccupant() != null){
-            return this.territoryOccupant.getPlayerName() + " occupies " + this.territoryName + " with " + this.getTotalTroops() + " troops.";
+            return this.getTerritoryOccupant().getPlayerName() + " occupies " + this.getTerritoryName() + " with " + this.getTotalTroops() + " troops.";
         }
-        return this.territoryName + " is not occupied.";
+        return this.getTerritoryName() + " is not occupied.";
     }
 }
