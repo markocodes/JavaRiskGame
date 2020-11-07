@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Board class to illustrate the game board and territory locations in relation to one another.
  * The board has 42 Territories.
@@ -23,6 +25,11 @@ public class Board {
             kamchatkaAdjacencies, middleEastAdjacencies, mongoliaAdjacencies, siamAdjacencies, siberiaAdjacencies, uralAdjacencies, yakutskAdjacencies,
             easternAustraliaAdjacencies, indonesiaAdjacencies, newGuineaAdjacencies, westernAustraliaAdjacencies;
 
+    private Continent africa, asia, australia, europe, northAmerica, southAmerica;
+
+    private final Continent[] allContinents;
+
+    private final ArrayList<Territory> inAfrica, inAsia, inAustralia, inEurope, inNorthAmerica, inSouthAmerica;
 
     /**
      * Board constructor to initialize all territory objects and set their adjacencies.
@@ -71,7 +78,7 @@ public class Board {
         easternAustralia = new Territory("Eastern Australia");
         indonesia = new Territory("Indonesia");
         newGuinea = new Territory("New Guinea");
-        westernAustralia = new Territory("Scandinavia");
+        westernAustralia = new Territory("Western Australia");
 
         //put all Territories in array
         allTerritories = new Territory[]{alaska, alberta, centralAmerica, easternUnitedStates, greenland,
@@ -167,48 +174,85 @@ public class Board {
         indonesia.addAdjacencies(indonesiaAdjacencies);
         newGuinea.addAdjacencies(newGuineaAdjacencies);
         westernAustralia.addAdjacencies(westernAustraliaAdjacencies);
+
+        //initialize in - arrays
+        inAfrica = new ArrayList<Territory>();
+        inAfrica.add(congo);
+        inAfrica.add(eastAfrica);
+        inAfrica.add(egypt);
+        inAfrica.add(madagascar);
+        inAfrica.add(northAfrica);
+        inAfrica.add(southAfrica);
+
+        inAsia = new ArrayList<Territory>();
+        inAsia.add(afghanistan);
+        inAsia.add(china);
+        inAsia.add(india);
+        inAsia.add(irkutsk);
+        inAsia.add(japan);
+        inAsia.add(kamchatka);
+        inAsia.add(middleEast);
+        inAsia.add(mongolia);
+        inAsia.add(siam);
+        inAsia.add(siberia);
+        inAsia.add(ural);
+        inAsia.add(yakutsk);
+
+        inAustralia = new ArrayList<Territory>();
+        inAustralia.add(easternAustralia);
+        inAustralia.add(indonesia);
+        inAustralia.add(newGuinea);
+        inAustralia.add(westernAustralia);
+
+        inEurope = new ArrayList<Territory>();
+        inEurope.add(greatBritain);
+        inEurope.add(iceland);
+        inEurope.add(northernEurope);
+        inEurope.add(scandinavia);
+        inEurope.add(southernEurope);
+        inEurope.add(ukraine);
+        inEurope.add(westernEurope);
+
+        inNorthAmerica = new ArrayList<Territory>();
+        inNorthAmerica.add(alaska);
+        inNorthAmerica.add(alberta);
+        inNorthAmerica.add(centralAmerica);
+        inNorthAmerica.add(easternUnitedStates);
+        inNorthAmerica.add(greenland);
+        inNorthAmerica.add(northWestTerritory);
+        inNorthAmerica.add(ontario);
+        inNorthAmerica.add(quebec);
+        inNorthAmerica.add(westernUnitedStates);
+
+        inSouthAmerica = new ArrayList<Territory>();
+        inSouthAmerica.add(argentina);
+        inSouthAmerica.add(brazil);
+        inSouthAmerica.add(venezuela);
+
+        //initialize Continents
+        africa = new Continent("Africa", inAfrica, 3);
+        asia = new Continent("Asia", inAsia, 7);
+        australia = new Continent("Australia", inAustralia, 2);
+        europe = new Continent("Europe", inEurope, 5);
+        northAmerica = new Continent("North America", inNorthAmerica, 5);
+        southAmerica = new Continent("South America", inSouthAmerica, 2);
+
+        allContinents = new Continent[]{africa, asia, australia, europe, northAmerica, southAmerica};
     }
 
-    /**
-     * @return Array of all territories in the game
-     */
     public Territory[] getAllTerritories(){
         return allTerritories;
     }
 
-    /**
-     * @param s String name of territory object needing to be returned
-     * @return Territory object with name s
-     */
+    public Continent[] getAllContinents(){ return allContinents; }
+/*
     public Territory getTerritory(String s){
-        Territory territory = null;
-        if(isTerritory(s)){
-            for(int i=0; i<allTerritories.length; i++){
-                if(allTerritories[i].getTerritoryName().equals(s)){
-                    territory = allTerritories[i];
-                }
-            }
-            System.out.println("No territory is named " + s);
-        }
-        return territory;
-    }
-
-    /**
-     * Check if territory s is a territory in the game.
-     * @param s String name of territory to check
-     * @return True if s is a territory in the game, false otherwise
-     */
-    public boolean isTerritory(String s){
-        boolean is = false;
         for(int i=0; i<allTerritories.length; i++){
             if(allTerritories[i].getTerritoryName().equals(s)){
-                is = true;
+                return allTerritories[i];
             }
         }
-        if(is==false){
-
-            System.out.println(s + " is not a territory in this game.");
-        }
-        return is;
-    }
+        System.out.println("No territory is named " + s);
+        return null;
+    }*/
 }
