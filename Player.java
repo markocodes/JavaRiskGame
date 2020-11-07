@@ -1,20 +1,23 @@
+import javax.swing.*;
 import java.util.*;
 /**
  * Player class that takes care of the cards, territories and the turn based system this game provides.
  * @author MacKenzie Wallace
  * @version 1.0.0
  */
-public class Player {
+public class Player
+{
     private ArrayList<Territory> territories;
     private ArrayList<Card> cards;
     private int infantry;
     private int artillery;
     private int cavalry;
     private String playerName;
+    private ArrayList<Continent> continents;
 
     public Player(int infantry, String name){
-        territories = new ArrayList<Territory>();
-        cards = new ArrayList<Card>();
+        territories = new ArrayList<>();
+        cards = new ArrayList<>();
         this.infantry = infantry;
         cavalry = 0;
         artillery = 0;
@@ -44,10 +47,8 @@ public class Player {
     /**
      * Method that provides a way to list ALL cards in hand
      */
-    public void getCards(){
-        for(int i = 0; i < cards.size(); i++){
-            System.out.println(cards.get(i));
-        }
+    public ArrayList<Card> getCards(){
+        return cards;
     }
 
     /**
@@ -64,14 +65,22 @@ public class Player {
      */
     public void addInfantry(int inf){
         infantry += inf;
+        if(inf==1) System.out.println(playerName + " has received " + inf + " troop. Total troops: " + infantry);
+        else{
+            System.out.println(playerName + " has received " + inf + " troops. Total troops: " + infantry);
+        }
     }
-    
+
     /**
      * Method to add more infantry
      * @param inf Number of infantry to be added
      */
     public void removeInfantry(int inf){
         infantry -= inf;
+        if(inf==1) System.out.println(playerName + " has lost " + inf + " troop. Total troops: " + infantry);
+        else{
+            System.out.println(playerName + " has lost " + inf + " troops. Total troops: " + infantry);
+        }
     }
 
     /**
@@ -85,8 +94,9 @@ public class Player {
     /**
      * removing territories (Territories lost)
      */
-    public void removeTerritories(){
-        territories.remove(0);
+    public void removeTerritories(Territory territory){
+        territories.remove(territory);
+        System.out.println(playerName + " has lost ownership of " + territory);
     }
 
     /**
@@ -97,36 +107,34 @@ public class Player {
     }
 
     /**
+     * Adds a continent when a player occupies all territories in the continent
+     */
+    public void addContinent(Continent continent){
+        continents.add(continent);
+        System.out.println(playerName + " now occupies " + continent.getName());
+    }
+
+    /**
+     * remove a continent when a player no longer occupies all territories in the continent
+     */
+    public void removeContinent(Continent continent){
+        continents.add(continent);
+        System.out.println(playerName + " no longer occupies " + continent.getName());
+    }
+
+    /**
      * @return the Player name
      */
     public String getPlayerName() {
         return playerName;
     }
-/*
-    /**
-     * handles the turn based system of the game
-     * might need to be changed to Game class.
-     */
-//    public void takeTurn() {
-//        int conquered = 0;
-//        if (Math.floorDiv(territories.size(), 3) < 3) {
-//            infantry = infantry + 3;
-//        } else {
-//            infantry = infantry + Math.floorDiv(territories.size(), 3);
-//        }
-//        boolean fight = true;
-//        if (fight) {
-//            Player winner = temp1.Attack(temp2, temp3); //temp1 will be of type Territory and it is the territory they're attacking FROM
-//            if (winner.getPlayerName().equals(this.playerName)) { //temp2 is the territory which they are attacking (it is also type Territory)
-//                conquered++; // temp3 is the int number of troops being sent in
-//            } else {
-//                conquered = conquered;
-//            }
-//            for (int i = 0; i < conquered; i++) {
-//                fakeDeck.selectCard().addCard(i);
-//            }
-//        } else {
-//            return;
-//        }
-//    }
+
+    public String toString(){
+        String s = "";
+        for(int i = 0; i<getTerritories().size(); i++){
+            s = s + getTerritories().get(i).getTerritoryName() +
+                    " - " + getTerritories().get(i).getTotalTroops() + "\n";
+        }
+        return s;
+    }
 }
