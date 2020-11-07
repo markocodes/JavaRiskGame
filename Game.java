@@ -1,34 +1,36 @@
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
+ *
  * Implements the game of risk
- * @author Mmedara Josiah and Tami A
- * @version 1.0
+ *
  */
-public class Game{
-
+public class Game extends Observable
+{
     private Board board;
     private Deck deck;
     private Player activePlayer;
-    private Parser parser;
     private Dice dice;
-    private Scanner reader;
     private Random random;
+    private Territory selectedTerritory;
 
-    private boolean deployPhase;
+    private boolean load;
     private boolean deployed;
-    private static boolean correctPlayersNumber;
 
     private int activePlayerIndex;
-    private int playerCount;
     private int attacksWon;
     private int noOfPlayers;
     private int r;
+    private int attackerLosses;
+    private int defenderLosses;
+
+    private int[] attackerDiceRollResults;
+    private int[] defenderDiceRollResults;
 
     private ArrayList<Player> players;
     private ArrayList<String> playerNames;
+    private ArrayList<Territory> territoriesList;
+    private ArrayList<Territory> continentTerritoriesList;
 
     /**
      *This is the constructor for the RiskModel object.
@@ -38,68 +40,34 @@ public class Game{
 
     /**
      * Initialize the game
-     * @param playerNames is an ArrayList of the player names.
      **/
-    public void init(ArrayList<String> playerNames) {
-        dice = new Dice();
+    public boolean init(ArrayList<String> playerNames) {
+        load = false;
         board = new Board();
 
-        reader = new Scanner(System.in);
         deployed = false;
-        deployPhase = false;
+        load = false;
 
         players = new ArrayList<>();
-        parser = new Parser();
 
-        playerCount = 0;
+        noOfPlayers = 0;
         activePlayerIndex = -1;
 
-        this.playerNames = playerNames;
+
         System.out.println("Filling up the deck...");
         deck = new Deck(board.getAllTerritories());
+        this.playerNames = playerNames;
+        createPlayer();
+        autoDeploy();
 
+        return true;
     }
 
     /**
      * Starts the game and prints out welcome messages.
      **/
     public void startGame() {
-        ArrayList<String> playerNamess = new ArrayList<>();
-        correctPlayersNumber = false;
-        int playerCount = 0;
-        //request and store number of players
-        Scanner playerNumber = new Scanner(System.in);
-        System.out.println("Welcome to Risk: Global Domination \n" +
-                "How many players(2-6) are playing?");
-        while (correctPlayersNumber == false)
-        {
-            /*if((playerNumber.nextInt()) instanceof int){
-                //don't allow strings through
-            }*/
-            playerCount = playerNumber.nextInt();
-            if (playerCount > 1 && playerCount < 7)
-            {
-                setNoOfPlayers(playerCount);
-                correctPlayersNumber = true;
-            }
-            else
-            {
-                System.out.println("This game is designed for 2-6 players\n" +
-                        "How many players(2-6) are playing?");
-            }
-        }
-
-        //request and store player names in arrayList
-        for(int i = 0; i<playerCount; i++){
-            Scanner pName = new Scanner(System.in);
-            System.out.println("Player " + (i+1) + " - Type in your name.");
-            playerNamess.add(pName.nextLine());
-        }
-        init(playerNamess);
-        createPlayer();
-        autoDeploy();
-        System.out.println("Here is the order of turns:");
-        //print statement telling players possible command and what each does
+        System.out.println("Player turns:");
         for (int i = 0; i < players.size(); i++) {
             System.out.println((i + 1) + ": " + players.get(i).getPlayerName());
         }
@@ -112,8 +80,15 @@ public class Game{
      */
     public void createPlayer(){
         System.out.println("Preparing players...");
-        for (int i = 0; i < playerNames.size(); i++) {
-            players.add(new Player(50 - (playerNames.size() * 5), playerNames.get(i)));
+        if(playerNames.size()==2){
+            for (int i = 0; i < playerNames.size(); i++) {
+                players.add(new Player(50, playerNames.get(i)));
+            }
+        }
+        else {
+            for (int i = 0; i < playerNames.size(); i++) {
+                players.add(new Player(50 - (playerNames.size() * 5), playerNames.get(i)));
+            }
         }
     }
 
@@ -123,6 +98,18 @@ public class Game{
      **/
     public void setNoOfPlayers(int noOfPlayers) {
         this.noOfPlayers = noOfPlayers;
+    }
+
+    public int getNoOfPlayers(){
+        return noOfPlayers;
+    }
+
+    public ArrayList<String> getPlayerNames(){
+        return playerNames;
+    }
+
+    public ArrayList<Player> getPlayers(){
+        return players;
     }
 
     /**
@@ -139,25 +126,31 @@ public class Game{
 
         for(int i = 0; i<holdTerritories.length; i++){
             r = random.nextInt((holdTerritories.length - i));
-            if(players.size() == 2) {player = players.get(i/21);}
-            else if(players.size() == 3) {player = players.get(i/14);}
-            else if(players.size() == 4) {player = players.get(i/12);}
-            else if(players.size() == 5) {player = players.get(i/10);}
-            else if(players.size() == 6) {player = players.get(i/7);}
+            if(players.size() == 2) player = players.get(i/21);
+            else if(players.size() == 3) player = players.get(i/14);
+            else if(players.size() == 4) player = players.get(i/11);
+            else if(players.size() == 5) player = players.get(i/9);
+            else if(players.size() == 6) player = players.get(i/7);
 
             if(player.getTotalTroops()>0)
             {
                 Territory territory = holdTerritories[r];
+
+                int a = 0;
                 //number of armies deployed per country depends on number of armies left
-                int a = 1 + random.nextInt((player.getTotalTroops() / 5) + 1);
+                if(players.size() == 2) {a = 1 + random.nextInt((player.getTotalTroops() / 7) + 1);}
+                else if(players.size() == 3) {a = 1 + random.nextInt((player.getTotalTroops() / 5) + 1);}
+                else if(players.size() == 4) {a = 1 + random.nextInt((player.getTotalTroops() / 4) + 1);}
+                else if(players.size() == 5) {a = 1 + random.nextInt((player.getTotalTroops() / 4) + 1);}
+                else if(players.size() == 6) {a = 1 + random.nextInt((player.getTotalTroops() / 3) + 1);}
+
                 territory.setTerritoryOccupant(player);
                 player.addTerritories(territory);
                 player.sendInfantry(territory, a);
                 System.out.println(player.getPlayerName() + " now has " + territory.getTotalTroops() + " troops deployed in " +
                         territory.getTerritoryName());
-                player.removeInfantry(a);
 
-                //move already allocated country to the end
+                //move already allocated territory to the end
                 for (int j = r; j < holdTerritories.length - 1; j++)
                 {
                     holdTerritories[j] = holdTerritories[j+1];
@@ -204,249 +197,115 @@ public class Game{
                 {
                     activePlayer.addInfantry(activePlayer.getTerritories().size() / 3);
                 }
+                for(int i=0; i<board.getAllContinents().length; i++){
+                    if(activePlayer.getTerritories().containsAll(board.getAllContinents()[i].getIncludedTerritories())){
+                        activePlayer.addInfantry(board.getAllContinents()[i].getBonusTroops());
+                        System.out.println(activePlayer.getPlayerName() + " has gained " + board.getAllContinents()[i].getBonusTroops() +
+                                "bonus troops for controlling " + board.getAllContinents()[i].getName() + ".");
+                    }
+                }
                 System.out.println("It is now " + activePlayer.getPlayerName() +
                         "'s turn\nYou have " + activePlayer.getTotalTroops() + " troops left.");
+                notifyAllObservers();
             }
         }
     }
 
     /**
-     * processes different commands from the user
-     * @param command is the command put in by the user
-     * @return true is user wishes to quit
+     * attacker attacks defender
+     * @param attacker is the attacking territory
+     * @param defender is the territory being attacked
+     * @param numberOfAttackerDiceRolls how many times attacker will roll the dice
+     * @param numberOfDefenderDiceRolls how many times defender will roll the dice
      */
-    public boolean processCommand(Command command){
-        boolean quit = false;
+    public void attack(Territory attacker, Territory defender,
+                       int numberOfAttackerDiceRolls, int numberOfDefenderDiceRolls){
+        //stops player from attacking his territory
+        if(attacker.getTerritoryOccupant()!=defender.getTerritoryOccupant()){
+            //defender must be adjacent to attacker
+            if(Arrays.asList(attacker.getAdjacencies()).contains(defender)){
+                //if defending territory is not emnpty
+                if(defender.getTotalTroops()>0) {
+                    System.out.println("\n" + attacker.getTerritoryName() + " is about to attack " + defender.getTerritoryName() + ".....");
+                    dice = new Dice();
+                    attackerLosses = 0;
+                    defenderLosses = 0;
 
-        String commandWord = command.getFirstWord();
-        String secondWord = command.getSecondWord();
+                    //roll results are ordered from highest (0) to lowest
+                    attackerDiceRollResults = dice.rollDice(numberOfAttackerDiceRolls);
+                    System.out.println(activePlayer.getPlayerName() + " has rolled the dice " +
+                            numberOfAttackerDiceRolls + " times.");
+                    defenderDiceRollResults = dice.rollDice(numberOfDefenderDiceRolls);
+                    System.out.println(defender.getTerritoryOccupant().getPlayerName() +
+                            " has rolled the dice " + numberOfDefenderDiceRolls + " times.");
 
-        if(!command.isUnknown())
-        {
-            if (commandWord.equals("state"))
-            {
-                printState();
-            } else if (commandWord.equals("pass"))
-            {
-                nextPlayer();
-            } else if (commandWord.equals("quit"))
-            {
-                quit = quit(command);
-            } else if (commandWord.equals("adjacent"))
-            {
-                adjacent(command);
-            }
-            else if (commandWord.equals("attack")){
-                processAttackRequest(command);
-            }
-            else if (commandWord.equals("help")){
-                help();
-            }
-        }
-        else
-        {
-            System.out.println("This is a serious game. Please input a correct command");
-        }
-        return quit;
-    }
+                    //compare highest results
+                    if (attackerDiceRollResults[0] > defenderDiceRollResults[0]) defenderLosses++;
+                    else if (attackerDiceRollResults[0] < defenderDiceRollResults[0]) attackerLosses++;
 
-    /**
-     * processes the quit command
-     * @param command is the quit command being processed
-     * @return true is user says quit
-     */
-    public boolean quit(Command command)
-    {
-        if(command.hasSecondWord())
-        {
-            System.out.println("Quit what?");
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-
-    /**
-     * Processes the attack from command
-     * @param command is the attack from command being processed
-     */
-    public void adjacent(Command command)
-    {
-        String thirdWord = command.getThirdWord();
-        String fourthWord = command.getFourthWord();
-
-        if (thirdWord != null && fourthWord == null)
-        {
-            if (board.isTerritory(thirdWord))
-            {
-                Territory territory = board.getTerritory(thirdWord);
-                System.out.println("Attack:");
-                for (int i = 0; i < territory.getAdjacencies().length; i++)
-                {
-                    System.out.println(territory.getAdjacencies()[i].getTerritoryName());
-                }
-                System.out.println("From " + territory + "\n");
-            } else if (thirdWord != null && fourthWord != null)
-            {
-                String completeWord = thirdWord + " " + fourthWord;
-                if (board.isTerritory(completeWord))
-                {
-                    Territory territory = board.getTerritory(completeWord);
-                    System.out.println("Attack:");
-                    for (int i = 0; i < territory.getAdjacencies().length; i++)
-                    {
-                        System.out.println(territory.getAdjacencies()[i].getTerritoryName());
+                    //compare second highest results if both attacker and defender have
+                    if (numberOfAttackerDiceRolls > 1 && numberOfDefenderDiceRolls > 1) {
+                        if (attackerDiceRollResults[1] > defenderDiceRollResults[1]) defenderLosses++;
+                        else if (attackerDiceRollResults[1] < defenderDiceRollResults[1]) attackerLosses++;
                     }
-                    System.out.println("From " + territory + "\n");
-                }
-            }
-        }
-    }
 
-    /**
-     * Executes the attack command
-     * @param command command entered by user
-     */
-    public void processAttackRequest (Command command){
-        //ask user to type in "attack countryA from countryB"
-        String secondWord = command.getSecondWord();
-        String thirdWord = command.getThirdWord();
-        String fourthWord = command.getFourthWord();
-        String fifthWord = command.getFifthWord();
-        String sixthWord = command.getSixthWord();
+                    //Summarize battle
+                    System.out.println("\n<<<<<<<<<<<<<<<BATTLE REPORT>>>>>>>>>>>>>>>");
+                    attacker.removeInfantry(attackerLosses);
+                    if (attackerLosses == 1) System.out.println(attacker.getTerritoryName() + " has just lost " +
+                            attackerLosses + " troop.");
+                    else System.out.println(attacker.getTerritoryName() + " has just lost " +
+                            attackerLosses + " troops.");
 
-        int rollNo;
-        System.out.print("How many troops would you like to send in? > ");
-        rollNo = reader.nextInt();
+                    defender.removeInfantry(defenderLosses);
+                    if (defenderLosses == 1) System.out.println(defender.getTerritoryName() + " has just lost " +
+                            defenderLosses + " troop.\n");
+                    else System.out.println(defender.getTerritoryName() + " has just lost " +
+                            defenderLosses + " troops.\n");
+                    notifyAllObservers();
 
-        if (thirdWord.equals("from"))
-        {
-            //if input is - "attack CountryA from CountryB"
-            //wordIndex         1       2      3      4
-            if (command.hasFourthWord())
-            {
-                if (!command.hasFifthWord())
-                {
-                    if (!command.hasSixthWord())
-                    {
-                        if (board.isTerritory(secondWord))
-                        {
-                            if(board.isTerritory(fourthWord))
-                            {
-                                Territory attacker = board.getTerritory(fourthWord);
-                                Territory defender = board.getTerritory(secondWord);
-                                System.out.println(attacker.getTerritoryOccupant().getPlayerName() + "You are now attacking " +
-                                        secondWord + " from " + fourthWord);
-                                attacker.Attack(defender, rollNo);
-                            }
+                    //if defender has lost all its troops
+                    if (defender.getTotalTroops() < 1) {
+                        //add defender to attacker occupant's list of territories
+                        System.out.println(attacker.getTerritoryOccupant().getPlayerName() +
+                                " has just defeated " + defender.getTerritoryOccupant().getPlayerName() +
+                                " in " + defender + " and now occupies the territory.\n");
+                        defender.getTerritoryOccupant().removeTerritories(defender);
+                        attacker.getTerritoryOccupant().addTerritories(defender);
+
+                        //if defender has lost all countries, eliminate player from game
+                        if (defender.getTerritoryOccupant().getTerritories().size() == 0) {
+                            System.out.println(defender.getTerritoryOccupant().getPlayerName() +
+                                    " has lost all his territories and has been eliminated from the game\n");
+                            players.remove(defender.getTerritoryOccupant());
                         }
+
+                        //move one troop from attacker to defender
+                        defender.setTerritoryOccupant(attacker.getTerritoryOccupant());
+                        attacker.removeInfantry(1);
+                        defender.addInfantry(1);
+                        notifyAllObservers();
                     }
                 }
-            }
+                //if defending territory has no troop
+                else{
+                    System.out.println(attacker.getTerritoryOccupant().getPlayerName() +
+                            " now occupies " + defender.getTerritoryName());
+                    attacker.getTerritoryOccupant().addTerritories(defender);
 
-            //if input is - "attack CountryA from CountryB1 CountryB2"
-            //eg -          "attack Egypt from New Zealand"
-            //wordIndex         1     2     3   4     5
-            else if (command.hasFourthWord())
-            {
-                if(command.hasFifthWord())
-                {
-                    if(!command.hasSixthWord())
-                    {
-                        String completeFourthWord = fourthWord + " " + fifthWord;
-                        if (board.isTerritory(secondWord)){
-                            if(board.isTerritory(completeFourthWord))
-                            {
-                                Territory attacker = board.getTerritory(completeFourthWord);
-                                Territory defender = board.getTerritory(secondWord);
-                                attacker.Attack(defender, rollNo);
-                                System.out.println(attacker.getTerritoryOccupant().getPlayerName() + " is now attacking " +
-                                        secondWord + " from " + completeFourthWord);
-                            }
-                        }
-                    }
+                    //move one troop from attacker to defender
+                    defender.setTerritoryOccupant(attacker.getTerritoryOccupant());
+                    attacker.removeInfantry(1);
+                    defender.addInfantry(1);
+                    notifyAllObservers();
                 }
             }
-
-            //if country names are wrong
-            else
-            {
-                help();
+            else{
+                System.out.println(attacker.getTerritoryName() + " is not adjacent to " + defender.getTerritoryName() + "\n");
             }
         }
-
-        if (fourthWord.equals("from"))
-        {
-            //if input is - "attack CountryA1 CountryA2 from CountryB"
-            //eg -          "attack New Zealand from Egypt"
-            //wordIndex         1    2     3      4    5
-            if (command.hasSecondWord())
-            {
-                if(command.hasThirdWord())
-                {
-                    if (command.hasFifthWord())
-                    {
-                        if (!command.hasSixthWord())
-                        {
-                            String completeSecondWord = secondWord + " " + thirdWord;
-                            if (board.isTerritory(completeSecondWord))
-                            {
-                                if (board.isTerritory(fifthWord))
-                                {
-                                    Territory attacker = board.getTerritory(fifthWord);
-                                    Territory defender = board.getTerritory(completeSecondWord);
-                                    attacker.Attack(defender, rollNo);
-                                    System.out.println("You are now attacking " + completeSecondWord + " from " + fifthWord);
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-            //if input is - "attack CountryA1 CountryA2 from CountryB1 CountryB2"
-            //eg -          "attack New Zealand from North Korea"
-            //wordIndex         1    2     3      4    5     6
-            else if(command.hasSecondWord())
-            {
-                if(command.hasThirdWord())
-                {
-                    if (command.hasFifthWord())
-                    {
-                        if (command.hasSixthWord())
-                        {
-                            String completeSecondWord = secondWord + " " + thirdWord;
-                            String completeFifthWord = fifthWord + " " + sixthWord;
-                            if (board.isTerritory(completeSecondWord))
-                            {
-                                if (board.isTerritory(completeFifthWord))
-                                {
-                                    Territory attacker = board.getTerritory(completeFifthWord);
-                                    Territory defender = board.getTerritory(completeSecondWord);
-                                    attacker.Attack(defender, rollNo);
-                                    System.out.println("You are now attacking " + completeSecondWord + " from " + completeFifthWord);
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
-            else
-            {
-                help();
-            }
-        }
-    }
-
-    /**
-     * prints the state of the game
-     */
-    public void printState () {
-        for (int i = 0; i < board.getAllTerritories().length; i++)
-        {
-            System.out.println(board.getAllTerritories()[i].toString());
+        else{
+            System.out.println(activePlayer.getPlayerName() + ", you cannot attack your own territory\n");
         }
     }
 
@@ -468,16 +327,191 @@ public class Game{
                 "> help - Prints this help statement anytime during the game\n");
     }
 
-    /**
-     * causes the game to begin playing
-     */
-    public void play () {
-        startGame();
-        boolean finished = false;
-        while (!finished)
-        { Command command = parser.getCommand();
-            finished = processCommand(command);
+    public ArrayList<Territory> getListOfPlayerTerritories(int n) {
+        territoriesList = new ArrayList<>();
+        if(n==1){
+            for (int i = 0; i < players.get(0).getTerritories().size(); i++)
+            {
+                territoriesList.add(players.get(0).getTerritories().get(i));
+            }
         }
-        System.out.println("Thank you for playing. Good bye.");
+        else if(n==2){
+            for (int i = 0; i < players.get(1).getTerritories().size(); i++)
+            {
+                territoriesList.add(players.get(1).getTerritories().get(i));
+            }
+        }
+        else if(n==3){
+            for (int i = 0; i < players.get(2).getTerritories().size(); i++)
+            {
+                territoriesList.add(players.get(2).getTerritories().get(i));
+            }
+        }
+        else if(n==4){
+            for (int i = 0; i < players.get(3).getTerritories().size(); i++)
+            {
+                territoriesList.add(players.get(3).getTerritories().get(i));
+            }
+        }
+        else if(n==5){
+            for (int i = 0; i < players.get(4).getTerritories().size(); i++)
+            {
+                territoriesList.add(players.get(4).getTerritories().get(i));
+            }
+        }
+        else if(n==6){
+            for (int i = 0; i < players.get(5).getTerritories().size(); i++)
+            {
+                territoriesList.add(players.get(5).getTerritories().get(i));
+            }
+        }
+        return territoriesList;
+    }
+
+    /**
+     * get list of continents
+     * @return list of continents
+     */
+    public ArrayList<Territory> getListOfContinentTerritories(int n){
+        continentTerritoriesList = new ArrayList<>();
+        if(n==1){
+            for (int i = 0; i < board.getAllContinents()[0].getIncludedTerritories().size(); i++)
+            {
+                continentTerritoriesList.add(board.getAllContinents()[0].getIncludedTerritories().get(i));
+            }
+        }
+        else if(n==2){
+            for (int i = 0; i < board.getAllContinents()[1].getIncludedTerritories().size(); i++)
+            {
+                continentTerritoriesList.add(board.getAllContinents()[1].getIncludedTerritories().get(i));
+            }
+        }
+        else if(n==3){
+            for (int i = 0; i < board.getAllContinents()[2].getIncludedTerritories().size(); i++)
+            {
+                continentTerritoriesList.add(board.getAllContinents()[2].getIncludedTerritories().get(i));
+            }
+        }
+        else if(n==4){
+            for (int i = 0; i < board.getAllContinents()[3].getIncludedTerritories().size(); i++)
+            {
+                continentTerritoriesList.add(board.getAllContinents()[3].getIncludedTerritories().get(i));
+            }
+        }
+        else if(n==5){
+            for (int i = 0; i < board.getAllContinents()[4].getIncludedTerritories().size(); i++)
+            {
+                continentTerritoriesList.add(board.getAllContinents()[4].getIncludedTerritories().get(i));
+            }
+        }
+        else if(n==6){
+            for (int i = 0; i < board.getAllContinents()[5].getIncludedTerritories().size(); i++)
+            {
+                continentTerritoriesList.add(board.getAllContinents()[5].getIncludedTerritories().get(i));
+            }
+        }
+        return continentTerritoriesList;
+    }
+
+    public ArrayList<Territory> getListOfAdjacentsOfSelectedTerritory() {
+        territoriesList = new ArrayList<>();
+        if(selectedTerritory!=null)
+        {
+            for (int i = 0; i < selectedTerritory.getAdjacencies().length; i++)
+            {
+                territoriesList.add(selectedTerritory.getAdjacencies()[i]);
+            }
+        }
+        return territoriesList;
+    }
+
+    /**
+     * set country selection for all players and adjacent
+     * @param territory
+     */
+    public void setPlayerTerritorySelection(Territory territory, int n) {
+        if(n==1)
+        {
+            selectedTerritory = territory;
+            setChanged();
+            notifyObservers("adjacent");
+            setChanged();
+            notifyObservers("player1");
+        }
+        else if(n==2)
+        {
+            selectedTerritory = territory;
+            setChanged();
+            notifyObservers("adjacent");
+            setChanged();
+            notifyObservers("player2");
+        }
+        else if(n==3){
+            selectedTerritory = territory;
+            setChanged();
+            notifyObservers("adjacent");
+            setChanged();
+            notifyObservers("player3");
+        }
+        else if(n==4){
+            selectedTerritory = territory;
+            setChanged();
+            notifyObservers("adjacent");
+            setChanged();
+            notifyObservers("player4");
+        }
+        else if(n==5){
+            selectedTerritory = territory;
+            setChanged();
+            notifyObservers("adjacent");
+            setChanged();
+            notifyObservers("player5");
+        }
+        else if(n==6)
+        {
+            selectedTerritory = territory;
+            setChanged();
+            notifyObservers("adjacent");
+            setChanged();
+            notifyObservers("player6");
+        }
+        else if(n==0)
+        {
+            selectedTerritory = territory;
+        }
+    }
+
+
+    public int getActivePlayerIndex(){
+        return activePlayerIndex;
+    }
+
+    public void notifyAllObservers(){
+        setChanged();
+        notifyObservers("player1");
+        setChanged();
+        notifyObservers("player2");
+        setChanged();
+        notifyObservers("player3");
+        setChanged();
+        notifyObservers("player4");
+        setChanged();
+        notifyObservers("player5");
+        setChanged();
+        notifyObservers("player6");
+        setChanged();
+        notifyObservers("africa");
+        setChanged();
+        notifyObservers("asia");
+        setChanged();
+        notifyObservers("australia");
+        setChanged();
+        notifyObservers("europe");
+        setChanged();
+        notifyObservers("northAmerica");
+        setChanged();
+        notifyObservers("southAmerica");
+        setChanged();
+        notifyObservers("adjacent");
     }
 }
