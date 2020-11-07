@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.Arrays;
 import java.util.List;
 
@@ -6,7 +7,8 @@ import java.util.List;
  * @author Marko M
  * @version 1.1.0
  */
-public class Territory {
+public class Territory extends DefaultListModel
+{
 
     private String territoryName;
     private Territory[] adjacencies;
@@ -32,89 +34,6 @@ public class Territory {
         dice = new Dice();
     }
 
-    /**
-     * Method to execute attack on another adjacent territory
-     * @param territory the territory to attack
-     */
-    public Player Attack(Territory territory, int attackerTroops){
-        System.out.println("++++++++++Launching Attack on " + territory.getTerritoryName() + "+++++++++++");
-        int attackerPoints = 0;
-        int defenderPoints = 0;
-
-        int defenderTroops = territory.getTotalTroops();
-
-        List<Territory> terrList = Arrays.asList(this.adjacencies);
-
-        // Check if territory to be attacked is adjacent to current territory.
-        if(terrList.contains(territory)){
-
-            // Check if the attacker is the current occupier of the territory they wish to attack.
-            if(!this.territoryOccupant.getPlayerName().equals(territory.getTerritoryOccupant().getPlayerName())) {
-                if (attackerTroops < 4 && attackerTroops > 0) {
-
-                    int[] attackerRolls = dice.rollDice(attackerTroops);
-                    int[] defenderRolls = dice.rollDice(defenderTroops);
-
-                    // Compare dice and allocate points (Scenario 1)
-                    if (attackerRolls.length >= defenderRolls.length) {
-                        for (int i = 0; i < defenderRolls.length; i++) {
-                            if (attackerRolls[i] > defenderRolls[i]) {
-                                attackerPoints += 1;
-                                System.out.println("Attacker's points increased by 1: " + attackerPoints);
-                            } else if (attackerRolls[i] <= defenderRolls[i]) {
-                                defenderPoints += 1;
-                                System.out.println("Defender's points increased by 1: " + defenderPoints);
-                            }
-                        }
-                        System.out.println("Determining winner...");
-
-                        // Determine winner
-                        Player winner;
-                        if (attackerPoints > defenderPoints) {
-                            winner = this.territoryOccupant;
-                        } else {
-                            winner = territory.getTerritoryOccupant();
-                        }
-                        System.out.println(winner.getPlayerName() + " has won this attack");
-                        return winner;
-
-                    }
-                    // Compare dice and allocate points (Scenario 2)
-                    else if (attackerRolls.length < defenderRolls.length) {
-                        for (int i = 0; i < attackerRolls.length; i++) {
-                            if (attackerRolls[i] > defenderRolls[i]) {
-                                attackerPoints += 1;
-                                System.out.println("Attacker's points increased by 1: " + attackerPoints);
-                            } else if (attackerRolls[i] <= defenderRolls[i]) {
-                                defenderPoints += 1;
-                                System.out.println("Defender's points increased by 1: " + defenderPoints);
-                            }
-                        }
-                        System.out.println("Determining winner...");
-                        // Determine winner
-                        Player winner;
-                        if (attackerPoints > defenderPoints) {
-                            winner = this.territoryOccupant;
-                        } else {
-                            winner = territory.getTerritoryOccupant();
-                        }
-                        System.out.println(winner.getPlayerName() + " has won this attack");
-                        return winner;
-                    }
-                }else{
-                    System.out.println("Please pick a number of troops between 1 and 3.");
-                    return null;
-                }
-            }else{
-                System.out.println("This territory belongs to the attacker. Cannot attack already occupied territory.");
-                return null;
-            }
-        }else{
-            System.out.println("You cannot attack this territory. Please pick an adjacent territory.");
-            return null;
-        }
-        return null;
-    }
 
     /**
      * Add arrray of ajdacencies to the Territory object.
@@ -130,8 +49,19 @@ public class Territory {
 
     public void addInfantry(int amount){
         infantry += amount;
+        if(amount==1) System.out.println(territoryOccupant.getPlayerName() + " has added " + amount + " troop to " + territoryName + ".");
+        else{
+            System.out.println(territoryOccupant.getPlayerName() + " has added " + amount + " troops to " + territoryName + ".");
+        }
     }
 
+    public void removeInfantry(int amount){
+        infantry -= amount;
+        if(amount==1) System.out.println(territoryOccupant.getPlayerName() + " has lost " + amount + " troop in " + territoryName + ".");
+        else{
+            System.out.println(territoryOccupant.getPlayerName() + " has lost " + amount + " troops in " + territoryName + ".");
+        }
+    }
 
     /* Getters and Setters */
 
@@ -164,9 +94,6 @@ public class Territory {
      * prints the state of the Territory
      */
     public String toString(){
-        if(this.getTerritoryOccupant() != null){
-            return this.getTerritoryOccupant().getPlayerName() + " occupies " + this.getTerritoryName() + " with " + this.getTotalTroops() + " troops.";
-        }
-        return this.getTerritoryName() + " is not occupied.";
+        return this.getTerritoryName() + " - " + this.getTotalTroops();
     }
 }
