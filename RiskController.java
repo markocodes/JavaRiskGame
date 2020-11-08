@@ -50,3 +50,73 @@ public class RiskController implements ActionListener {
         }
     }
 }
+
+/**
+ * This class models the panel that asks for number of players
+ * @author Tamilore Odunlami
+ * @version 1.0
+ */
+class NumberOfPlayersController implements ActionListener{
+    private Game model;
+    private NumberOfPlayersDialog view;
+    private PlayerNamesDialog playerNamesDialog;
+
+    /**
+     * constructs number of players controller
+     * @param model is Game class
+     * @param view is NumberOfPlayersDialog class
+     */
+    public NumberOfPlayersController(Game model, NumberOfPlayersDialog view){
+        System.out.println("NumberOfPlayersController has loaded++++++++++");
+        this.model = model;
+        this.view = view;
+    }
+
+    /**
+     * displays player names dialog box
+     */
+    public void displayPlayerNamesDialog(){
+        System.out.println("PlayerNamesDialog is loading----------");
+        playerNamesDialog = new PlayerNamesDialog(view, true, model.getNoOfPlayers());
+        playerNamesDialog.addActionListeners(new PlayerNamesController(model, playerNamesDialog));
+        playerNamesDialog.setVisible(true);
+    }
+
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e event
+     */
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        String command = e.getActionCommand();
+
+        if(command.equals("twoPlayersButton")){
+            model.setNoOfPlayers(2);
+            displayPlayerNamesDialog();
+        }
+        else if(command.equals("threePlayersButton")){
+            model.setNoOfPlayers(3);
+            displayPlayerNamesDialog();
+        }
+        else if(command.equals("fourPlayersButton")){
+            model.setNoOfPlayers(4);
+            displayPlayerNamesDialog();
+        }
+        else if(command.equals("fivePlayersButton")){
+            model.setNoOfPlayers(5);
+            displayPlayerNamesDialog();
+        }
+        else if(command.equals("sixPlayersButton")){
+            model.setNoOfPlayers(6);
+            displayPlayerNamesDialog();
+        }
+        else if(command.equals("backButton")){
+            view.dispose();
+        }
+        else{
+            System.out.println("Error: " + command + " command is invalid!");
+        }
+    }
+}
