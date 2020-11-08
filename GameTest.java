@@ -1,14 +1,14 @@
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class GameTest {
+    Game testGame;
+    ArrayList<String> playerNames;
 
     @org.junit.Before
     public void setUp() throws Exception {
-        Game testGame = new Game();
-    }
-
-    // Example method signature
-    @org.junit.Test
-    public void startGame() {
+        testGame = new Game();
+        playerNames = new ArrayList<>();
     }
 }
