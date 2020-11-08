@@ -268,7 +268,6 @@ public class Game extends Observable
                         else System.out.println(defender.getTerritoryName() + " has just lost " +
                                 defenderLosses + " troops.\n");
                         notifyAllObservers();
-                        hasAttacked = true;
 
                         //if defender has lost all its troops
                         if (defender.getTotalTroops() < 1) {
@@ -308,7 +307,6 @@ public class Game extends Observable
                     attacker.removeInfantry(1);
                     defender.addInfantry(1);
                     notifyAllObservers();
-                    hasAttacked = true;
                 }
             }
             else{
@@ -318,6 +316,7 @@ public class Game extends Observable
         else{
             System.out.println(activePlayer.getPlayerName() + ", you cannot attack your own territory\n");
         }
+        hasAttacked = true;
     }
 
     /**
