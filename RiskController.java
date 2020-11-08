@@ -337,3 +337,33 @@ class PlayerListController implements ListSelectionListener{
         }
     }
 }
+/**
+ *  Implements the controller for the list of adjacent territories
+ * @author Tamilore Odunlami
+ * @version 1.0
+ */
+class AdjacentListController implements ListSelectionListener{
+    private Game model;
+    private BoardView view;
+
+    public AdjacentListController(Game model, BoardView view){
+        this.model = model;
+        this.view = view;
+    }
+
+    /**
+     * Called whenever the value of the selection changes.
+     * @param e the event that characterizes the change.
+     */
+    @Override
+    public void valueChanged(ListSelectionEvent e)
+    {
+        if (!e.getValueIsAdjusting()) {
+            if (view.getIndexOfSelectedPlayerTerritory(0) == -1) {
+            }
+            else {
+                model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(0), 0);
+            }
+        }
+    }
+}
