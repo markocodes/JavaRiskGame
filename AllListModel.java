@@ -12,7 +12,7 @@ public class AllListModel extends DefaultListModel implements Observer {
     private Game model;
 
     /**
-     * This constructs the list Model
+     * This constructs the list Model.
      * @param model is the game object
      * @param type is the name of the object
      */
