@@ -60,5 +60,94 @@ public class RiskView extends JFrame{
     public void addActionListeners(ActionListener e){
         newGameButton.addActionListener(e);
         quitButton.addActionListener(e);
+    }  
+}
+
+
+/** 
+ * sets up the menu that asks for number of players
+ * @author Tamilore Odunlami
+ * @version 1.0
+ */
+class NumberOfPlayersDialog extends JDialog{
+    private JPanel numberOfPlayers;
+    private JLabel numberOfPlayersQuestion;
+    private JButton twoPlayersButton, threePlayersButton, fourPlayersButton,
+            fivePlayersButton, sixPlayersButton, backButton;
+    private String twoPlayersButtonCommand = "twoPlayersButton";
+    private String threePlayersButtonCommand = "threePlayersButton";
+    private String fourPlayersButtonCommand = "fourPlayersButton";
+    private String fivePlayersButtonCommand= "fivePlayersButton";
+    private String sixPlayersButtonCommand = "sixPlayersButton";
+    private String backButtonCommand = "backButton";
+
+    public NumberOfPlayersDialog(RiskView parent, boolean modality){
+        super(parent, modality);
+
+
+        add(numberOfPlayers());
+        setTitle("Risk");
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        pack();
+    }
+
+    /** 
+     * initialize, setup and return numberOfPlayers panel
+     * @return numberOfPlayers panel
+     */
+    public JPanel numberOfPlayers(){
+        //initialize panel with grid layout
+        numberOfPlayers = new JPanel();
+        numberOfPlayers.setLayout(new FlowLayout());
+
+        //initialize and add label to panel
+        numberOfPlayersQuestion = new JLabel("How many players?");
+        numberOfPlayers.add(numberOfPlayersQuestion);
+
+        //initialize and add buttons with colour to panel
+        twoPlayersButton = new JButton("Two");
+        threePlayersButton = new JButton("Three");
+        fourPlayersButton = new JButton("Four");
+        fivePlayersButton = new JButton("Five");
+        sixPlayersButton = new JButton("Six");
+        backButton = new JButton("Back");
+        setActionCommand();
+
+        numberOfPlayers.add(twoPlayersButton);
+        numberOfPlayers.add(threePlayersButton);
+        numberOfPlayers.add(fourPlayersButton);
+        numberOfPlayers.add(fivePlayersButton);
+        numberOfPlayers.add(sixPlayersButton);
+        numberOfPlayers.add(backButton);
+
+        return numberOfPlayers;
+    }
+
+    /**
+     * sets action command on elements
+     */
+    public void setActionCommand(){
+        twoPlayersButton.setActionCommand(twoPlayersButtonCommand);
+        threePlayersButton.setActionCommand(threePlayersButtonCommand);
+        fourPlayersButton.setActionCommand(fourPlayersButtonCommand);
+        fivePlayersButton.setActionCommand(fivePlayersButtonCommand);
+        sixPlayersButton.setActionCommand(sixPlayersButtonCommand);
+        backButton.setActionCommand(backButtonCommand);
+    }
+
+    /**
+     * add action listeners
+     * @param e event
+     */
+    public void addActionListeners(ActionListener e){
+        twoPlayersButton.addActionListener(e);
+        threePlayersButton.addActionListener(e);
+        fourPlayersButton.addActionListener(e);
+        fivePlayersButton.addActionListener(e);
+        sixPlayersButton.addActionListener(e);
+        backButton.addActionListener(e);
     }
 }
+
