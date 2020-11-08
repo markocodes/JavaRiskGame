@@ -261,7 +261,7 @@ public class GameTest {
             assertTrue(soldiersPlaced > 25);
         }
     }
-
+    
     @Test
     public void autoDeploy5Players(){
         playerNames.add("George");

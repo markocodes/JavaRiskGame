@@ -537,4 +537,12 @@ public class Game extends Observable
     public Board getBoard(){
         return board;
     }
+
+    public Player getActivePlayer() {
+        return activePlayer;
+    }
+
+    public boolean isDeployed() {
+        return deployed;
+    }
 }
