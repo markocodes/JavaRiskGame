@@ -16,6 +16,7 @@ public class Game extends Observable
 
     private boolean load;
     private boolean deployed;
+    private boolean hasAttacked;
 
     private int activePlayerIndex;
     private int attacksWon;
@@ -47,6 +48,7 @@ public class Game extends Observable
 
         deployed = false;
         load = false;
+        hasAttacked = false;
 
         players = new ArrayList<>();
 
@@ -80,7 +82,7 @@ public class Game extends Observable
      */
     public void createPlayer(){
         System.out.println("Preparing players...");
-        if(playerNames.size()==2){
+        if(playerNames.size()<3){
             for (int i = 0; i < playerNames.size(); i++) {
                 players.add(new Player(50, playerNames.get(i)));
             }
@@ -90,6 +92,7 @@ public class Game extends Observable
                 players.add(new Player(50 - (playerNames.size() * 5), playerNames.get(i)));
             }
         }
+        this.noOfPlayers = players.size();
     }
 
     /**
@@ -224,9 +227,9 @@ public class Game extends Observable
         if(attacker.getTerritoryOccupant()!=defender.getTerritoryOccupant()){
             //defender must be adjacent to attacker
             if(Arrays.asList(attacker.getAdjacencies()).contains(defender)){
-                //if defending territory is not emnpty
+                //if defending territory is not empty
                 if(defender.getTotalTroops()>0) {
-                    System.out.println("\n" + attacker.getTerritoryName() + " is about to attack " + defender.getTerritoryName() + ".....");
+                    System.out.println("\n" + attacker.getTerritoryName() + " is about to attack " + defender.getTerritoryName());
                     dice = new Dice();
                     attackerLosses = 0;
                     defenderLosses = 0;
@@ -307,6 +310,7 @@ public class Game extends Observable
         else{
             System.out.println(activePlayer.getPlayerName() + ", you cannot attack your own territory\n");
         }
+        hasAttacked = true;
     }
 
     /**
@@ -486,6 +490,10 @@ public class Game extends Observable
         return activePlayerIndex;
     }
 
+    public boolean getHasAttacked(){
+        return hasAttacked;
+    }
+
     public void notifyAllObservers(){
         setChanged();
         notifyObservers("player1");
@@ -513,5 +521,9 @@ public class Game extends Observable
         notifyObservers("southAmerica");
         setChanged();
         notifyObservers("adjacent");
+    }
+
+    public Board getBoard(){
+        return board;
     }
 }
