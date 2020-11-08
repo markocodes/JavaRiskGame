@@ -191,3 +191,74 @@ class PlayerNamesController implements ActionListener{
         }
     }
 }
+
+/**
+ * sets up the Board View Controller
+ * @author Tamilore Odunlami & Mmedara Josiah
+ * @version 1.0
+ */
+class BoardViewController implements ActionListener{
+    private Game model;
+    private BoardView view;
+    private Territory attacker;
+    private PlayerListController player1;
+    private PlayerListController player2;
+
+    /**
+     * constructs the board view controller
+     * @param model is Game class
+     * @param view is BoardView class
+     */
+    public BoardViewController(Game model, BoardView view){
+        this.model = model;
+        this.view = view;
+        model.startGame();
+    }
+
+
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e
+     */
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        String command = e.getActionCommand();
+
+        if(command.equals("passButton")){
+            model.notifyAllObservers();
+            view.clearAllTextFields();
+            model.nextPlayer();
+        }
+
+        if(command.equals("helpButton")){
+            model.notifyAllObservers();
+            view.clearAllTextFields();
+            model.help();
+        }
+
+        if(command.equals("quitButton")){
+            System.exit(0);
+        }
+
+        if(command.equals("attackButton")){
+            Territory attacker = view.getSelectedTerritory();
+            Territory defender = view.getSelectedAdjacent();
+            int attackerDiceRolls = view.getNumberOfAttackerDiceRolls();
+            int defenderDiceRolls = view.getNumberOfDefenderDiceRolls();
+
+            if(attacker!=null && defender!=null && attackerDiceRolls>0 &&
+                    attackerDiceRolls<4 && defenderDiceRolls>0 && defenderDiceRolls<4){
+                model.attack(attacker, defender, attackerDiceRolls, defenderDiceRolls);
+            }
+            else{
+                System.out.println("Something is missing in before you attack\n" +
+                        "click on help to see what you missed in the 'Attack help section'\n");
+            }
+            model.notifyAllObservers();
+            view.clearAllTextFields();
+        }
+
+    }
+}
