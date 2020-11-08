@@ -253,8 +253,7 @@ class BoardViewController implements ActionListener{
                 model.attack(attacker, defender, attackerDiceRolls, defenderDiceRolls);
             }
             else{
-                System.out.println("Something is missing in before you attack\n" +
-                        "click on help to see what you missed in the 'Attack help section'\n");
+                System.out.println("\nYou don't seem ready to attack. Click help to see what you missed.\n");
             }
             model.notifyAllObservers();
             view.clearAllTextFields();
