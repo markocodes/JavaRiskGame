@@ -245,14 +245,4 @@ public class Board {
     }
 
     public Continent[] getAllContinents(){ return allContinents; }
-/*
-    public Territory getTerritory(String s){
-        for(int i=0; i<allTerritories.length; i++){
-            if(allTerritories[i].getTerritoryName().equals(s)){
-                return allTerritories[i];
-            }
-        }
-        System.out.println("No territory is named " + s);
-        return null;
-    }*/
 }
