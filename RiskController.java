@@ -262,3 +262,78 @@ class BoardViewController implements ActionListener{
 
     }
 }
+
+/**
+ * this class implements the controller for all player lists
+ */
+class PlayerListController implements ListSelectionListener{
+    private Game model;
+    private BoardView view;
+
+    /**
+     * constructs player list controller
+     * @param model is the game
+     * @param view is board view
+     */
+    public PlayerListController(Game model, BoardView view){
+        this.model = model;
+        this.view = view;
+    }
+
+    /**
+     * Called whenever the value of the selection changes.
+     * @param e the event that characterizes the change.
+     */
+    @Override
+    public void valueChanged(ListSelectionEvent e)
+    {
+        if(model.getActivePlayerIndex() == 0) {
+            if (!e.getValueIsAdjusting()) {
+                if (view.getIndexOfSelectedPlayerTerritory(1) == -1) {
+                } else {
+                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(1), 1);
+                }
+            }
+        }
+        else if(model.getActivePlayerIndex() == 1) {
+            if (!e.getValueIsAdjusting()) {
+                if (view.getIndexOfSelectedPlayerTerritory(2) == -1) {
+                } else {
+                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(2), 2);
+                }
+            }
+        }
+        else if(model.getActivePlayerIndex() == 2) {
+            if (!e.getValueIsAdjusting()) {
+                if (view.getIndexOfSelectedPlayerTerritory(3) == -1) {
+                } else {
+                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(3), 3);
+                }
+            }
+        }
+        else if(model.getActivePlayerIndex() == 3) {
+            if (!e.getValueIsAdjusting()) {
+                if (view.getIndexOfSelectedPlayerTerritory(4) == -1) {
+                } else {
+                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(4), 4);
+                }
+            }
+        }
+        else if(model.getActivePlayerIndex() == 4) {
+            if (!e.getValueIsAdjusting()) {
+                if (view.getIndexOfSelectedPlayerTerritory(5) == -1) {
+                } else {
+                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(5), 5);
+                }
+            }
+        }
+        else if(model.getActivePlayerIndex() == 5) {
+            if (!e.getValueIsAdjusting()) {
+                if (view.getIndexOfSelectedPlayerTerritory(6) == -1) {
+                } else {
+                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(6), 6);
+                }
+            }
+        }
+    }
+}
