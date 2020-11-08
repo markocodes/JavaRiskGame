@@ -120,3 +120,74 @@ class NumberOfPlayersController implements ActionListener{
         }
     }
 }
+
+/**
+ * This class models the panel that asks for players names
+ * @author Mmedara Josiah
+ * @version 1.0
+ */
+class PlayerNamesController implements ActionListener{
+    private Game model;
+    private PlayerNamesDialog view;
+    private ArrayList<String> playerNames;
+    private BoardView boardView;
+    private boolean load;
+
+    /**
+     * constructs player names controller
+     * @param model is Game class
+     * @param view is PlayerNamesDialog class
+     */
+    public PlayerNamesController(Game model, PlayerNamesDialog view){
+        System.out.println("PlayerNamesController has loaded++++++++++");
+        this.model = model;
+        this.view = view;
+    }
+
+    /**
+     * Invoked when an action occurs.
+     *
+     * @param e event
+     */
+    @Override
+    public void actionPerformed(ActionEvent e)
+    {
+        load = false;
+        String command = e.getActionCommand();
+        playerNames = new ArrayList<>();
+        if(command.equals("startGameButton")){
+            System.out.println("Retrieving player names----------");
+            playerNames.add(view.getPlayersNames(1));
+            playerNames.add(view.getPlayersNames(2));
+            if(model.getNoOfPlayers()>2){
+                playerNames.add(view.getPlayersNames(3));
+            }
+            if(model.getNoOfPlayers()>3){
+                playerNames.add(view.getPlayersNames(4));
+            }
+            if(model.getNoOfPlayers()>4){
+                playerNames.add(view.getPlayersNames(5));
+            }
+            if(model.getNoOfPlayers()>5){
+                playerNames.add(view.getPlayersNames(6));
+            }
+            System.out.println("The game is being prepared----------");
+            load = model.init(playerNames);
+            if(load){
+                System.out.println("All Preparations Complete++++++++++\n" +
+                        "Board is loading----------");
+                boardView = new BoardView(view, true, model);
+                boardView.addActionListeners(new BoardViewController(model, boardView));
+                boardView.addListSelectionListeners(new AdjacentListController(model, boardView));
+                boardView.addListSelectionListeners(new PlayerListController(model, boardView));
+                boardView.setVisible(true);
+            }
+        }
+        else if(command.equals("backButton")){
+            view.dispose();
+        }
+        else{
+            System.out.println("Error: " + command + " command is invalid!");
+        }
+    }
+}
