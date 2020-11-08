@@ -317,18 +317,22 @@ public class Game extends Observable
      * Prints instructions to the user
      */
     public void help(){
-        System.out.println("\n--You can input the following command words while playing:\n" +
-                "> state - Shows which player is in which territory and with how many troops\n" +
-                "> pass -  Gives up a player's turn and the next player can go\n" +
-                "> adjacent - Shows all the territories that can be attacked from each territory\n" +
-                "> attack TerritoryA from TerritoryB - Executes an attack on TerritoryA from TerritoryB\n" +
-                "  ^^^^^^^^^^^^^^^^ - You must be an occupant of TerritoryB ^^^^^^^^^^^^^^^^^^^^^^^\n" +
-                "                   - You must be not be an occupant of TerritoryA\n" +
-                "                   - TerritoryA must be adjacent to TerritoryB\n" +
-                "                   - Territory names must begin with a capital letters\n" +
-                "                   - (eg. Egypt, North America, New Guinea, Congo)\n" +
-                "> quit - Ends the game\n" +
-                "> help - Prints this help statement anytime during the game\n");
+        System.out.println("\nATTACK:\n" +
+                "In this order:\n" +
+                "1. Current player selects a territory to attack from - from his list of territories\n" +
+                "2. Current player selects a territory to attack - from the list of adjacent territories\n" +
+                "    (The selected adjacent territory must not belong to the current player)\n" +
+                "3. Current player inputs the amount of times he wishes to roll the dice - in the attacker roll\n    box\n" +
+                "    (This number must be either 1, 2 or 3)\n" +
+                "4. Player who owns the defending territory inputs the amount of times he wishes to roll the\n    dice - in the defender roll box\n" +
+                "    (This number must be either 1, 2 or 3)\n" +
+                "5. Current player clicks on the 'Attack' button to attack\n" +
+                "\nPASS:\n" +
+                "1. Current player clicks the 'Pass' button to pass his turn to the next player\n" +
+                "\nHELP:\n" +
+                "1. Click the 'Help' button to display instructions for the game\n" +
+                "\nQUIT:\n" +
+                "1. Click the 'Quit' button to end the game\n");
     }
 
     public ArrayList<Territory> getListOfPlayerTerritories(int n) {
