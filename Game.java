@@ -224,101 +224,103 @@ public class Game extends Observable
     public void attack(Territory attacker, Territory defender,
                        int numberOfAttackerDiceRolls, int numberOfDefenderDiceRolls){
         //stops player from attacking his territory
-        if(attacker.getTerritoryOccupant()!=defender.getTerritoryOccupant()){
-            //defender must be adjacent to attacker
-            if(Arrays.asList(attacker.getAdjacencies()).contains(defender)){
-                //if defending territory is not empty
-                if(defender.getTotalTroops()>0) {
-                    System.out.println("\n" + attacker.getTerritoryName() + " is about to attack " + defender.getTerritoryName());
-                    dice = new Dice();
-                    attackerLosses = 0;
-                    defenderLosses = 0;
+        if(attacker!=null && defender!=null) {
+            if (attacker.getTerritoryOccupant() != defender.getTerritoryOccupant()) {
+                //defender must be adjacent to attacker
+                if (Arrays.asList(attacker.getAdjacencies()).contains(defender)) {
+                    //if defending territory is not empty
+                    if (defender.getTotalTroops() > 0) {
+                        System.out.println("\n" + attacker.getTerritoryName() + " is about to attack " + defender.getTerritoryName());
+                        dice = new Dice();
+                        attackerLosses = 0;
+                        defenderLosses = 0;
 
-                    //roll results are ordered from highest (0) to lowest
-                    if (numberOfAttackerDiceRolls > 0 &&
-                            numberOfAttackerDiceRolls < 4 && numberOfDefenderDiceRolls > 0 && numberOfDefenderDiceRolls < 4) {
-                        attackerDiceRollResults = dice.rollDice(numberOfAttackerDiceRolls);
-                        System.out.println(activePlayer.getPlayerName() + " has rolled the dice " +
-                                numberOfAttackerDiceRolls + " times.");
-                        defenderDiceRollResults = dice.rollDice(numberOfDefenderDiceRolls);
-                        System.out.println(defender.getTerritoryOccupant().getPlayerName() +
-                                " has rolled the dice " + numberOfDefenderDiceRolls + " times.");
+                        //roll results are ordered from highest (0) to lowest
+                        if (numberOfAttackerDiceRolls > 0 &&
+                                numberOfAttackerDiceRolls < 4 && numberOfDefenderDiceRolls > 0 && numberOfDefenderDiceRolls < 4) {
+                            attackerDiceRollResults = dice.rollDice(numberOfAttackerDiceRolls);
+                            System.out.println(activePlayer.getPlayerName() + " has rolled the dice " +
+                                    numberOfAttackerDiceRolls + " times.");
+                            defenderDiceRollResults = dice.rollDice(numberOfDefenderDiceRolls);
+                            System.out.println(defender.getTerritoryOccupant().getPlayerName() +
+                                    " has rolled the dice " + numberOfDefenderDiceRolls + " times.");
 
-                        //compare highest results
-                        if (attackerDiceRollResults[0] > defenderDiceRollResults[0]) defenderLosses++;
-                        else if (attackerDiceRollResults[0] < defenderDiceRollResults[0]) attackerLosses++;
+                            //compare highest results
+                            if (attackerDiceRollResults[0] > defenderDiceRollResults[0]) defenderLosses++;
+                            else if (attackerDiceRollResults[0] < defenderDiceRollResults[0]) attackerLosses++;
 
-                        //compare second highest results if both attacker and defender have
-                        if (numberOfAttackerDiceRolls > 1 && numberOfDefenderDiceRolls > 1) {
-                            if (attackerDiceRollResults[1] > defenderDiceRollResults[1]) defenderLosses++;
-                            else if (attackerDiceRollResults[1] < defenderDiceRollResults[1]) attackerLosses++;
-                        }
-
-                        //Summarize battle
-                        System.out.println("\n<<<<<<<<<<<<<<<BATTLE REPORT>>>>>>>>>>>>>>>");
-                        attacker.removeInfantry(attackerLosses);
-                        if (attackerLosses == 1) System.out.println(attacker.getTerritoryName() + " has just lost " +
-                                attackerLosses + " troop.");
-                        else System.out.println(attacker.getTerritoryName() + " has just lost " +
-                                attackerLosses + " troops.");
-
-                        defender.removeInfantry(defenderLosses);
-                        if (defenderLosses == 1) System.out.println(defender.getTerritoryName() + " has just lost " +
-                                defenderLosses + " troop.\n");
-                        else System.out.println(defender.getTerritoryName() + " has just lost " +
-                                defenderLosses + " troops.\n");
-                        notifyAllObservers();
-
-                        //if defender has lost all its troops
-                        if (defender.getTotalTroops() < 1) {
-                            //add defender to attacker occupant's list of territories
-                            System.out.println(attacker.getTerritoryOccupant().getPlayerName() +
-                                    " has just defeated " + defender.getTerritoryOccupant().getPlayerName() +
-                                    " in " + defender + " and now occupies the territory.\n");
-                            defender.getTerritoryOccupant().removeTerritories(defender);
-                            attacker.getTerritoryOccupant().addTerritories(defender);
-
-                            //if defender has lost all countries, eliminate player from game
-                            if (defender.getTerritoryOccupant().getTerritories().size() == 0) {
-                                System.out.println(defender.getTerritoryOccupant().getPlayerName() +
-                                        " has lost all his territories and has been eliminated from the game\n");
-                                players.remove(defender.getTerritoryOccupant());
+                            //compare second highest results if both attacker and defender have
+                            if (numberOfAttackerDiceRolls > 1 && numberOfDefenderDiceRolls > 1) {
+                                if (attackerDiceRollResults[1] > defenderDiceRollResults[1]) defenderLosses++;
+                                else if (attackerDiceRollResults[1] < defenderDiceRollResults[1]) attackerLosses++;
                             }
 
-                            //move one troop from attacker to defender
-                            defender.setTerritoryOccupant(attacker.getTerritoryOccupant());
-                            attacker.removeInfantry(1);
-                            defender.addInfantry(1);
+                            //Summarize battle
+                            System.out.println("\n<<<<<<<<<<<<<<<BATTLE REPORT>>>>>>>>>>>>>>>");
+                            attacker.removeInfantry(attackerLosses);
+                            if (attackerLosses == 1)
+                                System.out.println(attacker.getTerritoryName() + " has just lost " +
+                                        attackerLosses + " troop.");
+                            else System.out.println(attacker.getTerritoryName() + " has just lost " +
+                                    attackerLosses + " troops.");
+
+                            defender.removeInfantry(defenderLosses);
+                            if (defenderLosses == 1)
+                                System.out.println(defender.getTerritoryName() + " has just lost " +
+                                        defenderLosses + " troop.\n");
+                            else System.out.println(defender.getTerritoryName() + " has just lost " +
+                                    defenderLosses + " troops.\n");
                             notifyAllObservers();
+                            hasAttacked = true;
+
+                            //if defender has lost all its troops
+                            if (defender.getTotalTroops() < 1) {
+                                //add defender to attacker occupant's list of territories
+                                System.out.println(attacker.getTerritoryOccupant().getPlayerName() +
+                                        " has just defeated " + defender.getTerritoryOccupant().getPlayerName() +
+                                        " in " + defender + " and now occupies the territory.\n");
+                                defender.getTerritoryOccupant().removeTerritories(defender);
+                                attacker.getTerritoryOccupant().addTerritories(defender);
+
+                                //if defender has lost all countries, eliminate player from game
+                                if (defender.getTerritoryOccupant().getTerritories().size() == 0) {
+                                    System.out.println(defender.getTerritoryOccupant().getPlayerName() +
+                                            " has lost all his territories and has been eliminated from the game\n");
+                                    players.remove(defender.getTerritoryOccupant());
+                                }
+
+                                //move one troop from attacker to defender
+                                defender.setTerritoryOccupant(attacker.getTerritoryOccupant());
+                                attacker.removeInfantry(1);
+                                defender.addInfantry(1);
+                                notifyAllObservers();
+                                hasAttacked = true;
+                            }
+                        } else {
+                            System.out.println("Cannot attack!! Dice roll number must be either 1, 2 or 3");
                         }
                     }
+                    //if defending territory has no troop
                     else {
-                        System.out.println("Cannot attack!! Dice roll number must be either 1, 2 or 3");
+                        System.out.println(attacker.getTerritoryOccupant().getPlayerName() +
+                                " now occupies " + defender.getTerritoryName());
+                        attacker.getTerritoryOccupant().addTerritories(defender);
+
+                        //move one troop from attacker to defender
+                        defender.setTerritoryOccupant(attacker.getTerritoryOccupant());
+                        attacker.removeInfantry(1);
+                        defender.addInfantry(1);
+                        notifyAllObservers();
+                        hasAttacked = true;
                     }
+                } else {
+                    System.out.println(attacker.getTerritoryName() + " is not adjacent to " + defender.getTerritoryName() + "\n");
                 }
-                //if defending territory has no troop
-                else{
-                    System.out.println(attacker.getTerritoryOccupant().getPlayerName() +
-                            " now occupies " + defender.getTerritoryName());
-                    attacker.getTerritoryOccupant().addTerritories(defender);
-
-                    //move one troop from attacker to defender
-                    defender.setTerritoryOccupant(attacker.getTerritoryOccupant());
-                    attacker.removeInfantry(1);
-                    defender.addInfantry(1);
-                    notifyAllObservers();
-                }
-            }
-            else{
-                System.out.println(attacker.getTerritoryName() + " is not adjacent to " + defender.getTerritoryName() + "\n");
+            } else {
+                System.out.println(activePlayer.getPlayerName() + ", you cannot attack your own territory\n");
             }
         }
-        else{
-            System.out.println(activePlayer.getPlayerName() + ", you cannot attack your own territory\n");
-        }
-        hasAttacked = true;
     }
-
     /**
      * Prints instructions to the user
      */
