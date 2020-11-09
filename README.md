@@ -35,11 +35,11 @@ Once the game is in play, you will be able to click the following commands durin
 
 ## Navigating the User Interface
 
--**Top Left**: The territories held by the player are dispalyed. Beside each territory is the amount of soldiers in that territory.
--**Bottom Left**: The command buttons, and the fields to enter attacker rolls and defender rolls are displayed.
--**Bottom Left, Beside Command Buttons**: Once a territory is selected from the list, that countries adjacnecies will appear here, and can be selected.
--**Middle Status Window**: Displays all the games messages such as who's turn it is, who won a battle, and if any errors occur. 
--**Right Side**: Displays the state of the entire board including all continents, their respective territories and amount of soldiers in each territory.
+- **Top Left**: The territories held by the player are dispalyed. Beside each territory is the amount of soldiers in that territory.
+- **Bottom Left**: The command buttons, and the fields to enter attacker rolls and defender rolls are displayed.
+- **Bottom Left, Beside Command Buttons**: Once a territory is selected from the list, that countries adjacnecies will appear here, and can be selected.
+- **Middle Status Window**: Displays all the games messages such as who's turn it is, who won a battle, and if any errors occur. 
+- **Right Side**: Displays the state of the entire board including all continents, their respective territories and amount of soldiers in each territory.
 
 
 ## Known bugs 
