@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 /**
  * This class implements all tests for the game logic and function
- * @author Marko M, Mack W
+ * @author Marko M, Mack W, Mmedara Josiah
  * @version 1.0
  */
 
@@ -87,18 +87,6 @@ public class GameTest {
         assertEquals("Adams", testGame.getPlayerNames().get(3));
         assertEquals("Thomas", testGame.getPlayerNames().get(4));
         assertEquals("Steve", testGame.getPlayerNames().get(5));
-    }
-
-    /* ***** CAN ATTACK TERRITORIES ***** */
-    @Test
-    public void attack() {
-        Board board = new Board();
-        playerNames.add("George");
-        playerNames.add("David");
-        testGame.init(playerNames);
-        testGame.startGame();
-        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*21)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*21)), 2, 2);
-        assertTrue(testGame.getHasAttacked());
     }
 
     /* **** CAN CREATE PLAYER OBJECTS **** */
@@ -258,7 +246,7 @@ public class GameTest {
             for (Territory t : p.getTerritories()){
                 soldiersPlaced +=  t.getTotalTroops();
             }
-            assertTrue(soldiersPlaced > 25);
+            assertTrue(soldiersPlaced > 20);
         }
     }
     
@@ -295,7 +283,7 @@ public class GameTest {
             for (Territory t : p.getTerritories()){
                 soldiersPlaced +=  t.getTotalTroops();
             }
-            assertTrue(soldiersPlaced > 18);
+            assertTrue(soldiersPlaced > 15);
         }
     }
 
@@ -366,5 +354,82 @@ public class GameTest {
         testGame.nextPlayer();
         testGame.nextPlayer();
         assertEquals(testGame.getActivePlayer().getPlayerName(), "Alex");
+    }
+
+    /* ***** CAN ATTACK TERRITORIES ***** */
+    @Test
+    public void attackTest() {
+        playerNames.add("George");
+        playerNames.add("David");
+        testGame.init(playerNames);
+        testGame.startGame();
+        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*18)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 2, 2);
+        assertTrue(testGame.getHasAttacked());
+    }
+
+    /* testing using number 4 as the attacker dice roll */
+    @Test
+    public void attackBadly1(){
+        playerNames.add("George");
+        playerNames.add("David");
+        testGame.init(playerNames);
+        testGame.startGame();
+        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*18)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 4, 2);
+        assertFalse(testGame.getHasAttacked());
+    }
+
+    /* testing using number 4 as the defender dice roll */
+    @Test
+    public void attackBadly2(){
+        playerNames.add("George");
+        playerNames.add("David");
+        testGame.init(playerNames);
+        testGame.startGame();
+        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*18)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 2, 4);
+        assertFalse(testGame.getHasAttacked());
+    }
+
+    /* testing using number 4 as the attacker and defender dice roll */
+    @Test
+    public void attackBadly3(){
+        playerNames.add("George");
+        playerNames.add("David");
+        testGame.init(playerNames);
+        testGame.startGame();
+        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*18)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 4, 4);
+        assertFalse(testGame.getHasAttacked());
+    }
+
+    /* test using null as one selected country */
+    @Test
+    public void attackBadly4(){
+        playerNames.add("George");
+        playerNames.add("David");
+        testGame.init(playerNames);
+        testGame.startGame();
+        testGame.attack(null, testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 2, 2);
+        assertFalse(testGame.getHasAttacked());
+    }
+
+    /* test using null as one selected country */
+    @Test
+    public void attackBadly5(){
+        playerNames.add("George");
+        playerNames.add("David");
+        testGame.init(playerNames);
+        testGame.startGame();
+        testGame.attack(testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), null, 2, 2);
+        assertFalse(testGame.getHasAttacked());
+    }
+
+    /* test using null as both selected country */
+    @Test
+    public void attackBadly6(){
+        playerNames.add("George");
+        playerNames.add("David");
+        testGame.init(playerNames);
+        testGame.startGame();
+        testGame.attack(null, null, 2, 2);
+        assertFalse(testGame.getHasAttacked());
     }
 }
