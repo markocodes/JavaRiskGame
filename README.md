@@ -45,8 +45,7 @@ Once the game is in play, you will be able to click the following commands durin
 ## Known bugs 
 
 - Unwanted frame appearing during game initation. 
-- Certain tests failing occasioanlly due to randomness of country/soldier distribution. When these tests are run multiple times, they will pass majority of the time, nonetheless. 
-
+- One attack test consistently failing. 
 These bugs will be addressed and fixed for the upcoming milsetone (3).
 
 ## Next Steps
