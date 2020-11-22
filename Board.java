@@ -31,6 +31,8 @@ public class Board {
 
     private final ArrayList<Territory> inAfrica, inAsia, inAustralia, inEurope, inNorthAmerica, inSouthAmerica;
 
+    private int unoccupied;
+
     /**
      * Board constructor to initialize all territory objects and set their adjacencies.
      */
@@ -238,6 +240,8 @@ public class Board {
         southAmerica = new Continent("South America", inSouthAmerica, 2);
 
         allContinents = new Continent[]{africa, asia, australia, europe, northAmerica, southAmerica};
+
+        unoccupied = 0;
     }
 
     public Territory[] getAllTerritories(){
@@ -245,4 +249,13 @@ public class Board {
     }
 
     public Continent[] getAllContinents(){ return allContinents; }
+
+    public int noOfUnoccupiedTerritories(){
+        for(Territory territory: allTerritories){
+            if(territory.getTerritoryOccupant()==null){
+                unoccupied++;
+            }
+        }
+        return unoccupied;
+    }
 }
