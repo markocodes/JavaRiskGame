@@ -49,17 +49,17 @@ public class Territory extends DefaultListModel
 
     public void addInfantry(int amount){
         infantry += amount;
-        if(amount==1) System.out.println(territoryOccupant.getPlayerName() + " has added " + amount + " troop to " + territoryName + ".");
+        if(amount==1) System.out.println(territoryName + " has gained " + amount + " troop");
         else{
-            System.out.println(territoryOccupant.getPlayerName() + " has added " + amount + " troops to " + territoryName + ".");
+            System.out.println(territoryName + " has gained " + amount + " troops");
         }
     }
 
     public void removeInfantry(int amount){
         infantry -= amount;
-        if(amount==1) System.out.println(territoryOccupant.getPlayerName() + " has lost " + amount + " troop in " + territoryName + ".");
+        if(amount==1) System.out.println(territoryName + " has lost " + amount + " troop");
         else{
-            System.out.println(territoryOccupant.getPlayerName() + " has lost " + amount + " troops in " + territoryName + ".");
+            System.out.println(territoryName + " has lost " + amount + " troops");
         }
     }
 
