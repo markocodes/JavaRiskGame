@@ -3,6 +3,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class models the first panel that opens when the game is run
@@ -130,6 +131,7 @@ class PlayerNamesController implements ActionListener{
     private Game model;
     private PlayerNamesDialog view;
     private ArrayList<String> playerNames;
+    private ArrayList<String> humanOrAI;
     private BoardView boardView;
     private boolean load;
 
@@ -155,24 +157,31 @@ class PlayerNamesController implements ActionListener{
         load = false;
         String command = e.getActionCommand();
         playerNames = new ArrayList<>();
+        humanOrAI = new ArrayList<>();
         if(command.equals("startGameButton")){
             System.out.println("Retrieving player names----------");
             playerNames.add(view.getPlayersNames(1));
             playerNames.add(view.getPlayersNames(2));
+            humanOrAI.add(view.getHumanOrAI(1));
+            humanOrAI.add(view.getHumanOrAI(2));
             if(model.getNoOfPlayers()>2){
                 playerNames.add(view.getPlayersNames(3));
+                humanOrAI.add(view.getHumanOrAI(3));
             }
             if(model.getNoOfPlayers()>3){
                 playerNames.add(view.getPlayersNames(4));
+                humanOrAI.add(view.getHumanOrAI(4));
             }
             if(model.getNoOfPlayers()>4){
                 playerNames.add(view.getPlayersNames(5));
+                humanOrAI.add(view.getHumanOrAI(5));
             }
             if(model.getNoOfPlayers()>5){
                 playerNames.add(view.getPlayersNames(6));
+                humanOrAI.add(view.getHumanOrAI(6));
             }
             System.out.println("The game is being prepared----------");
-            load = model.init(playerNames);
+            load = model.init(playerNames, humanOrAI);
             if(load){
                 System.out.println("All Preparations Complete++++++++++\n" +
                         "Board is loading----------");
@@ -200,9 +209,6 @@ class PlayerNamesController implements ActionListener{
 class BoardViewController implements ActionListener{
     private Game model;
     private BoardView view;
-    private Territory attacker;
-    private PlayerListController player1;
-    private PlayerListController player2;
 
     /**
      * constructs the board view controller
@@ -226,10 +232,43 @@ class BoardViewController implements ActionListener{
     {
         String command = e.getActionCommand();
 
+        if(command.equals("reinforceButton")){
+            Territory territory = view.getSelectedTerritory();
+            int troops = view.getReinforcementTextField();
+            if(territory!=null) model.reinforce(territory, troops);
+            view.clearAllTextFields();
+        }
+
+        if(command.equals("attackButton")){
+            Territory attacker = view.getSelectedTerritory();
+            Territory defender = view.getSelectedAdjacent();
+            int attackerDiceRolls = view.getNumberOfAttackerDiceRolls();
+            int defenderDiceRolls = view.getNumberOfDefenderDiceRolls();
+
+            if(attacker!=null && defender!=null && attackerDiceRolls>0 &&
+                    attackerDiceRolls<4 && defenderDiceRolls>0 && defenderDiceRolls<3){
+                model.attack(attacker, defender, attackerDiceRolls, defenderDiceRolls);
+            }
+            else{
+                System.out.println("\nYou don't seem ready to attack. Click help to see what you missed.\n");
+            }
+            //model.notifyAllObservers();
+            view.clearAllTextFields();
+        }
+
         if(command.equals("passButton")){
             model.notifyAllObservers();
             view.clearAllTextFields();
             model.nextPlayer();
+        }
+
+        if(command.equals("fortifyButton")){
+            Territory fortifyFrom = view.getSelectedTerritory();
+            Territory fortifyTo = view.getSelectedAdjacent();
+            int troops = view.getFortifyTextField();
+            if(fortifyFrom!=null && fortifyTo!=null && troops>0)
+                model.fortify(fortifyFrom, fortifyTo, troops);
+            view.clearAllTextFields();
         }
 
         if(command.equals("helpButton")){
@@ -242,22 +281,6 @@ class BoardViewController implements ActionListener{
             System.exit(0);
         }
 
-        if(command.equals("attackButton")){
-            Territory attacker = view.getSelectedTerritory();
-            Territory defender = view.getSelectedAdjacent();
-            int attackerDiceRolls = view.getNumberOfAttackerDiceRolls();
-            int defenderDiceRolls = view.getNumberOfDefenderDiceRolls();
-
-            if(attacker!=null && defender!=null && attackerDiceRolls>0 &&
-                    attackerDiceRolls<4 && defenderDiceRolls>0 && defenderDiceRolls<4){
-                model.attack(attacker, defender, attackerDiceRolls, defenderDiceRolls);
-            }
-            else{
-                System.out.println("\nYou don't seem ready to attack. Click help to see what you missed.\n");
-            }
-            model.notifyAllObservers();
-            view.clearAllTextFields();
-        }
 
     }
 }
