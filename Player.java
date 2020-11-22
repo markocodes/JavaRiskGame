@@ -14,14 +14,16 @@ public class Player
     private int cavalry;
     private String playerName;
     private ArrayList<Continent> continents;
+    private boolean AI;
 
-    public Player(int infantry, String name){
+    public Player(int infantry, String name, boolean AI){
         territories = new ArrayList<>();
         cards = new ArrayList<>();
         this.infantry = infantry;
         cavalry = 0;
         artillery = 0;
         this.playerName = name;
+        this.AI = AI;
     }
 
     /**
@@ -96,7 +98,7 @@ public class Player
      */
     public void removeTerritories(Territory territory){
         territories.remove(territory);
-        System.out.println(playerName + " has lost ownership of " + territory);
+        System.out.println(playerName + " has lost ownership of " + territory.getTerritoryName());
     }
 
     /**
@@ -127,6 +129,13 @@ public class Player
      */
     public String getPlayerName() {
         return playerName;
+    }
+
+    /**
+     * @return true is AI is true
+     */
+    public boolean getAI(){
+        return AI;
     }
 
     public String toString(){
