@@ -11,11 +11,13 @@ import static org.junit.Assert.*;
 public class GameTest {
     Game testGame;
     ArrayList<String> playerNames;
+    ArrayList<String> humanOrAi;
 
     @org.junit.Before
     public void setUp() {
         testGame = new Game();
         playerNames = new ArrayList<>();
+        humanOrAi = new ArrayList<>();
     }
 
     /* ***** CAN ADD PLAYERS ***** */
@@ -23,7 +25,9 @@ public class GameTest {
     public void add2PlayerNames(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals("George", testGame.getPlayerNames().get(0));
         assertEquals("David", testGame.getPlayerNames().get(1));
@@ -34,7 +38,10 @@ public class GameTest {
         playerNames.add("George");
         playerNames.add("David");
         playerNames.add("Mary");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals("George", testGame.getPlayerNames().get(0));
         assertEquals("David", testGame.getPlayerNames().get(1));
@@ -47,7 +54,11 @@ public class GameTest {
         playerNames.add("David");
         playerNames.add("Mary");
         playerNames.add("Adams");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals("George", testGame.getPlayerNames().get(0));
         assertEquals("David", testGame.getPlayerNames().get(1));
@@ -62,7 +73,12 @@ public class GameTest {
         playerNames.add("Mary");
         playerNames.add("Adams");
         playerNames.add("Thomas");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals("George", testGame.getPlayerNames().get(0));
         assertEquals("David", testGame.getPlayerNames().get(1));
@@ -79,7 +95,13 @@ public class GameTest {
         playerNames.add("Adams");
         playerNames.add("Thomas");
         playerNames.add("Steve");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals("George", testGame.getPlayerNames().get(0));
         assertEquals("David", testGame.getPlayerNames().get(1));
@@ -94,7 +116,9 @@ public class GameTest {
     public void create2Players() {
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals(2, testGame.getPlayers().size());
     }
@@ -104,7 +128,10 @@ public class GameTest {
         playerNames.add("George");
         playerNames.add("David");
         playerNames.add("Daniel");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals(3, testGame.getPlayers().size());
     }
@@ -115,7 +142,11 @@ public class GameTest {
         playerNames.add("David");
         playerNames.add("Daniel");
         playerNames.add("Alex");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals(4, testGame.getPlayers().size());
     }
@@ -127,7 +158,12 @@ public class GameTest {
         playerNames.add("Daniel");
         playerNames.add("Alex");
         playerNames.add("Jones");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals(5, testGame.getPlayers().size());
     }
@@ -140,7 +176,13 @@ public class GameTest {
         playerNames.add("Alex");
         playerNames.add("Jones");
         playerNames.add("James");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
         assertEquals(6, testGame.getPlayers().size());
     }
@@ -149,7 +191,9 @@ public class GameTest {
     public void autoDeploy2Players(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         assertTrue(testGame.isDeployed());
         testGame.startGame();
 
@@ -184,7 +228,10 @@ public class GameTest {
         playerNames.add("George");
         playerNames.add("David");
         playerNames.add("Daniel");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         assertTrue(testGame.isDeployed());
         testGame.startGame();
 
@@ -220,7 +267,11 @@ public class GameTest {
         playerNames.add("David");
         playerNames.add("Daniel");
         playerNames.add("Alex");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         assertTrue(testGame.isDeployed());
         testGame.startGame();
 
@@ -249,7 +300,7 @@ public class GameTest {
             assertTrue(soldiersPlaced > 1);
         }
     }
-    
+
     @Test
     public void autoDeploy5Players(){
         playerNames.add("George");
@@ -257,7 +308,12 @@ public class GameTest {
         playerNames.add("Daniel");
         playerNames.add("Alex");
         playerNames.add("Jones");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         assertTrue(testGame.isDeployed());
         testGame.startGame();
 
@@ -295,7 +351,13 @@ public class GameTest {
         playerNames.add("Alex");
         playerNames.add("Jones");
         playerNames.add("James");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         assertTrue(testGame.isDeployed());
         testGame.startGame();
 
@@ -330,7 +392,9 @@ public class GameTest {
     public void passPlayer2Players(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         assertTrue(testGame.isDeployed());
         testGame.startGame();
 
@@ -346,7 +410,13 @@ public class GameTest {
         playerNames.add("Alex");
         playerNames.add("Jones");
         playerNames.add("James");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         assertTrue(testGame.isDeployed());
         testGame.startGame();
 
@@ -361,9 +431,24 @@ public class GameTest {
     public void attackTest() {
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*18)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 2, 2);
+
+        Territory targetTerritory = null;
+        Territory originTerritory = null;
+        for(Territory t : testGame.getPlayers().get(0).getTerritories()){
+            for(Territory a : t.getAdjacencies()){
+                if(!testGame.getPlayers().get(0).getTerritories().contains(a)){
+                    targetTerritory = t;
+                    originTerritory = a;
+                }
+            }
+        }
+
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+        testGame.attack(originTerritory, targetTerritory, 1, 1);
         assertTrue(testGame.getHasAttacked());
     }
 
@@ -372,9 +457,23 @@ public class GameTest {
     public void attackBadly1(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*18)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 4, 2);
+        Territory targetTerritory = null;
+        Territory originTerritory = null;
+        for(Territory t : testGame.getPlayers().get(0).getTerritories()){
+            for(Territory a : t.getAdjacencies()){
+                if(!testGame.getPlayers().get(0).getTerritories().contains(a)){
+                    targetTerritory = t;
+                    originTerritory = a;
+                }
+            }
+        }
+
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+        testGame.attack(originTerritory, targetTerritory, 4, 2);
         assertFalse(testGame.getHasAttacked());
     }
 
@@ -383,53 +482,220 @@ public class GameTest {
     public void attackBadly2(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*18)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 2, 4);
+        Territory targetTerritory = null;
+        Territory originTerritory = null;
+        for(Territory t : testGame.getPlayers().get(0).getTerritories()){
+            for(Territory a : t.getAdjacencies()){
+                if(!testGame.getPlayers().get(0).getTerritories().contains(a)){
+                    targetTerritory = t;
+                    originTerritory = a;
+                }
+            }
+        }
+
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+        testGame.attack(originTerritory, targetTerritory, 2, 4);
         assertFalse(testGame.getHasAttacked());
     }
 
-    /* testing using number 4 as the attacker and defender dice roll */
+    
+    // ***** REINFORCE TESTS *****
     @Test
-    public void attackBadly3(){
+    public void reinforceGoodTerritory(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        testGame.attack(testGame.getPlayers().get(0).getTerritories().get((int)(Math.random()*18)), testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 4, 4);
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+        assertTrue(testGame.isCanAttack());
+        assertTrue(testGame.isCanFortify());
+    }
+
+    @Test
+    public void reinforceBadTerritory(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+        testGame.reinforce(testGame.getPlayers().get(1).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops()); // Using second players territory
+        assertFalse(testGame.isCanAttack());
+        assertFalse(testGame.isCanFortify());
+    }
+
+    @Test
+    public void reinforceLessSoldiers(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), 0);
+        assertFalse(testGame.isCanAttack());
+        assertFalse(testGame.isCanFortify());
+    }
+
+    @Test
+    public void reinforceMoreSoldiers(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), 200);
+        assertFalse(testGame.isCanAttack());
+        assertFalse(testGame.isCanFortify());
+    }
+
+    @Test
+    public void cannotSkipReinforceBad(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+        testGame.attack(testGame.getActivePlayer().getTerritories().get(0), testGame.getActivePlayer().getTerritories().get(0).getAdjacencies()[1], 1,1);  // Need to make it so defender territory is never owned by attacker
         assertFalse(testGame.getHasAttacked());
     }
 
-    /* test using null as one selected country */
     @Test
-    public void attackBadly4(){
+    public void cannotSkipReinforceGood(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        testGame.attack(null, testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), 2, 2);
-        assertFalse(testGame.getHasAttacked());
+        Territory targetTerritory = null;
+        Territory originTerritory = null;
+        for(Territory t : testGame.getPlayers().get(0).getTerritories()){
+            for(Territory a : t.getAdjacencies()){
+                if(!testGame.getPlayers().get(0).getTerritories().contains(a)){
+                    targetTerritory = t;
+                    originTerritory = a;
+                }
+            }
+        }
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+        testGame.attack(originTerritory, targetTerritory, 1, 1);
+        assertTrue(testGame.getHasAttacked());
     }
 
-    /* test using null as one selected country */
     @Test
-    public void attackBadly5(){
+    public void reinforceSuccessful(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        testGame.attack(testGame.getPlayers().get(1).getTerritories().get((int)(Math.random()*18)), null, 2, 2);
-        assertFalse(testGame.getHasAttacked());
+        int troopsMoved = testGame.getPlayers().get(0).getTotalTroops();
+        int troopsInTerritoryBefore = testGame.getPlayers().get(0).getTerritories().get(0).getTotalTroops();
+        int troopsHeldBefore = testGame.getPlayers().get(0).getTotalTroops();
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+
+        assertEquals(testGame.getPlayers().get(0).getTerritories().get(0).getTotalTroops(), troopsInTerritoryBefore + troopsMoved);
+        assertEquals(testGame.getPlayers().get(0).getTotalTroops(), troopsHeldBefore - troopsMoved);
     }
 
-    /* test using null as both selected country */
+    // ***** FORTIFY TESTS *****
     @Test
-    public void attackBadly6(){
+    public void fortifyGoodTerritory(){
         playerNames.add("George");
         playerNames.add("David");
-        testGame.init(playerNames);
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        testGame.attack(null, null, 2, 2);
-        assertFalse(testGame.getHasAttacked());
+
+        Territory targetTerritory = null;
+        Territory originTerritory = null;
+        for(Territory t : testGame.getPlayers().get(0).getTerritories()){
+            for(Territory a : t.getAdjacencies()){
+                if(testGame.getPlayers().get(0).getTerritories().contains(a)){
+                    targetTerritory = t;
+                    originTerritory = a;
+                }
+            }
+        }
+        int troopsInTargetBefore = targetTerritory.getTotalTroops();
+        int troopsInOriginBefore = originTerritory.getTotalTroops();
+        int troopsMoved = 1;
+
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+        testGame.fortify(originTerritory, targetTerritory, troopsMoved);
+
+        assertEquals(targetTerritory.getTotalTroops(), troopsInTargetBefore + troopsMoved);
+        assertEquals(originTerritory.getTotalTroops(), troopsInOriginBefore - troopsMoved);
+    }
+
+    @Test
+    public void fortifyBadTerritory(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+
+        Territory targetTerritory = null;
+        Territory originTerritory = null;
+        for(Territory t : testGame.getPlayers().get(0).getTerritories()){
+            for(Territory a : t.getAdjacencies()){
+                if(!testGame.getPlayers().get(0).getTerritories().contains(a)){
+                    targetTerritory = t;
+                    originTerritory = a;
+                }
+            }
+        }
+        int troopsInTargetBefore = targetTerritory.getTotalTroops();
+        int troopsInOriginBefore = originTerritory.getTotalTroops();
+        int troopsMoved = 1;
+
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+        testGame.fortify(originTerritory, targetTerritory, troopsMoved);
+
+        assertEquals(targetTerritory.getTotalTroops(), troopsInTargetBefore);
+        assertEquals(originTerritory.getTotalTroops(), troopsInOriginBefore);
+    }
+
+    @Test
+    public void fortifyBadSoldiers(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("Human");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+
+        Territory targetTerritory = null;
+        Territory originTerritory = null;
+        for(Territory t : testGame.getPlayers().get(0).getTerritories()){
+            for(Territory a : t.getAdjacencies()){
+                if(testGame.getPlayers().get(0).getTerritories().contains(a)){
+                    targetTerritory = t;
+                    originTerritory = a;
+                }
+            }
+        }
+        int troopsInTargetBefore = targetTerritory.getTotalTroops();
+        int troopsInOriginBefore = originTerritory.getTotalTroops();
+        int troopsMoved = 200;
+
+        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
+        testGame.fortify(originTerritory, targetTerritory, troopsMoved);
+
+        assertEquals(targetTerritory.getTotalTroops(), troopsInTargetBefore);
+        assertEquals(originTerritory.getTotalTroops(), troopsInOriginBefore);
     }
 }
