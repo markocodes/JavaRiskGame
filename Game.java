@@ -18,6 +18,7 @@ public class Game extends Observable
     private boolean deployed;
     private boolean hasAttacked;
     private boolean AI;
+    private boolean AIHasFortified;
     private boolean canReinforce;
     private boolean canAttack;
     private boolean canFortify;
@@ -59,6 +60,7 @@ public class Game extends Observable
         canAttack = false;
         canFortify = false;
         canReinforce = false;
+        AIHasFortified = false;
 
         players = new ArrayList<>();
 
@@ -240,22 +242,21 @@ public class Game extends Observable
                                 " bonus troops for controlling " + board.getAllContinents()[i].getName() + ".");
                     }
                 }
-                System.out.println("It is now " + activePlayer.getPlayerName() +
-                        "'s turn\nYou have " + activePlayer.getTotalTroops() + " troops left.\n");
+                System.out.println("It is now " + activePlayer.getPlayerName() + "'s turn\nYou have " + activePlayer.getTotalTroops() + " troops left");
 
                 if(AI){
                     System.out.println(activePlayer.getPlayerName() + " is AI");
                     AIGameplay();
-                    nextPlayer();
+                    if(!AIHasFortified) {
+                        nextPlayer();
+                    }
                 }
                 else {
                     canReinforce = true;
+                    notifyAllObservers();
                 }
-                notifyAllObservers();
             }
-            notifyAllObservers();
         }
-        notifyAllObservers();
     }
 
     /**
@@ -289,9 +290,9 @@ public class Game extends Observable
                 //70% chance of reoccurrence
                 r = random.nextInt(AISelectedTerritories.size());
                 reinforce(AISelectedTerritories.get(r), 0);
-                repeat = random.nextInt(9);
+                //repeat = random.nextInt(9);
             }
-            while(repeat>=3 && activePlayer.getTotalTroops()>0);
+            while(activePlayer.getTotalTroops()>0);
         }
 
         //AI attack
@@ -333,6 +334,7 @@ public class Game extends Observable
         while(repeat >= 5 && activePlayer.getTotalTroops() > 0);
 
         //AI fortify
+        int count = 0;
         AITargetTerritories = new ArrayList<>();
         for(int i=0; i<activePlayer.getTerritories().size(); i++){
             add1 = false;
@@ -364,7 +366,13 @@ public class Game extends Observable
             if(AISelectedTerritories.size()>0){
                 r2 = random.nextInt(AISelectedTerritories.size());
                 fortify(AISelectedTerritories.get(r2), AITargetTerritories.get(r1), 0);
+                count++;
             }
+        }
+
+        if(count<1){
+            AIHasFortified = true;
+            nextPlayer();
         }
     }
 
@@ -374,7 +382,7 @@ public class Game extends Observable
      */
     public void reinforce(Territory territory, int humanTroops){
         if(canReinforce || AI) {
-            System.out.println("\nREINFORCEMENT");
+            System.out.println("REINFORCEMENT");
             int troops;
             //if territory is empty or occupied by the active player
             if (territory.getTerritoryOccupant() == null || activePlayer.equals(territory.getTerritoryOccupant())) {
@@ -394,7 +402,7 @@ public class Game extends Observable
                         if (activePlayer.getTotalTroops() >= troops) {
                             activePlayer.sendInfantry(territory, troops);
                             notifyAllObservers();
-                            System.out.println(activePlayer.getPlayerName() + " has " + activePlayer.getTotalTroops() + " troops left.\n");
+                            System.out.println(activePlayer.getPlayerName() + " has " + activePlayer.getTotalTroops() + " troops left.");
                             if (activePlayer.getTotalTroops() < 1) {
                                 canAttack = true;
                                 canFortify = true;
@@ -404,6 +412,11 @@ public class Game extends Observable
                             System.out.println(activePlayer.getPlayerName() + ", you do not have enough troops to reinforce " +
                                     territory.getTerritoryName() + " with " + troops + " troops.\nYou have only " + activePlayer.getTotalTroops() + " troops");
                         }
+                        /*if(AI) {
+                            if (activePlayer.getTotalTroops() > 0) {
+                                reinforce();
+                            }
+                        }*/
                     } else {
                         System.out.println(activePlayer.getPlayerName() + ", you must reinforce with at least 1 player");
                     }
@@ -437,6 +450,7 @@ public class Game extends Observable
      */
     public void attack(Territory attacker, Territory defender,
                        int numberOfAttackerDiceRolls, int numberOfDefenderDiceRolls){
+        //defender can roll 2 dice only if he has at least 2 troops in his territory
         if(numberOfDefenderDiceRolls==2 && defender.getTotalTroops()<2){
             canAttack = false;
             System.out.println(defender.getTerritoryOccupant().getPlayerName() + ", you need at least 2 troops in " + defender.getTerritoryName() +
@@ -444,7 +458,7 @@ public class Game extends Observable
             return;
         }
         if(canAttack || AI) {
-            System.out.println("\nATTACK");
+            System.out.println("ATTACK");
             if (attacker != null && defender != null) {
                 //stops player from attacking his territory
                 if (attacker.getTerritoryOccupant() != defender.getTerritoryOccupant()) {
@@ -484,7 +498,7 @@ public class Game extends Observable
                                         }
 
                                         //Summarize battle
-                                        System.out.println("\n<<<<<<<<<<<<<<<BATTLE REPORT>>>>>>>>>>>>>>>");
+                                        System.out.println("<<<<<<<<<<<<<<<< BATTLE REPORT >>>>>>>>>>>>>>>>");
                                         attacker.removeInfantry(attackerLosses);
                                         defender.removeInfantry(defenderLosses);
                                         notifyAllObservers();
@@ -495,14 +509,14 @@ public class Game extends Observable
                                             //add defender to attacker occupant's list of territories
                                             System.out.println(attacker.getTerritoryOccupant().getPlayerName() +
                                                     " has just defeated " + defender.getTerritoryOccupant().getPlayerName() +
-                                                    " in " + defender.getTerritoryName() + " and now occupies the territory.\n");
+                                                    " in " + defender.getTerritoryName() + " and now occupies the territory");
                                             defender.getTerritoryOccupant().removeTerritories(defender);
                                             attacker.getTerritoryOccupant().addTerritories(defender);
 
                                             //if defender has lost all countries, eliminate player from game
                                             if (defender.getTerritoryOccupant().getTerritories().size() == 0) {
                                                 System.out.println(defender.getTerritoryOccupant().getPlayerName() +
-                                                        " has lost all his territories and has been eliminated from the game\n");
+                                                        " has lost all his territories and has been eliminated from the game");
                                                 players.remove(defender.getTerritoryOccupant());
                                             }
 
@@ -540,26 +554,21 @@ public class Game extends Observable
                         else{
                             System.out.println("You need at least 2 troops to attack from " + attacker.getTerritoryName());
                         }
-                        notifyAllObservers();
                     }
                     else {
-                        System.out.println(attacker.getTerritoryName() + " is not adjacent to " + defender.getTerritoryName() + "\n");
+                        System.out.println(attacker.getTerritoryName() + " is not adjacent to " + defender.getTerritoryName());
                     }
-                    notifyAllObservers();
                 } else {
-                    System.out.println(activePlayer.getPlayerName() + ", you cannot attack your own territory\n");
+                    System.out.println(activePlayer.getPlayerName() + ", you cannot attack your own territory");
                 }
-                notifyAllObservers();
             }
             else {
                 System.out.println("You have not selected both territories");
             }
-            notifyAllObservers();
         }
         else {
             System.out.println("You cannot attack at the moment. Click help for attacking information");
         }
-        notifyAllObservers();
     }
 
     /**
@@ -571,7 +580,7 @@ public class Game extends Observable
     public void fortify(Territory fortifyFrom, Territory fortifyTo, int humanTroops){
         int troops = 0;
         if(canFortify || AI){
-            System.out.println("\nFORTIFICATION");
+            System.out.println("FORTIFICATION");
             //player must own both territories
             if(activePlayer.equals(fortifyFrom.getTerritoryOccupant()) && activePlayer.equals(fortifyTo.getTerritoryOccupant())){
                 //both territories must be adjacent
@@ -589,94 +598,111 @@ public class Game extends Observable
                     }
 
                     //decrement troops in fortifyFrom and increment troops in fortifyTo
-                    if(fortifyFrom.getTotalTroops() >= troops){
-                        fortifyFrom.removeInfantry(troops);
-                        fortifyTo.addInfantry(troops);
-                        if(!AI){
-                            notifyAllObservers();
+                    if(fortifyFrom.getTotalTroops()>1) {
+                        if (fortifyFrom.getTotalTroops() >= troops) {
+                            fortifyFrom.removeInfantry(troops);
+                            fortifyTo.addInfantry(troops);
+
+                            if (!AI) {
+                                notifyAllObservers();
+                                nextPlayer();
+                            }/*
+                            else{
+                                AIHasFortified = true;
+                                nextPlayer();
+                            }*/
+                        } else {
+                            System.out.println("You do not have enough troops in " + fortifyFrom.getTerritoryName() + " to fortify " + fortifyTo.getTerritoryName() +
+                                    " with " + troops + "troops\n" + fortifyFrom.getTerritoryName() + " has only " + fortifyTo.getTotalTroops() + " troops");
                         }
-                        nextPlayer();
                     }
-                    else {
-                        System.out.println("You do not have enough troops in " + fortifyFrom.getTerritoryName() + " to fortify " + fortifyTo.getTerritoryName() +
-                                " with " + troops + "troops\n" + fortifyFrom.getTerritoryName() + " has only " + fortifyTo.getTotalTroops() + " troops");
+                    else{
+                        System.out.println("You can only fortify from a territory that has at least 2 troops");
                     }
-                    notifyAllObservers();
                 }
                 else{
                     System.out.println(fortifyFrom.getTerritoryName() + " is not adjacent to " + fortifyTo.getTerritoryName());
                 }
-                notifyAllObservers();
             }
             else{
                 System.out.println("You do not own both " + fortifyFrom.getTerritoryName() + " and " + fortifyTo.getTerritoryName());
             }
-            notifyAllObservers();
         }
         else{
             System.out.println("You cannot fortify right now");
         }
-        notifyAllObservers();
+        if(AI){
+            AIHasFortified = true;
+            nextPlayer();
+        }
     }
 
     /**
      * Prints instructions to the user
      */
     public void help(){
-        System.out.println("\nATTACK:\n" +
-                "In this order:\n" +
-                "1. Current player selects a territory to attack from - from his list of territories\n" +
-                "2. Current player selects a territory to attack - from the list of adjacent territories\n" +
-                "    (The selected adjacent territory must not belong to the current player)\n" +
-                "3. Current player inputs the amount of times he wishes to roll the dice - in the attacker roll\n    box\n" +
-                "    (This number must be either 1, 2 or 3)\n" +
-                "4. Player who owns the defending territory inputs the amount of times he wishes to roll the\n    dice - in the defender roll box\n" +
-                "    (This number must be either 1, 2 or 3)\n" +
-                "5. Current player clicks on the 'Attack' button to attack\n" +
-                "\nPASS:\n" +
-                "1. Current player clicks the 'Pass' button to pass his turn to the next player\n" +
-                "\nHELP:\n" +
-                "1. Click the 'Help' button to display instructions for the game\n" +
-                "\nQUIT:\n" +
-                "1. Click the 'Quit' button to end the game\n");
+        System.out.println(
+                "\nREINFORCE:\n" +
+                "1. Select a territory to reinforce\n" +
+                "2. Input number of troops\n" +
+                "3. Click the 'Reinforce' button\n" +
+                "4. You must reinforce till you have no troop left\n" +
+                "ATTACK:\n" +
+                "1. Select a territory to attack from\n" +
+                "2. Select an adjacent territory to attack\n" +
+                "3. Input number of dice to roll (1, 2, or 3)\n" +
+                "4. Defending player inputs number of dice to roll (1, 2)\n" +
+                "5. Click the 'Attack' button\n" +
+                "PASS:\n" +
+                "Click the 'Pass' button to pass turn to the next player at any time\n" +
+                "HELP:\n" +
+                "Click the 'Help' button to display instructions for the game\n" +
+                "QUIT:\n" +
+                "Click the 'Quit' button to end the game\n");
     }
 
     public ArrayList<Territory> getListOfPlayerTerritories(int n) {
         territoriesList = new ArrayList<>();
         if(n==1){
-            for (int i = 0; i < players.get(0).getTerritories().size(); i++)
-            {
-                territoriesList.add(players.get(0).getTerritories().get(i));
+            if(players.size()>0) {
+                for (int i = 0; i < players.get(0).getTerritories().size(); i++) {
+                    territoriesList.add(players.get(0).getTerritories().get(i));
+                }
             }
         }
         else if(n==2){
-            for (int i = 0; i < players.get(1).getTerritories().size(); i++)
-            {
-                territoriesList.add(players.get(1).getTerritories().get(i));
+            if(players.size()>1) {
+                for (int i = 0; i < players.get(1).getTerritories().size(); i++) {
+                    territoriesList.add(players.get(1).getTerritories().get(i));
+                }
             }
         }
         else if(n==3){
-            for (int i = 0; i < players.get(2).getTerritories().size(); i++)
-            {
-                territoriesList.add(players.get(2).getTerritories().get(i));
+            if(players.size()>2) {
+                for (int i = 0; i < players.get(2).getTerritories().size(); i++) {
+                    territoriesList.add(players.get(2).getTerritories().get(i));
+                }
             }
         }
         else if(n==4){
-            for (int i = 0; i < players.get(3).getTerritories().size(); i++)
-            {
-                territoriesList.add(players.get(3).getTerritories().get(i));
+            if(players.size()>3) {
+                for (int i = 0; i < players.get(3).getTerritories().size(); i++) {
+                    territoriesList.add(players.get(3).getTerritories().get(i));
+                }
             }
         }
         else if(n==5){
-            for (int i = 0; i < players.get(4).getTerritories().size(); i++)
-            {
-                territoriesList.add(players.get(4).getTerritories().get(i));
+            if(players.size()>4) {
+                for (int i = 0; i < players.get(4).getTerritories().size(); i++) {
+                    territoriesList.add(players.get(4).getTerritories().get(i));
+                }
             }
         }
         else if(n==6){
-            for (int i = 0; i < players.get(5).getTerritories().size(); i++)
-            {
-                territoriesList.add(players.get(5).getTerritories().get(i));
+            if(players.size()>5) {
+                for (int i = 0; i < players.get(5).getTerritories().size(); i++) {
+                    territoriesList.add(players.get(5).getTerritories().get(i));
+                }
             }
         }
         return territoriesList;
@@ -748,52 +774,52 @@ public class Game extends Observable
         {
             selectedTerritory = territory;
             setChanged();
-            notifyObservers("adjacent");
-            setChanged();
             notifyObservers("player1");
+            setChanged();
+            notifyObservers("adjacent");
         }
         else if(n==2)
         {
             selectedTerritory = territory;
             setChanged();
-            notifyObservers("adjacent");
-            setChanged();
             notifyObservers("player2");
+            setChanged();
+            notifyObservers("adjacent");
         }
         else if(n==3){
             selectedTerritory = territory;
             setChanged();
-            notifyObservers("adjacent");
-            setChanged();
             notifyObservers("player3");
+            setChanged();
+            notifyObservers("adjacent");
         }
         else if(n==4){
             selectedTerritory = territory;
             setChanged();
-            notifyObservers("adjacent");
-            setChanged();
             notifyObservers("player4");
+            setChanged();
+            notifyObservers("adjacent");
         }
         else if(n==5){
             selectedTerritory = territory;
             setChanged();
-            notifyObservers("adjacent");
-            setChanged();
             notifyObservers("player5");
+            setChanged();
+            notifyObservers("adjacent");
         }
         else if(n==6)
         {
             selectedTerritory = territory;
             setChanged();
-            notifyObservers("adjacent");
-            setChanged();
             notifyObservers("player6");
+            setChanged();
+            notifyObservers("adjacent");
         }
         else if(n==0)
         {
             selectedTerritory = territory;
             setChanged();
-            notifyObservers("player6");
+            notifyObservers("adjacent");
         }
     }
 
