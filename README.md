@@ -23,8 +23,7 @@ If running the JAR file:
 If you are not well versed in the rules of Risk, please refer to the 'Game Play' section of the following page:
 https://www.ultraboardgames.com/risk/game-rules.php
 
-Once the game is started, the Game UI will open and it will prompt you to enter any required game parameters.
-**IMPORTANT**: In the initial set-up UI, once you press 'New Game', select the amount of players, enter the player names, and press "Start Game", there will be a small frame that opens up within the current frame (In some cases it opens up in the top corners of your screen). Close this frame in order to proceed. This is a bug that will be investiagted further. 
+Once the game is started, the Game UI will open and it will prompt you to enter any required game parameters such as how many players in the game, player names, and if the players are human or AI.
 
 Once the game is in play, you will be able to click the following commands during your turn:
 
@@ -44,14 +43,8 @@ Once the game is in play, you will be able to click the following commands durin
 
 ## Known bugs 
 
-- Unwanted frame appearing during game initation. 
-- One attack test consistently failing. 
-These bugs will be addressed and fixed for the upcoming milsetone (3).
+- No currently known bugs. 
 
 ## Next Steps
-1. Resolving any unresolved bugs
-2. Implementing bonus army placement
-3. Implementing army movement between territories after attack
-4. Implementing AI players
-5. Implementing saving and loading features
-6. Added ability to load custom game maps
+1. Implementing saving and loading features
+2. Added ability to load custom game maps
