@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.*;
 
 /**
@@ -22,11 +23,18 @@ public class Game extends Observable
     private boolean canReinforce;
     private boolean canAttack;
     private boolean canFortify;
+    private boolean add;
+    private boolean add1;
+    private boolean add2;
 
     private int activePlayerIndex;
     private int attacksWon;
     private int noOfPlayers;
     private int r;
+    private int r1;
+    private int r2;
+    private int repeat;
+    private int count;
     private int attackerLosses;
     private int defenderLosses;
 
@@ -53,6 +61,7 @@ public class Game extends Observable
     public boolean init(ArrayList<String> playerNames, ArrayList<String> humanOrAI) {
         load = false;
         board = new Board();
+        random = new Random();
 
         deployed = false;
         load = false;
@@ -66,7 +75,11 @@ public class Game extends Observable
 
         noOfPlayers = 0;
         activePlayerIndex = -1;
-
+        r = 0;
+        r1 = 0;
+        r2 = 0;
+        repeat = 0;
+        count = 0;
 
         System.out.println("Filling up the deck...");
         deck = new Deck(board.getAllTerritories());
@@ -263,13 +276,12 @@ public class Game extends Observable
      * if next player is AI
      */
     public void AIGameplay(){
-        boolean add, add1, add2;
-        Random random = new Random();
-        int r = 0;
-        int r1 = 0;
-        int r2 = 0;
-        int repeat = 0;
+        AIReinforce();
+        AIAttack();
+        AIFortify();
+    }
 
+    public void AIReinforce(){
         //AI reinforcement
         AISelectedTerritories = new ArrayList<>();
         for(int i = 0; i<activePlayer.getTerritories().size(); i++){
@@ -294,7 +306,9 @@ public class Game extends Observable
             }
             while(activePlayer.getTotalTroops()>0);
         }
+    }
 
+    public void AIAttack(){
         //AI attack
         do{
             //50% chance of reoccurrence
@@ -332,9 +346,10 @@ public class Game extends Observable
             }
         }
         while(repeat >= 5 && activePlayer.getTotalTroops() > 0);
+    }
 
+    public void AIFortify(){
         //AI fortify
-        int count = 0;
         AITargetTerritories = new ArrayList<>();
         for(int i=0; i<activePlayer.getTerritories().size(); i++){
             add1 = false;
@@ -518,6 +533,12 @@ public class Game extends Observable
                                                 System.out.println(defender.getTerritoryOccupant().getPlayerName() +
                                                         " has lost all his territories and has been eliminated from the game");
                                                 players.remove(defender.getTerritoryOccupant());
+                                                noOfPlayers--;
+                                                if(players.size()<2){
+                                                    JOptionPane.showMessageDialog(null, players.get(0).getPlayerName() +
+                                                            " now occupies all territories and has won the game\nCONGRATULATIONS - " + players.get(0).getPlayerName());
+                                                    System.exit(0);
+                                                }
                                             }
 
                                             //move one troop from attacker to defender
@@ -599,18 +620,14 @@ public class Game extends Observable
 
                     //decrement troops in fortifyFrom and increment troops in fortifyTo
                     if(fortifyFrom.getTotalTroops()>1) {
-                        if (fortifyFrom.getTotalTroops() >= troops) {
+                        if (fortifyFrom.getTotalTroops() > troops) {
                             fortifyFrom.removeInfantry(troops);
                             fortifyTo.addInfantry(troops);
 
                             if (!AI) {
                                 notifyAllObservers();
                                 nextPlayer();
-                            }/*
-                            else{
-                                AIHasFortified = true;
-                                nextPlayer();
-                            }*/
+                            }
                         } else {
                             System.out.println("You do not have enough troops in " + fortifyFrom.getTerritoryName() + " to fortify " + fortifyTo.getTerritoryName() +
                                     " with " + troops + "troops\n" + fortifyFrom.getTerritoryName() + " has only " + fortifyTo.getTotalTroops() + " troops");
@@ -631,13 +648,17 @@ public class Game extends Observable
         else{
             System.out.println("You cannot fortify right now");
         }
+        if (!AI) {
+            notifyAllObservers();
+            nextPlayer();
+        }
         if(AI){
             AIHasFortified = true;
             nextPlayer();
         }
     }
 
-   /**
+    /**
      * Prints instructions to the user
      */
     public void help(){
@@ -877,10 +898,4 @@ public class Game extends Observable
     public boolean isDeployed() {
         return deployed;
     }
-
-    public Deck getDeck() { return deck; }
-
-    public boolean isCanAttack() { return canAttack; }
-
-    public boolean isCanFortify() { return canFortify; }
 }
