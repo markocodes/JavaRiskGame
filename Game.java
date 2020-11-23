@@ -302,7 +302,6 @@ public class Game extends Observable
                 //70% chance of reoccurrence
                 r = random.nextInt(AISelectedTerritories.size());
                 reinforce(AISelectedTerritories.get(r), 0);
-                //repeat = random.nextInt(9);
             }
             while(activePlayer.getTotalTroops()>0);
         }
@@ -897,5 +896,13 @@ public class Game extends Observable
 
     public boolean isDeployed() {
         return deployed;
+    }
+
+    public boolean isCanAttack() {
+        return canAttack;
+    }
+
+    public boolean isCanFortify() {
+        return canFortify;
     }
 }

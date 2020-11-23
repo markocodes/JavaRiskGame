@@ -698,4 +698,49 @@ public class GameTest {
         assertEquals(targetTerritory.getTotalTroops(), troopsInTargetBefore);
         assertEquals(originTerritory.getTotalTroops(), troopsInOriginBefore);
     }
+
+    @Test
+    public void createPlayerAI(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("AI");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        assertEquals(2, testGame.getPlayers().size());
+        assertTrue("George", testGame.getPlayers().get(0).getAI());
+        assertEquals("George", "George");
+    }
+
+    @Test
+    public void testAIReinforce(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("AI");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+        assertTrue(testGame.isAiHasReinforced());
+    }
+
+    @Test
+    public void testAIAttacked(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("AI");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+        assertTrue(testGame.isAiHasAttacked());
+    }
+
+    @Test
+    public void testAIFortified(){
+        playerNames.add("George");
+        playerNames.add("David");
+        humanOrAi.add("AI");
+        humanOrAi.add("Human");
+        testGame.init(playerNames, humanOrAi);
+        testGame.startGame();
+        assertTrue(testGame.isAiHasFortified());
+    }
 }
