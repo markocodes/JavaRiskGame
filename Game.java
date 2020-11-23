@@ -637,14 +637,14 @@ public class Game extends Observable
         }
     }
 
-    /**
+   /**
      * Prints instructions to the user
      */
     public void help(){
         System.out.println(
                 "\nREINFORCE:\n" +
                 "1. Select a territory to reinforce\n" +
-                "2. Input number of troops\n" +
+                "2. Input number of troops to send\n" +
                 "3. Click the 'Reinforce' button\n" +
                 "4. You must reinforce till you have no troop left\n" +
                 "ATTACK:\n" +
@@ -653,6 +653,11 @@ public class Game extends Observable
                 "3. Input number of dice to roll (1, 2, or 3)\n" +
                 "4. Defending player inputs number of dice to roll (1, 2)\n" +
                 "5. Click the 'Attack' button\n" +
+                "FORTIFY:\n" +
+                "1. Select a territory to fortify from\n" +
+                "2. Select an adjacent territory, that you own, to fortify\n" +
+                "3. Input number of troops to send\n" +
+                "4. Click the 'Fortify' button\n" +
                 "PASS:\n" +
                 "Click the 'Pass' button to pass turn to the next player at any time\n" +
                 "HELP:\n" +
