@@ -719,7 +719,7 @@ public class GameTest {
         humanOrAi.add("Human");
         testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        assertTrue(testGame.isAiHasReinforced());
+        assertTrue(testGame.isAIHasReinforced());
     }
 
     @Test
@@ -730,7 +730,7 @@ public class GameTest {
         humanOrAi.add("Human");
         testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        assertTrue(testGame.isAiHasAttacked());
+        assertTrue(testGame.isAIHasAttacked());
     }
 
     @Test
@@ -741,6 +741,6 @@ public class GameTest {
         humanOrAi.add("Human");
         testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        assertTrue(testGame.isAiHasFortified());
+        assertTrue(testGame.isAIHasFortified());
     }
 }
