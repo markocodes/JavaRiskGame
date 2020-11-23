@@ -1,7 +1,7 @@
 # JavaRiskGame
 Java implementation of the popular strategy game Risk
 
-**Authors:** Marko M, MacK W, Mmedara J, Tami A
+**Authors:** Marko M, MacK W, Mmedara J, Tami O
 
 2020-11-09
 
