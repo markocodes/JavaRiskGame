@@ -19,6 +19,8 @@ public class Game extends Observable
     private boolean deployed;
     private boolean hasAttacked;
     private boolean AI;
+    private boolean AIHasReinforced;
+    private boolean AIHasAttacked;
     private boolean AIHasFortified;
     private boolean canReinforce;
     private boolean canAttack;
@@ -69,6 +71,8 @@ public class Game extends Observable
         canAttack = false;
         canFortify = false;
         canReinforce = false;
+        AIHasReinforced = false;
+        AIHasAttacked = false;
         AIHasFortified = false;
 
         players = new ArrayList<>();
@@ -258,6 +262,9 @@ public class Game extends Observable
                 System.out.println("It is now " + activePlayer.getPlayerName() + "'s turn\nYou have " + activePlayer.getTotalTroops() + " troops left");
 
                 if(AI){
+                    AIHasReinforced = false;
+                    AIHasAttacked = false;
+                    //AIHasFortified = false;
                     System.out.println(activePlayer.getPlayerName() + " is AI");
                     AIGameplay();
                     if(!AIHasFortified) {
@@ -302,6 +309,7 @@ public class Game extends Observable
                 //70% chance of reoccurrence
                 r = random.nextInt(AISelectedTerritories.size());
                 reinforce(AISelectedTerritories.get(r), 0);
+                //repeat = random.nextInt(9);
             }
             while(activePlayer.getTotalTroops()>0);
         }
@@ -349,6 +357,7 @@ public class Game extends Observable
 
     public void AIFortify(){
         //AI fortify
+        count = 0;
         AITargetTerritories = new ArrayList<>();
         for(int i=0; i<activePlayer.getTerritories().size(); i++){
             add1 = false;
@@ -383,7 +392,6 @@ public class Game extends Observable
                 count++;
             }
         }
-
         if(count<1){
             AIHasFortified = true;
             nextPlayer();
@@ -443,9 +451,10 @@ public class Game extends Observable
                         nextPlayer();
                     }
                     notifyAllObservers();
-                } /*else {
-                    System.out.println("Error: There is something wrong with reinforcement");
-                }*/
+                }
+                if(AI){
+                    AIHasReinforced = true;
+                }
             } else {
                 System.out.println("You do not occupy " + territory.getTerritoryName());
             }
@@ -567,6 +576,9 @@ public class Game extends Observable
                                 defender.addInfantry(1);
                                 notifyAllObservers();
                                 hasAttacked = true;
+                            }
+                            if(AI){
+                                AIHasAttacked = true;
                             }
                             notifyAllObservers();
                             canReinforce = false;
@@ -797,48 +809,60 @@ public class Game extends Observable
     public void setPlayerTerritorySelection(Territory territory, int n) {
         if(n==1)
         {
-            selectedTerritory = territory;
-            setChanged();
-            notifyObservers("player1");
-            setChanged();
-            notifyObservers("adjacent");
+            if(players.size()>0) {
+                selectedTerritory = territory;
+                setChanged();
+                notifyObservers("player1");
+                setChanged();
+                notifyObservers("adjacent");
+            }
         }
         else if(n==2)
         {
-            selectedTerritory = territory;
-            setChanged();
-            notifyObservers("player2");
-            setChanged();
-            notifyObservers("adjacent");
+            if(players.size()>1) {
+                selectedTerritory = territory;
+                setChanged();
+                notifyObservers("player2");
+                setChanged();
+                notifyObservers("adjacent");
+            }
         }
         else if(n==3){
-            selectedTerritory = territory;
-            setChanged();
-            notifyObservers("player3");
-            setChanged();
-            notifyObservers("adjacent");
+            if(players.size()>2) {
+                selectedTerritory = territory;
+                setChanged();
+                notifyObservers("player3");
+                setChanged();
+                notifyObservers("adjacent");
+            }
         }
         else if(n==4){
-            selectedTerritory = territory;
-            setChanged();
-            notifyObservers("player4");
-            setChanged();
-            notifyObservers("adjacent");
+            if(players.size()>3) {
+                selectedTerritory = territory;
+                setChanged();
+                notifyObservers("player4");
+                setChanged();
+                notifyObservers("adjacent");
+            }
         }
         else if(n==5){
-            selectedTerritory = territory;
-            setChanged();
-            notifyObservers("player5");
-            setChanged();
-            notifyObservers("adjacent");
+            if(players.size()>4) {
+                selectedTerritory = territory;
+                setChanged();
+                notifyObservers("player5");
+                setChanged();
+                notifyObservers("adjacent");
+            }
         }
         else if(n==6)
         {
-            selectedTerritory = territory;
-            setChanged();
-            notifyObservers("player6");
-            setChanged();
-            notifyObservers("adjacent");
+            if(players.size()>5) {
+                selectedTerritory = territory;
+                setChanged();
+                notifyObservers("player6");
+                setChanged();
+                notifyObservers("adjacent");
+            }
         }
         else if(n==0)
         {
@@ -858,18 +882,30 @@ public class Game extends Observable
     }
 
     public void notifyAllObservers(){
-        setChanged();
-        notifyObservers("player1");
-        setChanged();
-        notifyObservers("player2");
-        setChanged();
-        notifyObservers("player3");
-        setChanged();
-        notifyObservers("player4");
-        setChanged();
-        notifyObservers("player5");
-        setChanged();
-        notifyObservers("player6");
+        if(players.size()>0) {
+            setChanged();
+            notifyObservers("player1");
+        }
+        if(players.size()>1) {
+            setChanged();
+            notifyObservers("player2");
+        }
+        if(players.size()>2) {
+            setChanged();
+            notifyObservers("player3");
+        }
+        if(players.size()>3) {
+            setChanged();
+            notifyObservers("player4");
+        }
+        if(players.size()>4) {
+            setChanged();
+            notifyObservers("player5");
+        }
+        if(players.size()>5) {
+            setChanged();
+            notifyObservers("player6");
+        }
         setChanged();
         notifyObservers("africa");
         setChanged();
@@ -897,12 +933,20 @@ public class Game extends Observable
     public boolean isDeployed() {
         return deployed;
     }
-
-    public boolean isCanAttack() {
+    
+    public boolean isCanAttack(){
         return canAttack;
     }
-
-    public boolean isCanFortify() {
+    public boolean isCanFortify(){
         return canFortify;
+    }
+    public boolean isAIHasReinforced(){
+        return AIHasReinforced;
+    }
+    public boolean isAIHasAttacked(){
+        return AIHasAttacked;
+    }
+    public boolean isAIHasFortified(){
+        return AIHasFortified;
     }
 }
