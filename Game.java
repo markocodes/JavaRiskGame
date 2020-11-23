@@ -846,4 +846,10 @@ public class Game extends Observable
     public boolean isDeployed() {
         return deployed;
     }
+
+    public Deck getDeck() { return deck; }
+
+    public boolean isCanAttack() { return canAttack; }
+
+    public boolean isCanFortify() { return canFortify; }
 }
