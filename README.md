@@ -7,7 +7,7 @@ Java implementation of the popular strategy game Risk
 
 Carleton Univeristy, SYSC 3110
 
-**Milestone:** 2
+**Milestone:** 3
 
 ## Initiating The Game
 
@@ -43,8 +43,9 @@ Once the game is in play, you will be able to click the following commands durin
 
 ## Known bugs 
 
-- No currently known bugs. 
+- Player elimination process is not perfect, and needs to be improved. 
 
 ## Next Steps
-1. Implementing saving and loading features
-2. Added ability to load custom game maps
+1. Fix outstanding bugs
+2. Implementing saving and loading features
+3. Added ability to load custom game maps
