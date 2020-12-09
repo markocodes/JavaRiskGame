@@ -1,12 +1,15 @@
-import java.util.Observer;
+import javax.swing.*;
+import java.io.Serializable;
 import java.util.Observable;
-import javax.swing.DefaultListModel;
+import java.util.Observer;
 
 /** This class models all the lists used in the game
  * @author Tamilore Odunlami
  * @version 1.0
  */
-public class AllListModel extends DefaultListModel implements Observer {
+public class AllListModel extends DefaultListModel implements Observer, Serializable
+{
+    private static final long serialVersionUID = 1420672609912364067L;
     private String type;
     private String display;
     private Game model;
@@ -30,101 +33,27 @@ public class AllListModel extends DefaultListModel implements Observer {
     public void update(Observable obs, Object obj)
     {
         display = (String) obj;
-        if (type == "player1" && type == display)
-        {
-            removeAllElements();
-            for (int i = 0; i < model.getListOfPlayerTerritories(1).size(); i++)
-            {
-                addElement(model.getListOfPlayerTerritories(1).get(i));
+        for(int i=0; i<model.getPlayerNames().size(); i++) {
+            if (type == model.getPlayerNames().get(i) && type == display) {
+                removeAllElements();
+                for (int j = 0; j < model.getListOfPlayerTerritories(i).size(); j++) {
+                    addElement(model.getListOfPlayerTerritories(i).get(j));
+                }
             }
         }
-        else if (type == "player2" && type == display)
-        {
-            removeAllElements();
-            for (int i = 0; i < model.getListOfPlayerTerritories(2).size(); i++)
-            {
-                addElement(model.getListOfPlayerTerritories(2).get(i));
+        for(int i=0; i<model.getBoard().getContinents().size(); i++) {
+            if (type == model.getBoard().getContinents().get(i).getName() && type == display) {
+                removeAllElements();
+                for (int j = 0; j < model.getListOfContinentTerritories(i).size(); j++) {
+                    addElement(model.getListOfContinentTerritories(i).get(j));
+                }
             }
         }
-        else if (type == "player3" && type == display)
-        {
-            removeAllElements();
-            for (int i = 0; i < model.getListOfPlayerTerritories(3).size(); i++)
-            {
-                addElement(model.getListOfPlayerTerritories(3).get(i));
-            }
-        }
-        else if (type == "player4" && type == display)
-        {
-            removeAllElements();
-            for (int i = 0; i < model.getListOfPlayerTerritories(4).size(); i++)
-            {
-                addElement(model.getListOfPlayerTerritories(4).get(i));
-            }
-        }
-        else if (type == "player5" && type == display)
-        {
-            removeAllElements();
-            for (int i = 0; i < model.getListOfPlayerTerritories(5).size(); i++)
-            {
-                addElement(model.getListOfPlayerTerritories(5).get(i));
-            }
-        }
-        else if (type == "player6" && type == display)
-        {
-            removeAllElements();
-            for (int i = 0; i < model.getListOfPlayerTerritories(6).size(); i++)
-            {
-                addElement(model.getListOfPlayerTerritories(6).get(i));
-            }
-        }
-        else if (type == "adjacent" && type == display)
+        if (type == "adjacent" && type == display)
         {
             removeAllElements();
             for (int i=0; i<model.getListOfAdjacentsOfSelectedTerritory().size(); i++){
                 addElement(model.getListOfAdjacentsOfSelectedTerritory().get(i));
-            }
-        }
-        else if (type == "africa" && type == display)
-        {
-            removeAllElements();
-            for (int i=0; i<model.getListOfContinentTerritories(1).size(); i++){
-                addElement(model.getListOfContinentTerritories(1).get(i));
-            }
-        }
-        else if (type == "asia" && type == display)
-        {
-            removeAllElements();
-            for (int i=0; i<model.getListOfContinentTerritories(2).size(); i++){
-                addElement(model.getListOfContinentTerritories(2).get(i));
-            }
-        }
-        else if (type == "australia" && type == display)
-        {
-            removeAllElements();
-            for (int i=0; i<model.getListOfContinentTerritories(3).size(); i++){
-                addElement(model.getListOfContinentTerritories(3).get(i));
-            }
-        }
-        else if (type == "europe" && type == display)
-        {
-            removeAllElements();
-            for (int i=0; i<model.getListOfContinentTerritories(4).size(); i++){
-                addElement(model.getListOfContinentTerritories(4).get(i));
-            }
-        }
-        else if (type == "northAmerica" && type == display)
-        {
-            removeAllElements();
-            for (int i=0; i<model.getListOfContinentTerritories(5).size(); i++){
-                addElement(model.getListOfContinentTerritories(5).get(i));
-            }
-        }
-        else if (type == "southAmerica" && type == display)
-        {
-            removeAllElements();
-            for (int i=0; i<model.getListOfContinentTerritories(6).size(); i++){
-                addElement(model.getListOfContinentTerritories(6).get(i));
             }
         }
     }
