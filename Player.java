@@ -1,12 +1,13 @@
-import javax.swing.*;
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 /**
  * Player class that takes care of the cards, territories and the turn based system this game provides.
- * @author MacKenzie Wallace
+ * @author MacKenzie Wallace 
  * @version 1.0.0
  */
-public class Player
+public class Player implements Serializable
 {
+    private static final long serialVersionUID = 1420672609912364061L;
     private ArrayList<Territory> territories;
     private ArrayList<Card> cards;
     private int infantry;
