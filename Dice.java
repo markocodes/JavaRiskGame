@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -5,13 +6,15 @@ import java.util.*;
  * @author Mmedara Josiah
  * @version 1.0
  **/
-public class Dice {
+public class Dice implements Serializable
+{
+    private static final long serialVersionUID = 1420672609912364062L;
 
-	private int[] rollResults;
+    private int[] rollResults;
     private Random r;
 
     public Dice() {
-		r = new Random();
+	r = new Random();
     }
 
     /**
