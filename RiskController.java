@@ -1,9 +1,11 @@
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * This class models the first panel that opens when the game is run
@@ -12,7 +14,11 @@ import java.util.Random;
  */
 public class RiskController implements ActionListener {
     private Game model;
+    private Game loadedModel;
     private RiskView view;
+    private BoardView boardView;
+    private JFileChooser fileChooser;
+    private ObjectInputStream objectReader;
     private NumberOfPlayersDialog numberOfPlayersDialog;
 
     /**
@@ -38,14 +44,38 @@ public class RiskController implements ActionListener {
         String command = e.getActionCommand();
         if(command.equals("newGameButton")){
             System.out.println("NumberOfPlayersDialog is Loading----------");
-            //Opens the numberOfPlayersDialog box
             numberOfPlayersDialog = new NumberOfPlayersDialog(view, true);
             numberOfPlayersDialog.addActionListeners(new NumberOfPlayersController(model, numberOfPlayersDialog));
+            view.setVisible(false);
             numberOfPlayersDialog.setVisible(true);
         }
-        else if(command.equals("quitButton")){
-            System.exit(0);
+        else if(command.equals("loadButton")){
+            fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Risk Saved Files", "rsf");
+            fileChooser.setFileFilter(filter);
+            if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+                try {
+                    objectReader = new ObjectInputStream(new FileInputStream(fileChooser.getSelectedFile()));
+                    loadedModel = (Game)objectReader.readObject();
+                    objectReader.close();
+                    boardView = new BoardView(view, true, loadedModel);
+                    boardView.addActionListeners(new BoardViewController(loadedModel, boardView));
+                    boardView.addListSelectionListeners(new PlayerListController(loadedModel, boardView));
+                    boardView.addListSelectionListeners(new AdjacentListController(loadedModel, boardView));
+                    view.setVisible(false);
+                    boardView.setVisible(true);
+                } catch (IOException e1) {
+                    System.out.println(e1.getMessage());
+                } catch (ClassNotFoundException e1)	{
+                    System.out.println(e1.getMessage());
+                }
+            }
         }
+
+        else if(command.equals("quitButton")){
+            model.quitGame();
+        }
+
         else{
             System.out.println("Error: " + command + " command is invalid!");
         }
@@ -80,6 +110,7 @@ class NumberOfPlayersController implements ActionListener{
         System.out.println("PlayerNamesDialog is loading----------");
         playerNamesDialog = new PlayerNamesDialog(view, true, model.getNoOfPlayers());
         playerNamesDialog.addActionListeners(new PlayerNamesController(model, playerNamesDialog));
+        view.setVisible(false);
         playerNamesDialog.setVisible(true);
     }
 
@@ -115,6 +146,7 @@ class NumberOfPlayersController implements ActionListener{
         }
         else if(command.equals("backButton")){
             view.dispose();
+            view.getRiskView().setVisible(true);
         }
         else{
             System.out.println("Error: " + command + " command is invalid!");
@@ -160,25 +192,25 @@ class PlayerNamesController implements ActionListener{
         humanOrAI = new ArrayList<>();
         if(command.equals("startGameButton")){
             System.out.println("Retrieving player names----------");
+            playerNames.add(view.getPlayersNames(0));
             playerNames.add(view.getPlayersNames(1));
-            playerNames.add(view.getPlayersNames(2));
+            humanOrAI.add(view.getHumanOrAI(0));
             humanOrAI.add(view.getHumanOrAI(1));
-            humanOrAI.add(view.getHumanOrAI(2));
             if(model.getNoOfPlayers()>2){
+                playerNames.add(view.getPlayersNames(2));
+                humanOrAI.add(view.getHumanOrAI(2));
+            }
+            if(model.getNoOfPlayers()>3){
                 playerNames.add(view.getPlayersNames(3));
                 humanOrAI.add(view.getHumanOrAI(3));
             }
-            if(model.getNoOfPlayers()>3){
+            if(model.getNoOfPlayers()>4){
                 playerNames.add(view.getPlayersNames(4));
                 humanOrAI.add(view.getHumanOrAI(4));
             }
-            if(model.getNoOfPlayers()>4){
+            if(model.getNoOfPlayers()>5){
                 playerNames.add(view.getPlayersNames(5));
                 humanOrAI.add(view.getHumanOrAI(5));
-            }
-            if(model.getNoOfPlayers()>5){
-                playerNames.add(view.getPlayersNames(6));
-                humanOrAI.add(view.getHumanOrAI(6));
             }
             System.out.println("The game is being prepared----------");
             load = model.init(playerNames, humanOrAI);
@@ -189,11 +221,13 @@ class PlayerNamesController implements ActionListener{
                 boardView.addActionListeners(new BoardViewController(model, boardView));
                 boardView.addListSelectionListeners(new AdjacentListController(model, boardView));
                 boardView.addListSelectionListeners(new PlayerListController(model, boardView));
+                view.setVisible(false);
                 boardView.setVisible(true);
             }
         }
         else if(command.equals("backButton")){
             view.dispose();
+            view.getNumberView().setVisible(true);
         }
         else{
             System.out.println("Error: " + command + " command is invalid!");
@@ -209,6 +243,11 @@ class PlayerNamesController implements ActionListener{
 class BoardViewController implements ActionListener{
     private Game model;
     private BoardView view;
+    private Game loadedModel;
+    private RiskView riskView;
+    private JFileChooser fileChooser;
+    private ObjectOutputStream objectWriter;
+    private ObjectInputStream objectReader;
 
     /**
      * constructs the board view controller
@@ -218,9 +257,9 @@ class BoardViewController implements ActionListener{
     public BoardViewController(Game model, BoardView view){
         this.model = model;
         this.view = view;
+        riskView = view.getRiskView();
         model.startGame();
     }
-
 
     /**
      * Invoked when an action occurs.
@@ -239,49 +278,90 @@ class BoardViewController implements ActionListener{
             view.clearAllTextFields();
         }
 
-        if(command.equals("attackButton")){
+        else if(command.equals("attackButton")){
             Territory attacker = view.getSelectedTerritory();
             Territory defender = view.getSelectedAdjacent();
             int attackerDiceRolls = view.getNumberOfAttackerDiceRolls();
-            int defenderDiceRolls = view.getNumberOfDefenderDiceRolls();
-
-            if(attacker!=null && defender!=null && attackerDiceRolls>0 &&
-                    attackerDiceRolls<4 && defenderDiceRolls>0 && defenderDiceRolls<3){
-                model.attack(attacker, defender, attackerDiceRolls, defenderDiceRolls);
+            if (attacker != null && defender != null) {
+                if (attackerDiceRolls > 0 && attackerDiceRolls < 4) {
+                    model.attack(attacker, defender, attackerDiceRolls);
+                }
+                else {
+                    System.out.println("Cannot attack!! attacker dice roll must be either 1, 2 or 3");
+                }
+            } else {
+                System.out.println("You must select both an attacking and defending territory");
             }
-            else{
-                System.out.println("\nYou don't seem ready to attack. Click help to see what you missed.\n");
-            }
-            //model.notifyAllObservers();
             view.clearAllTextFields();
         }
 
-        if(command.equals("passButton")){
-            model.notifyAllObservers();
+        else if(command.equals("passButton")){
             view.clearAllTextFields();
             model.nextPlayer();
         }
 
-        if(command.equals("fortifyButton")){
+        else if(command.equals("fortifyButton")) {
             Territory fortifyFrom = view.getSelectedTerritory();
             Territory fortifyTo = view.getSelectedAdjacent();
-            int troops = view.getFortifyTextField();
-            if(fortifyFrom!=null && fortifyTo!=null && troops>0)
+            int troops = view.getFortifyTextField() / 1;
+            if (fortifyFrom != null && fortifyTo != null && troops > 0){
                 model.fortify(fortifyFrom, fortifyTo, troops);
+            }
+            else{
+                System.out.println("You must select two adjacent territories that you own \nand the number of troops you wish to move");
+            }
             view.clearAllTextFields();
         }
 
-        if(command.equals("helpButton")){
+        else if(command.equals("saveButton")){
+            fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Risk Saved Files", "rsf");
+            fileChooser.setFileFilter(filter);
+
+            if (fileChooser.showSaveDialog(view) == JFileChooser.APPROVE_OPTION) {
+                try {
+                    objectWriter = new ObjectOutputStream(new FileOutputStream(fileChooser.getSelectedFile()));
+                    objectWriter.writeObject(model);
+                    objectWriter.close();
+                    System.out.println("Game Saved");
+                } catch (IOException e1) {
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
+
+        else if(command.equals("loadButton")){
+            fileChooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Risk Saved Files", "rsf");
+            fileChooser.setFileFilter(filter);
+            if (fileChooser.showOpenDialog(view) == JFileChooser.APPROVE_OPTION) {
+                try {
+                    objectReader = new ObjectInputStream(new FileInputStream(fileChooser.getSelectedFile()));
+                    loadedModel = (Game)objectReader.readObject();
+                    objectReader.close();
+                    System.out.println(loadedModel.getPlayerNames().get(0));
+                    view = new BoardView(riskView, true, loadedModel);
+                    view.addActionListeners(new BoardViewController(loadedModel, view));
+                    view.addListSelectionListeners(new PlayerListController(loadedModel, view));
+                    view.addListSelectionListeners(new AdjacentListController(loadedModel, view));
+                    view.setVisible(true);
+                } catch (IOException e1) {
+                    System.out.println(e1.getMessage());
+                } catch (ClassNotFoundException e1)	{
+                    System.out.println(e1.getMessage());
+                }
+            }
+        }
+
+        else if(command.equals("helpButton")){
             model.notifyAllObservers();
             view.clearAllTextFields();
             model.help();
         }
 
-        if(command.equals("quitButton")){
+        else if(command.equals("quitButton")){
             System.exit(0);
         }
-
-
     }
 }
 
@@ -309,51 +389,64 @@ class PlayerListController implements ListSelectionListener{
     @Override
     public void valueChanged(ListSelectionEvent e)
     {
+        Territory selectedTerritory = null;
         if(model.getActivePlayerIndex() == 0) {
             if (!e.getValueIsAdjusting()) {
-                if (view.getIndexOfSelectedPlayerTerritory(1) == -1) {
+                if (view.getIndexOfSelectedPlayerTerritory(0) == -1) {
                 } else {
-                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(1), 1);
+                     selectedTerritory = model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(0), 0);
                 }
             }
         }
         else if(model.getActivePlayerIndex() == 1) {
             if (!e.getValueIsAdjusting()) {
-                if (view.getIndexOfSelectedPlayerTerritory(2) == -1) {
+                if (view.getIndexOfSelectedPlayerTerritory(1) == -1) {
                 } else {
-                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(2), 2);
+                    selectedTerritory = model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(1), 1);
                 }
             }
         }
         else if(model.getActivePlayerIndex() == 2) {
             if (!e.getValueIsAdjusting()) {
-                if (view.getIndexOfSelectedPlayerTerritory(3) == -1) {
+                if (view.getIndexOfSelectedPlayerTerritory(2) == -1) {
                 } else {
-                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(3), 3);
+                    selectedTerritory = model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(2), 2);
                 }
             }
         }
         else if(model.getActivePlayerIndex() == 3) {
             if (!e.getValueIsAdjusting()) {
-                if (view.getIndexOfSelectedPlayerTerritory(4) == -1) {
+                if (view.getIndexOfSelectedPlayerTerritory(3) == -1) {
                 } else {
-                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(4), 4);
+                    selectedTerritory = model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(3), 3);
                 }
             }
         }
         else if(model.getActivePlayerIndex() == 4) {
             if (!e.getValueIsAdjusting()) {
-                if (view.getIndexOfSelectedPlayerTerritory(5) == -1) {
+                if (view.getIndexOfSelectedPlayerTerritory(4) == -1) {
                 } else {
-                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(5), 5);
+                    selectedTerritory = model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(4), 4);
                 }
             }
         }
         else if(model.getActivePlayerIndex() == 5) {
             if (!e.getValueIsAdjusting()) {
-                if (view.getIndexOfSelectedPlayerTerritory(6) == -1) {
+                if (view.getIndexOfSelectedPlayerTerritory(5) == -1) {
                 } else {
-                    model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(6), 6);
+                    selectedTerritory = model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(5), 5);
+                }
+            }
+        }
+        //clear all continent selections
+        for(int i=0; i<view.getContinentJLists().size(); i++){
+            view.getContinentJLists().get(i).clearSelection();
+        }
+        //highlight selected territory in continent list
+        for(int i=0; i<view.getContinentModels().size(); i++){
+            for(int j=0; j<view.getContinentModels().get(i).getSize(); j++){
+                if(view.getContinentModels().get(i).get(j).equals(selectedTerritory)){
+                    view.getContinentJLists().get(i).setSelectedIndex(j);
                 }
             }
         }
@@ -380,11 +473,20 @@ class AdjacentListController implements ListSelectionListener{
     @Override
     public void valueChanged(ListSelectionEvent e)
     {
+        Territory selectedTerritory = null;
         if (!e.getValueIsAdjusting()) {
-            if (view.getIndexOfSelectedPlayerTerritory(0) == -1) {
+            if (view.getIndexOfSelectedPlayerTerritory(6) == -1) {
             }
             else {
-                model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(0), 0);
+                selectedTerritory = model.setPlayerTerritorySelection(view.getSelectedPlayerTerritory(6), 6);
+            }
+        }
+        //highlight selected territory in continent list
+        for(int i=0; i<view.getContinentModels().size(); i++){
+            for(int j=0; j<view.getContinentModels().get(i).getSize(); j++){
+                if(view.getContinentModels().get(i).get(j).equals(selectedTerritory)){
+                    view.getContinentJLists().get(i).setSelectedIndex(j);
+                }
             }
         }
     }
