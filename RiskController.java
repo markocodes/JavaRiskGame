@@ -267,10 +267,11 @@ class BoardViewController implements ActionListener{
      * @param e
      */
     @Override
-    public void actionPerformed(ActionEvent e)
-    {
+    public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
-
+        executeCommand(command);
+    }
+    public void executeCommand(String command){
         if(command.equals("reinforceButton")){
             Territory territory = view.getSelectedTerritory();
             int troops = view.getReinforcementTextField();
@@ -362,6 +363,10 @@ class BoardViewController implements ActionListener{
         else if(command.equals("quitButton")){
             System.exit(0);
         }
+    }
+
+    public JFileChooser getFileChooser() {
+        return fileChooser;
     }
 }
 

@@ -1,0 +1,379 @@
+<?xml version="1.0"?>
+<Adjacencies>
+    <Continent name = "North" bonusTroops = "3">
+        <Adjacents>
+            <Territory>Kirghiz</Territory>
+            <Adjacent>Sinkiang</Adjacent>
+            <Adjacent>Urumchi</Adjacent>
+            <Adjacent>Kabul</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Sinkiang</Territory>
+            <Adjacent>Kirghiz</Adjacent>
+            <Adjacent>Urumchi</Adjacent>
+            <Adjacent>Chang Tang</Adjacent>
+            <Adjacent>Kabul</Adjacent>
+            <Adjacent>Kashmir</Adjacent>
+            <Adjacent>Kansu</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Urumchi</Territory>
+            <Adjacent>Kirghiz</Adjacent>
+            <Adjacent>Mongolia</Adjacent>
+            <Adjacent>Gobi Dessert</Adjacent>
+            <Adjacent>Sinkiang</Adjacent>
+            <Adjacent>Kansu</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Gobi Dessert</Territory>
+            <Adjacent>Urumchi</Adjacent>
+            <Adjacent>Kansu</Adjacent>
+            <Adjacent>Shensi</Adjacent>
+            <Adjacent>Peking</Adjacent>
+            <Adjacent>Mongolia</Adjacent>
+            <Adjacent>Sinkiang</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Mongolia</Territory>
+            <Adjacent>Urumchi</Adjacent>
+            <Adjacent>Gobi Dessert</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "West" bonusTroops = "2">
+        <Adjacents>
+            <Territory>Kabul</Territory>
+            <Adjacent>Punjab</Adjacent>
+            <Adjacent>Kashmir</Adjacent>
+            <Adjacent>Sinkiang</Adjacent>
+            <Adjacent>Kirghiz</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Punjab</Territory>
+            <Adjacent>Bombay</Adjacent>
+            <Adjacent>Delhi</Adjacent>
+            <Adjacent>Kabul</Adjacent>
+            <Adjacent>Kashmir</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Kashmir</Territory>
+            <Adjacent>Delhi</Adjacent>
+            <Adjacent>Punjab</Adjacent>
+            <Adjacent>Kabul</Adjacent>
+            <Adjacent>Tibet</Adjacent>
+            <Adjacent>Chang Tang</Adjacent>
+            <Adjacent>Sinkiang</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "South West" bonusTroops = "4">
+        <Adjacents>
+            <Territory>Bombay</Territory>
+            <Adjacent>Delhi</Adjacent>
+            <Adjacent>Punjab</Adjacent>
+            <Adjacent>Gujerat</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Delhi</Territory>
+            <Adjacent>Kashmir</Adjacent>
+            <Adjacent>Bombay</Adjacent>
+            <Adjacent>Calcutta</Adjacent>
+            <Adjacent>Punjab</Adjacent>
+            <Adjacent>Gujerat</Adjacent>
+            <Adjacent>Hyderabad</Adjacent>
+            <Adjacent>Nepal</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Gujerat</Territory>
+            <Adjacent>Bombay</Adjacent>
+            <Adjacent>Madras</Adjacent>
+            <Adjacent>Hyderabad</Adjacent>
+            <Adjacent>Delhi</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Calcutta</Territory>
+            <Adjacent>Delhi</Adjacent>
+            <Adjacent>Hyderabad</Adjacent>
+            <Adjacent>Nepal</Adjacent>
+            <Adjacent>Burma</Adjacent>
+            <Adjacent>Andaman Islands</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Hyderabad</Territory>
+            <Adjacent>Delhi</Adjacent>
+            <Adjacent>Gujerat</Adjacent>
+            <Adjacent>Madras</Adjacent>
+            <Adjacent>Calcutta</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Madras</Territory>
+            <Adjacent>Ceylon</Adjacent>
+            <Adjacent>Andaman Islands</Adjacent>
+            <Adjacent>Hyderabad</Adjacent>
+            <Adjacent>Gujerat</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Ceylon</Territory>
+            <Adjacent>Madras</Adjacent>
+            <Adjacent>Andaman Islands</Adjacent>
+            <Adjacent>Sumatra</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "East" bonusTroops = "5">
+        <Adjacents>
+            <Territory>Kansu</Territory>
+            <Adjacent>Sinkiang</Adjacent>
+            <Adjacent>Urumchi</Adjacent>
+            <Adjacent>Gobi Dessert</Adjacent>
+            <Adjacent>Shensi</Adjacent>
+            <Adjacent>Lhasa</Adjacent>
+            <Adjacent>Szechwan</Adjacent>
+            <Adjacent>Chang Tang</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Szechwan</Territory>
+            <Adjacent>Yunnan</Adjacent>
+            <Adjacent>Shensi</Adjacent>
+            <Adjacent>Hunan</Adjacent>
+            <Adjacent>Kansu</Adjacent>
+            <Adjacent>Lhasa</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Yunnan</Territory>
+            <Adjacent>Burma</Adjacent>
+            <Adjacent>Siam</Adjacent>
+            <Adjacent>Laos</Adjacent>
+            <Adjacent>Annam</Adjacent>
+            <Adjacent>Lhasa</Adjacent>
+            <Adjacent>Canton</Adjacent>
+            <Adjacent>Szechwan</Adjacent>
+            <Adjacent>Hunan</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Shensi</Territory>
+            <Adjacent>Szechwan</Adjacent>
+            <Adjacent>Hunan</Adjacent>
+            <Adjacent>Shanghai</Adjacent>
+            <Adjacent>Kansu</Adjacent>
+            <Adjacent>Peking</Adjacent>
+            <Adjacent>Gobi Dessert</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Canton</Territory>
+            <Adjacent>Hunan</Adjacent>
+            <Adjacent>Annam</Adjacent>
+            <Adjacent>Yunnan</Adjacent>
+            <Adjacent>Philippines</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Hunan</Territory>
+            <Adjacent>Formosa</Adjacent>
+            <Adjacent>Canton</Adjacent>
+            <Adjacent>Yunnan</Adjacent>
+            <Adjacent>Szechwan</Adjacent>
+            <Adjacent>Shensi</Adjacent>
+            <Adjacent>Shanghai</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Peking</Territory>
+            <Adjacent>Shensi</Adjacent>
+            <Adjacent>Shanghai</Adjacent>
+            <Adjacent>Gobi Dessert</Adjacent>
+            <Adjacent>Manchuria</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Shanghai</Territory>
+            <Adjacent>Hunan</Adjacent>
+            <Adjacent>Peking</Adjacent>
+            <Adjacent>Shensi</Adjacent>
+            <Adjacent>North Korea</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Formosa</Territory>
+            <Adjacent>Hunan</Adjacent>
+            <Adjacent>Philippines</Adjacent>
+            <Adjacent>South Korea</Adjacent>
+            <Adjacent>Rui-Kui Islands</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "Central" bonusTroops = "2">
+        <Adjacents>
+            <Territory>Nepal</Territory>
+            <Adjacent>Burma</Adjacent>
+            <Adjacent>Delhi</Adjacent>
+            <Adjacent>Calcutta</Adjacent>
+            <Adjacent>Tibet</Adjacent>
+            <Adjacent>Lhasa</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Tibet</Territory>
+            <Adjacent>Nepal</Adjacent>
+            <Adjacent>Kashmir</Adjacent>
+            <Adjacent>Lhasa</Adjacent>
+            <Adjacent>Delhi</Adjacent>
+            <Adjacent>Chang Tang</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Chang Tang</Territory>
+            <Adjacent>Sinkiang</Adjacent>
+            <Adjacent>Kansu</Adjacent>
+            <Adjacent>Lhasa</Adjacent>
+            <Adjacent>Tibet</Adjacent>
+            <Adjacent>Kashmir</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Lhasa</Territory>
+            <Adjacent>Tibet</Adjacent>
+            <Adjacent>Chang Tang</Adjacent>
+            <Adjacent>Nepal</Adjacent>
+            <Adjacent>Kansu</Adjacent>
+            <Adjacent>Burma</Adjacent>
+            <Adjacent>Szechwan</Adjacent>
+            <Adjacent>Yunnan</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "North East" bonusTroops = "2">
+        <Adjacents>
+            <Territory>Manchuria</Territory>
+            <Adjacent>North Korea</Adjacent>
+            <Adjacent>Peking</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>North Korea</Territory>
+            <Adjacent>Manchuria</Adjacent>
+            <Adjacent>South Korea</Adjacent>
+            <Adjacent>Shanghai</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>South Korea</Territory>
+            <Adjacent>North Korea</Adjacent>
+            <Adjacent>Formosa</Adjacent>
+            <Adjacent>Kyushu</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "South South" bonusTroops = "4">
+        <Adjacents>
+            <Territory>Sumatra</Territory>
+            <Adjacent>Ceylon</Adjacent>
+            <Adjacent>Andaman Islands</Adjacent>
+            <Adjacent>Malaysia</Adjacent>
+            <Adjacent>Java</Adjacent>
+            <Adjacent>Borneo</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Borneo</Territory>
+            <Adjacent>Cambodia</Adjacent>
+            <Adjacent>Sumatra</Adjacent>
+            <Adjacent>Java</Adjacent>
+            <Adjacent>Celebes</Adjacent>
+            <Adjacent>Philippines</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Java</Territory>
+            <Adjacent>Sumatra</Adjacent>
+            <Adjacent>Borneo</Adjacent>
+            <Adjacent>Timor</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Timor</Territory>
+            <Adjacent>Java</Adjacent>
+            <Adjacent>Celebes</Adjacent>
+            <Adjacent>Irian Jaya</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Celebes</Territory>
+            <Adjacent>Irian Jaya</Adjacent>
+            <Adjacent>Timor</Adjacent>
+            <Adjacent>Borneo</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Philippines</Territory>
+            <Adjacent>Formosa</Adjacent>
+            <Adjacent>Canton</Adjacent>
+            <Adjacent>Borneo</Adjacent>
+            <Adjacent>Irian Jaya</Adjacent>
+            <Adjacent>Rui-Kui Islands</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Irian Jaya</Territory>
+            <Adjacent>Celebes</Adjacent>
+            <Adjacent>Timor</Adjacent>
+            <Adjacent>Philippines</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "Eastern Island" bonusTroops = "1">
+        <Adjacents>
+            <Territory>Honshu</Territory>
+            <Adjacent>Kyushu</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Kyushu</Territory>
+            <Adjacent>Honshu</Adjacent>
+            <Adjacent>South Korea</Adjacent>
+            <Adjacent>Rui-Kui Islands</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Rui-Kui Islands</Territory>
+            <Adjacent>Kyushu</Adjacent>
+            <Adjacent>Formosa</Adjacent>
+            <Adjacent>Philippines</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "South East" bonusTroops = "3">
+        <Adjacents>
+            <Territory>Burma</Territory>
+            <Adjacent>Calcutta</Adjacent>
+            <Adjacent>Nepal</Adjacent>
+            <Adjacent>Lhasa</Adjacent>
+            <Adjacent>Yunna</Adjacent>
+            <Adjacent>Siam</Adjacent>
+            <Adjacent>Malaysia</Adjacent>
+            <Adjacent>Andaman Islands</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Andaman Islands</Territory>
+            <Adjacent>Ceylon</Adjacent>
+            <Adjacent>Sumatra</Adjacent>
+            <Adjacent>Madras</Adjacent>
+            <Adjacent>Calcutta</Adjacent>
+            <Adjacent>Burma</Adjacent>
+            <Adjacent>Malaysia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Malaysia</Territory>
+            <Adjacent>Andaman Islands</Adjacent>
+            <Adjacent>Burma</Adjacent>
+            <Adjacent>Siam</Adjacent>
+            <Adjacent>Cambodia</Adjacent>
+            <Adjacent>Sumatra</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Siam</Territory>
+            <Adjacent>Malaysia</Adjacent>
+            <Adjacent>Burma</Adjacent>
+            <Adjacent>Yunnan</Adjacent>
+            <Adjacent>Laos</Adjacent>
+            <Adjacent>Cambodia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Laos</Territory>
+            <Adjacent>Siam</Adjacent>
+            <Adjacent>Cambodia</Adjacent>
+            <Adjacent>Annam</Adjacent>
+            <Adjacent>Yunnan</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Annam</Territory>
+            <Adjacent>Cambodia</Adjacent>
+            <Adjacent>Laos</Adjacent>
+            <Adjacent>Yunnan</Adjacent>
+            <Adjacent>Canton</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Cambodia</Territory>
+            <Adjacent>Laos</Adjacent>
+            <Adjacent>Siam</Adjacent>
+            <Adjacent>Annam</Adjacent>
+            <Adjacent>Malaysia</Adjacent>
+            <Adjacent>Borneo</Adjacent>
+        </Adjacents>
+    </Continent>
+</Adjacencies>

@@ -1,12 +1,15 @@
+
 import org.junit.Test;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
+
 
 /**
  * This class implements all tests for the game logic and function
  * @author Marko M, Mack W, Mmedara Josiah
  * @version 1.0
- */
+ **/
+
 
 public class GameTest {
     Game testGame;
@@ -20,7 +23,9 @@ public class GameTest {
         humanOrAi = new ArrayList<>();
     }
 
+
     /* ***** CAN ADD PLAYERS ***** */
+
     @Test
     public void add2PlayerNames(){
         playerNames.add("George");
@@ -112,6 +117,7 @@ public class GameTest {
     }
 
     /* **** CAN CREATE PLAYER OBJECTS **** */
+
     @Test
     public void create2Players() {
         playerNames.add("George");
@@ -199,7 +205,7 @@ public class GameTest {
 
         // check that each territory has an occupant
         int occupied = 0;
-        for(Territory t: testGame.getBoard().getAllTerritories()){
+        for(Territory t: testGame.getBoard().getTerritories()){
             while(occupied < 38){
                 if(t.getTerritoryOccupant() != null){
                     occupied++;
@@ -237,7 +243,7 @@ public class GameTest {
 
         // check that each territory has an occupant
         int occupied = 0;
-        for(Territory t: testGame.getBoard().getAllTerritories()){
+        for(Territory t: testGame.getBoard().getTerritories()){
             while(occupied < 38){
                 if(t.getTerritoryOccupant() != null){
                     occupied++;
@@ -277,7 +283,7 @@ public class GameTest {
 
         // check that each territory has an occupant
         int occupied = 0;
-        for(Territory t: testGame.getBoard().getAllTerritories()){
+        for(Territory t: testGame.getBoard().getTerritories()){
             while(occupied < 38){
                 if(t.getTerritoryOccupant() != null){
                     occupied++;
@@ -319,7 +325,7 @@ public class GameTest {
 
         // check that each territory has an occupant
         int occupied = 0;
-        for(Territory t: testGame.getBoard().getAllTerritories()){
+        for(Territory t: testGame.getBoard().getTerritories()){
             while(occupied < 38){
                 if(t.getTerritoryOccupant() != null){
                     occupied++;
@@ -363,7 +369,7 @@ public class GameTest {
 
         // check that each territory has an occupant
         int occupied = 0;
-        for(Territory t: testGame.getBoard().getAllTerritories()){
+        for(Territory t: testGame.getBoard().getTerritories()){
             while(occupied < 38){
                 if(t.getTerritoryOccupant() != null){
                     occupied++;
@@ -388,6 +394,7 @@ public class GameTest {
     }
 
     /* *****TURN CAN BE PASSED***** */
+
     @Test
     public void passPlayer2Players(){
         playerNames.add("George");
@@ -426,7 +433,9 @@ public class GameTest {
         assertEquals(testGame.getActivePlayer().getPlayerName(), "Alex");
     }
 
+
     /* ***** CAN ATTACK TERRITORIES ***** */
+
     @Test
     public void attackTest() {
         playerNames.add("George");
@@ -448,11 +457,12 @@ public class GameTest {
         }
 
         testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
-        testGame.attack(originTerritory, targetTerritory, 1, 1);
+        testGame.attack(originTerritory, targetTerritory, 1);
         assertTrue(testGame.getHasAttacked());
     }
 
     /* testing using number 4 as the attacker dice roll */
+
     @Test
     public void attackBadly1(){
         playerNames.add("George");
@@ -473,36 +483,11 @@ public class GameTest {
         }
 
         testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
-        testGame.attack(originTerritory, targetTerritory, 4, 2);
+        testGame.attack(originTerritory, targetTerritory, 4);
         assertFalse(testGame.getHasAttacked());
     }
 
-    /* testing using number 4 as the defender dice roll */
-    @Test
-    public void attackBadly2(){
-        playerNames.add("George");
-        playerNames.add("David");
-        humanOrAi.add("Human");
-        humanOrAi.add("Human");
-        testGame.init(playerNames, humanOrAi);
-        testGame.startGame();
-        Territory targetTerritory = null;
-        Territory originTerritory = null;
-        for(Territory t : testGame.getPlayers().get(0).getTerritories()){
-            for(Territory a : t.getAdjacencies()){
-                if(!testGame.getPlayers().get(0).getTerritories().contains(a)){
-                    targetTerritory = t;
-                    originTerritory = a;
-                }
-            }
-        }
 
-        testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
-        testGame.attack(originTerritory, targetTerritory, 2, 4);
-        assertFalse(testGame.getHasAttacked());
-    }
-
-    
     // ***** REINFORCE TESTS *****
     @Test
     public void reinforceGoodTerritory(){
@@ -564,7 +549,7 @@ public class GameTest {
         humanOrAi.add("Human");
         testGame.init(playerNames, humanOrAi);
         testGame.startGame();
-        testGame.attack(testGame.getActivePlayer().getTerritories().get(0), testGame.getActivePlayer().getTerritories().get(0).getAdjacencies()[1], 1,1);  // Need to make it so defender territory is never owned by attacker
+        testGame.attack(testGame.getActivePlayer().getTerritories().get(0), testGame.getActivePlayer().getTerritories().get(0).getAdjacencies().get(1), 1);  // Need to make it so defender territory is never owned by attacker
         assertFalse(testGame.getHasAttacked());
     }
 
@@ -587,7 +572,7 @@ public class GameTest {
             }
         }
         testGame.reinforce(testGame.getPlayers().get(0).getTerritories().get(0), testGame.getPlayers().get(0).getTotalTroops());
-        testGame.attack(originTerritory, targetTerritory, 1, 1);
+        testGame.attack(originTerritory, targetTerritory, 1);
         assertTrue(testGame.getHasAttacked());
     }
 
@@ -744,3 +729,4 @@ public class GameTest {
         assertTrue(testGame.isAIHasFortified());
     }
 }
+

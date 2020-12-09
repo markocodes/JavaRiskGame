@@ -69,8 +69,7 @@ public class Game extends Observable implements Serializable
      **/
     public boolean init(ArrayList<String> playerNames, ArrayList<String> humanOrAI) {
 
-        file = new File("NewMap.xml");
-        //file = new File("Adjacencies.xml");
+        file = new File("GameMap.xml");
         board = new Board(file);
         random = new Random();
 
