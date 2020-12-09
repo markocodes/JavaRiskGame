@@ -1,8 +1,12 @@
- /** This class implements a game card
+import java.io.Serializable;
+
+/** This class implements a game card
  * @author Mmedara Josiah
  * @version 1.0
  **/
-public class Card {
+public class Card implements Serializable
+{
+    private static final long serialVersionUID = 1420672609912364065L;
 
     private Territory territory;
     private String regiment;
