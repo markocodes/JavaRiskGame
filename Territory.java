@@ -1,17 +1,18 @@
 import javax.swing.*;
-import java.util.Arrays;
-import java.util.List;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Territory class to illustrate an individual territory within the Risk map
- * @author Marko M
+ * @author Marko M and Tamilore Odunlami
  * @version 1.1.0
  */
-public class Territory extends DefaultListModel
+public class Territory extends DefaultListModel implements Serializable
 {
+    private static final long serialVersionUID = 1420672609912364064L;
 
     private String territoryName;
-    private Territory[] adjacencies;
+    private ArrayList<Territory> adjacencies;
     private Boolean isOccupied;
     private Player territoryOccupant;
     private int infantry;
@@ -39,11 +40,11 @@ public class Territory extends DefaultListModel
      * Add arrray of ajdacencies to the Territory object.
      * @param adj Array of adjacent Territory objects
      */
-    public void addAdjacencies(Territory[] adj){
+    public void addAdjacencies(ArrayList<Territory> adj){
         this.adjacencies = adj;
     }
 
-    public Territory[] getAdjacencies(){
+    public ArrayList<Territory> getAdjacencies(){
         return adjacencies;
     }
 
