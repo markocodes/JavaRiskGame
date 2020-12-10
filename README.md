@@ -7,7 +7,7 @@ Java implementation of the popular strategy game Risk
 
 Carleton Univeristy, SYSC 3110
 
-**Milestone:** 3
+**Milestone:** 4
 
 ## Initiating The Game
 
