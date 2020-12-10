@@ -28,9 +28,9 @@ Once the game is started, the Game UI will open and it will prompt you to enter 
 Once the game is in play, you will be able to click the following commands during your turn:
 
 - **pass**: This command allows you to skip your turn if you do not wish to make any attacks.
-- **reinforce**: This command allows you to select a territory you occupy at hte beginning of your turn. You can reinforce a territory by selecting a territory from your territory list, then entering the number of soliders to reinforce with, then pressing reinfoce.
+- **reinforce**: This command allows you to distribute your extra troops amongst your occupied territoires. You can reinforce a territory by selecting a territory from your territory list, then entering the number of soliders to reinforce with, then pressing reinfoce.
 - **attack**: This command can be used to attack any of your territories' adjacencies by selecting one of your held territories, then selecting the adjacency you wish to attack from the list that appears. Then, enter the amount of rolls you wish to take (amount of soldiers you wish to send into the attack)(1-3), and have the defender do the same. Then, simply press attack.  
-- **fortify**: This command allows you to fortify a territory that has just been occupied from a previous attack. You can fortify by selecting a territory from your territory list, then entering the number of soliders to fortify with, then pressing fortify.
+- **fortify**: This command allows you to move troops from one occupied territory to another occupied adjacent one. You can fortify by selecting the origin territory from your territory list, then selecting the adjacent destination territory, then entering the number of soliders to fortify with, then pressing fortify.
 - **help**: This will display all the possible commands to enter and how to enter them properly.
 - **save**: Save the current game. (save with extension .jrf)
 - **load**: Load a saved game.
@@ -43,6 +43,12 @@ Once the game is in play, you will be able to click the following commands durin
 - **Bottom Left, Beside Command Buttons**: Once a territory is selected from the list, that countries adjacnecies will appear here, and can be selected.
 - **Middle Status Window**: Displays all the games messages such as who's turn it is, who won a battle, and if any errors occur. 
 - **Right Side**: Displays the state of the entire board including all continents, their respective territories and amount of soldiers in each territory.
+
+## Changes Made Since Previous Milestone
+
+- Added ability to import and use custom maps as XML files
+- Added ability to save game progress and load saved game progress
+- Removed leftover frames from after closing main game frame. 
 
 
 ## Known bugs 
