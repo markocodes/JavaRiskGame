@@ -1,0 +1,298 @@
+<?xml version="1.0"?>
+<Adjacencies>
+    <Continent name = "North America" bonusTroops = "5">
+        <Adjacents>
+            <Territory>Alaska</Territory>
+            <Adjacent>Alberta</Adjacent>
+            <Adjacent>Northwest Territory</Adjacent>
+            <Adjacent>Kamchatka</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Alberta</Territory>
+            <Adjacent>Alaska</Adjacent>
+            <Adjacent>Northwest Territory</Adjacent>
+            <Adjacent>Ontario</Adjacent>
+            <Adjacent>Western States</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Central America</Territory>
+            <Adjacent>Western States</Adjacent>
+            <Adjacent>Venezuela</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Eastern States</Territory>
+            <Adjacent>Western States</Adjacent>
+            <Adjacent>Ontario</Adjacent>
+            <Adjacent>Quebec</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Greenland</Territory>
+            <Adjacent>Northwest Territory</Adjacent>
+            <Adjacent>Ontario</Adjacent>
+            <Adjacent>Quebec</Adjacent>
+            <Adjacent>Iceland</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Northwest Territory</Territory>
+            <Adjacent>Alaska</Adjacent>
+            <Adjacent>Greenland</Adjacent>
+            <Adjacent>Ontario</Adjacent>
+            <Adjacent>Alberta</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Ontario</Territory>
+            <Adjacent>Northwest Territory</Adjacent>
+            <Adjacent>Greenland</Adjacent>
+            <Adjacent>Quebec</Adjacent>
+            <Adjacent>Eastern States</Adjacent>
+            <Adjacent>Western States</Adjacent>
+            <Adjacent>Alberta</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Quebec</Territory>
+            <Adjacent>Ontario</Adjacent>
+            <Adjacent>Greenland</Adjacent>
+            <Adjacent>Eastern States</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Western States</Territory>
+            <Adjacent>Alberta</Adjacent>
+            <Adjacent>Ontario</Adjacent>
+            <Adjacent>Eastern States</Adjacent>
+            <Adjacent>Central America</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "South America" bonusTroops = "2">
+        <Adjacents>
+            <Territory>Argentina</Territory>
+            <Adjacent>Brazil</Adjacent>
+            <Adjacent>Peru</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Brazil</Territory>
+            <Adjacent>Venezuela</Adjacent>
+            <Adjacent>North Africa</Adjacent>
+            <Adjacent>Argentina</Adjacent>
+            <Adjacent>Peru</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Peru</Territory>
+            <Adjacent>Venezuela</Adjacent>
+            <Adjacent>Brazil</Adjacent>
+            <Adjacent>Argentina</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Venezuela</Territory>
+            <Adjacent>Central America</Adjacent>
+            <Adjacent>Brazil</Adjacent>
+            <Adjacent>Peru</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "Europe" bonusTroops = "5">
+        <Adjacents>
+            <Territory>Great Britain</Territory>
+            <Adjacent>Iceland</Adjacent>
+            <Adjacent>Scandinavia</Adjacent>
+            <Adjacent>Northern Europe</Adjacent>
+            <Adjacent>Western Europe</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Iceland</Territory>
+            <Adjacent>Greenland</Adjacent>
+            <Adjacent>Great Britain</Adjacent>
+            <Adjacent>Scandinavia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Northern Europe</Territory>
+            <Adjacent>Great Britain</Adjacent>
+            <Adjacent>Ukraine</Adjacent>
+            <Adjacent>Southern Europe</Adjacent>
+            <Adjacent>Western Europe</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Scandinavia</Territory>
+            <Adjacent>Ukraine</Adjacent>
+            <Adjacent>Great Britain</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Southern Europe</Territory>
+            <Adjacent>Western Europe</Adjacent>
+            <Adjacent>Northern Europe</Adjacent>
+            <Adjacent>Ukraine</Adjacent>
+            <Adjacent>Egypt</Adjacent>
+            <Adjacent>North Africa</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Ukraine</Territory>
+            <Adjacent>Scandinavia</Adjacent>
+            <Adjacent>Ural</Adjacent>
+            <Adjacent>Afghanistan</Adjacent>
+            <Adjacent>Middle East</Adjacent>
+            <Adjacent>Southern Europe</Adjacent>
+            <Adjacent>Northern Europe</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Western Europe</Territory>
+            <Adjacent>Great Britain</Adjacent>
+            <Adjacent>Northern Europe</Adjacent>
+            <Adjacent>Southern Europe</Adjacent>
+            <Adjacent>North Africa</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "Africa" bonusTroops = "3">
+        <Adjacents>
+            <Territory>Congo</Territory>
+            <Adjacent>North Africa</Adjacent>
+            <Adjacent>Egypt</Adjacent>
+            <Adjacent>East Africa</Adjacent>
+            <Adjacent>South Africa</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>East Africa</Territory>
+            <Adjacent>Egypt</Adjacent>
+            <Adjacent>Madagascar</Adjacent>
+            <Adjacent>South Africa</Adjacent>
+            <Adjacent>Congo</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Egypt</Territory>
+            <Adjacent>Southern Europe</Adjacent>
+            <Adjacent>Middle East</Adjacent>
+            <Adjacent>East Africa</Adjacent>
+            <Adjacent>Congo</Adjacent>
+            <northAfrica>North Africa</northAfrica>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Madagascar</Territory>
+            <Adjacent>East Africa</Adjacent>
+            <Adjacent>South Africa</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>North Africa</Territory>
+            <Adjacent>Western Europe</Adjacent>
+            <Adjacent>Southern Europe</Adjacent>
+            <Adjacent>Egypt</Adjacent>
+            <Adjacent>Congo</Adjacent>
+            <Adjacent>Brazil</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>South Africa</Territory>
+            <Adjacent>Congo</Adjacent>
+            <Adjacent>East Africa</Adjacent>
+            <Adjacent>Madagascar</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "Asia" bonusTroops = "7">
+        <Adjacents>
+            <Territory>Afghanistan</Territory>
+            <Adjacent>Ukraine</Adjacent>
+            <Adjacent>Ural</Adjacent>
+            <Adjacent>Siberia</Adjacent>
+            <Adjacent>China</Adjacent>
+            <Adjacent>India</Adjacent>
+            <Adjacent>Middle East</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>China</Territory>
+            <Adjacent>Afghanistan</Adjacent>
+            <Adjacent>Siberia</Adjacent>
+            <Adjacent>Mongolia</Adjacent>
+            <Adjacent>Siam</Adjacent>
+            <Adjacent>India</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>India</Territory>
+            <Adjacent>Middle East</Adjacent>
+            <Adjacent>Afghanistan</Adjacent>
+            <Adjacent>China</Adjacent>
+            <Adjacent>Siam</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Irkutsk</Territory>
+            <Adjacent>Siberia</Adjacent>
+            <Adjacent>Yakutsk</Adjacent>
+            <Adjacent>Kamchatka</Adjacent>
+            <Adjacent>Mongolia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Japan</Territory>
+            <Adjacent>Kamchatka</Adjacent>
+            <Adjacent>Mongolia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Kamchatka</Territory>
+            <Adjacent>Yakutsk</Adjacent>
+            <Adjacent>Alaska</Adjacent>
+            <Adjacent>Japan</Adjacent>
+            <Adjacent>Mongolia</Adjacent>
+            <Adjacent>Irkutsk</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Middle East</Territory>
+            <Adjacent>Ukraine</Adjacent>
+            <Adjacent>Afghanistan</Adjacent>
+            <Adjacent>India</Adjacent>
+            <Adjacent>Egypt</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Mongolia</Territory>
+            <Adjacent>Siberia</Adjacent>
+            <Adjacent>Irkutsk</Adjacent>
+            <Adjacent>Kamchatka</Adjacent>
+            <Adjacent>Japan</Adjacent>
+            <Adjacent>China</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Siam</Territory>
+            <Adjacent>India</Adjacent>
+            <Adjacent>China</Adjacent>
+            <Adjacent>Indonesia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Siberia</Territory>
+            <Adjacent>Ural</Adjacent>
+            <Adjacent>Yakutsk</Adjacent>
+            <Adjacent>Irkutsk</Adjacent>
+            <Adjacent>Mongolia</Adjacent>
+            <Adjacent>China</Adjacent>
+            <Adjacent>Afghanistan</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Ural</Territory>
+            <Adjacent>Ukraine</Adjacent>
+            <Adjacent>Siberia</Adjacent>
+            <Adjacent>Afghanistan</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Yakutsk</Territory>
+            <Adjacent>Siberia</Adjacent>
+            <Adjacent>Kamchatka</Adjacent>
+            <Adjacent>Irkutsk</Adjacent>
+        </Adjacents>
+    </Continent>
+    <Continent name = "Australia" bonusTroops = "2">
+        <Adjacents>
+            <Territory>Eastern Australia</Territory>
+            <Adjacent>New Guinea</Adjacent>
+            <Adjacent>Western Australia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Indonesia</Territory>
+            <Adjacent>Siam</Adjacent>
+            <Adjacent>New Guinea</Adjacent>
+            <Adjacent>Western Australia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>New Guinea</Territory>
+            <Adjacent>Indonesia</Adjacent>
+            <Adjacent>Eastern Australia</Adjacent>
+            <Adjacent>Western Australia</Adjacent>
+        </Adjacents>
+        <Adjacents>
+            <Territory>Western Australia</Territory>
+            <Adjacent>Indonesia</Adjacent>
+            <Adjacent>New Guinea</Adjacent>
+            <Adjacent>Eastern Australia</Adjacent>
+        </Adjacents>
+    </Continent>
+</Adjacencies>
