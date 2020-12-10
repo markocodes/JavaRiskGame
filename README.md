@@ -28,9 +28,9 @@ Once the game is started, the Game UI will open and it will prompt you to enter 
 Once the game is in play, you will be able to click the following commands during your turn:
 
 - **pass**: This command allows you to skip your turn if you do not wish to make any attacks.
-- **reinforce**: This command allows you to distribute your extra troops amongst your occupied territoires. You can reinforce a territory by selecting a territory from your territory list, then entering the number of soliders to reinforce with, then pressing reinfoce.
+- **reinforce**: This command allows you to distribute your extra troops amongst your occupied territoires. Reinforcement must be completed before proceeding with any other commands. You can reinforce a territory by selecting a territory from your territory list, then entering the number of soliders to reinforce with, then pressing reinfoce.
 - **attack**: This command can be used to attack any of your territories' adjacencies by selecting one of your held territories, then selecting the adjacency you wish to attack from the list that appears. Then, enter the amount of rolls you wish to take (amount of soldiers you wish to send into the attack)(1-3), and have the defender do the same. Then, simply press attack.  
-- **fortify**: This command allows you to move troops from one occupied territory to another occupied adjacent one. You can fortify by selecting the origin territory from your territory list, then selecting the adjacent destination territory, then entering the number of soliders to fortify with, then pressing fortify.
+- **fortify**: This command allows you to move troops from one occupied territory to another occupied adjacent one. This command ends your turn. You can fortify by selecting the origin territory from your territory list, then selecting the adjacent destination territory, then entering the number of soliders to fortify with, then pressing fortify.
 - **help**: This will display all the possible commands to enter and how to enter them properly.
 - **save**: Save the current game. (save with extension .jrf)
 - **load**: Load a saved game.
