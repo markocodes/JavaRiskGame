@@ -5,6 +5,12 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class implements all tests for save and load features
+ * @author Marko M
+ * @version 1.0
+ **/
+
 public class RiskControllerTest {
     private BoardViewController bvc;
     private Game model;
