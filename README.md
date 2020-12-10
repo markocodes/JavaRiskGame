@@ -49,6 +49,9 @@ Once the game is in play, you will be able to click the following commands durin
 - Added ability to import and use custom maps as XML files
 - Added ability to save game progress and load saved game progress
 - Removed leftover frames from after closing main game frame. 
+- Previous bugs fixed.
+- New JOptionPane appears to request defneder dice rolls
+- Tests for Save/Load and XML Reading.
 
 
 ## Known bugs 
