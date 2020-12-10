@@ -32,6 +32,8 @@ Once the game is in play, you will be able to click the following commands durin
 - **attack**: This command can be used to attack any of your territories' adjacencies by selecting one of your held territories, then selecting the adjacency you wish to attack from the list that appears. Then, enter the amount of rolls you wish to take (amount of soldiers you wish to send into the attack)(1-3), and have the defender do the same. Then, simply press attack.  
 - **fortify**: This command allows you to fortify a territory that has just been occupied from a previous attack. You can fortify by selecting a territory from your territory list, then entering the number of soliders to fortify with, then pressing fortify.
 - **help**: This will display all the possible commands to enter and how to enter them properly.
+- **save**: Save the current game. (save with extension .jrf)
+- **load**: Load a saved game.
 - **quit**: This allows you to quit the game.
 
 ## Navigating the User Interface
