@@ -46,8 +46,3 @@ Once the game is in play, you will be able to click the following commands durin
 ## Known bugs 
 
 - Player elimination process is not perfect, and needs to be improved. 
-
-## Next Steps
-1. Fix outstanding bugs
-2. Implementing saving and loading features
-3. Added ability to load custom game maps
