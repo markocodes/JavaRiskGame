@@ -28,7 +28,9 @@ Once the game is started, the Game UI will open and it will prompt you to enter 
 Once the game is in play, you will be able to click the following commands during your turn:
 
 - **pass**: This command allows you to skip your turn if you do not wish to make any attacks.
+- **reinforce**: This command allows you to select a territory you occupy at hte beginning of your turn. You can reinforce a territory by selecting a territory from your territory list, then entering the number of soliders to reinforce with, then pressing reinfoce.
 - **attack**: This command can be used to attack any of your territories' adjacencies by selecting one of your held territories, then selecting the adjacency you wish to attack from the list that appears. Then, enter the amount of rolls you wish to take (amount of soldiers you wish to send into the attack)(1-3), and have the defender do the same. Then, simply press attack.  
+- **fortify**: This command allows you to fortify a territory that has just been occupied from a previous attack. You can fortify by selecting a territory from your territory list, then entering the number of soliders to fortify with, then pressing fortify.
 - **help**: This will display all the possible commands to enter and how to enter them properly.
 - **quit**: This allows you to quit the game.
 
