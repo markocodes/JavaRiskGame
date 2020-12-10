@@ -53,4 +53,4 @@ Once the game is in play, you will be able to click the following commands durin
 
 ## Known bugs 
 
-- Player elimination process is not perfect, and needs to be improved. 
+- Save/Load feature not working properly due to issue with DocumentBuilderFactory
